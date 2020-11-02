@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+
+    def lifecycle_version = "2.2.0"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'androidx.core:core-ktx:1.3.2'
+
+    /**
+     *  [Lifecycle-ViewModel]  谷歌组件
+     *  https://developer.android.google.cn/jetpack/androidx/releases/lifecycle
+     */
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    /**
+     *  [Lifecycle-LiveData]  谷歌组件
+     *  https://developer.android.google.cn/jetpack/androidx/releases/lifecycle
+     */
+    api "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    /**
+     * lifecycle-runtime-ktx 给每个 LifeCycle 对象通过扩展属性定义了协程作用域 lifecycleScope
+     * https://www.cnblogs.com/bingxinshuo/archive/2019/10/21/11717209.html
+     */
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+}

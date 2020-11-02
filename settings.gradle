@@ -1,0 +1,2 @@
+include ':app', ':core', ':arch'
+rootProject.name='andme'
