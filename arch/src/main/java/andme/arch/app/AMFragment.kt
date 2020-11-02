@@ -88,7 +88,6 @@ abstract class AMFragment<VM : AMViewModel> : Fragment() {
         }
     }
 
-
     /**
      * 创建视图布局
      * 重写此方法返回整整的布局

@@ -64,13 +64,13 @@ class AMBackPressedDispatcher constructor(val owner: AMBackPressedOwner) {
      */
     @MainThread
     fun onBackPressed(): Boolean {
-        if(!hasRegisteredCallbacks())
+        if (!hasRegisteredCallbacks())
             return false
 
         val iterator = mOnBackPressedCallbacks.descendingIterator()
         while (iterator.hasNext()) {
             val callback = iterator.next()
-            if (callback.onBackPressed(owner)) {
+            if (callback.handleOnBackPressed(owner)) {
                 return true
             }
         }
@@ -80,7 +80,7 @@ class AMBackPressedDispatcher constructor(val owner: AMBackPressedOwner) {
     /**
      * 是否有已注册的回调
      */
-    fun hasRegisteredCallbacks():Boolean{
+    fun hasRegisteredCallbacks(): Boolean {
         return mOnBackPressedCallbacks.isNotEmpty()
     }
 
