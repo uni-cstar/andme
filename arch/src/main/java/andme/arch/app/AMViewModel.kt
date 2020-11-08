@@ -1,5 +1,6 @@
 package andme.arch.app
 
+import andme.core.exceptionHandler
 import andme.core.lifecycle.SingleEvent
 import andme.core.lifecycle.SingleLiveEvent
 import android.app.Application
@@ -126,4 +127,16 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         //nothing
     }
 
+}
+
+inline fun AMViewModel.tryUi(func: AMViewModel.() -> Unit):Throwable? {
+    return try {
+        func(this)
+        null
+    } catch (e: Exception) {
+        invokeContextAction {
+            exceptionHandler.handleUIException(it,e)
+        }
+        e
+    }
 }

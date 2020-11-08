@@ -10,7 +10,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * Created by Lucio on 2020-02-20.
@@ -22,10 +24,11 @@ abstract class AMFragment<VM : AMViewModel> : Fragment() {
     @JvmField
     protected var contentView: View? = null
 
-    protected open val viewModelDelegate:AMViewModelOwnerDelegate<VM> = AMViewModelOwnerDelegate<VM>(this)
+    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> =
+        AMViewModelOwnerDelegate<VM>(this)
 
     //主ViewModel
-    protected  val viewModel: VM get() = viewModelDelegate.viewModel
+    protected val viewModel: VM get() = viewModelDelegate.viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +41,7 @@ abstract class AMFragment<VM : AMViewModel> : Fragment() {
     protected open fun createMainViewModel(savedInstanceState: Bundle?) {
         val vmClass = deduceViewModelClass()
             ?: throw RuntimeException("无法正确推断ViewModel的类型，请重写deduceViewModelClass方法返回自定义的ViewModel Class")
-        viewModelDelegate.onCreate(savedInstanceState,vmClass)
+        viewModelDelegate.onCreate(savedInstanceState, vmClass)
     }
 
     /**
@@ -61,6 +64,34 @@ abstract class AMFragment<VM : AMViewModel> : Fragment() {
         }
     }
 
+    fun addOnBackPressed(onBackPressed: () -> Boolean): OnBackPressedCallback {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!onBackPressed()) {
+                    isEnabled = false
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+        return callback
+    }
+
+    fun addOnBackPressed(owner: LifecycleOwner, onBackPressed: () -> Boolean): OnBackPressedCallback {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!onBackPressed()) {
+                    isEnabled = false
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(owner,callback)
+        return callback
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,7 +109,7 @@ abstract class AMFragment<VM : AMViewModel> : Fragment() {
         return contentView!!
     }
 
-   private  fun createAndInitView(
+    private fun createAndInitView(
         inflater: LayoutInflater
         , container: ViewGroup?
         , savedInstanceState: Bundle?
@@ -130,7 +161,7 @@ abstract class AMFragment<VM : AMViewModel> : Fragment() {
     /**
      * 是否启用View缓存：默认开启,可以设置为false避免view 缓存
      */
-    protected open fun isEnableViewCache():Boolean{
+    protected open fun isEnableViewCache(): Boolean {
         return true
     }
 

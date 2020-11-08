@@ -1,9 +1,13 @@
 package andme.core.kt
 
-
 /**
  * Created by Lucio on 2020-10-29.
  */
+
+/**
+ * 是否允许调试
+ */
+inline val isDebuggable: Boolean get() = andme.core.isDebuggable
 
 inline fun Boolean?.orDefault(def: Boolean = false) = this ?: def
 
@@ -17,23 +21,23 @@ inline fun <T> T?.orDefault(initializer: () -> T): T = this ?: initializer()
  * 调试执行代码
  */
 inline fun <T> T.runOnDebug(action: () -> Unit): T {
-    if (Ktx.isDebuggable) {
+    if (isDebuggable) {
         action()
     }
     return this
 }
 
-inline fun <T> T.runOnTrue(condition: Boolean, action: T.() -> Unit){
-   if(condition){
-       action(this)
-   }
+inline fun <T> T.runOnTrue(condition: Boolean, action: T.() -> Unit) {
+    if (condition) {
+        action(this)
+    }
 }
 
 /**
  * 异常处理
  * @param printStack 异常时，是否调用printStackTrace方法打印日常
  */
-inline fun <T> T.tryCatch(printStack: Boolean = Ktx.isDebuggable, action: T.() -> Unit) {
+inline fun <T> T.tryCatch(printStack: Boolean = andme.core.isDebuggable, action: T.() -> Unit) {
     try {
         action()
     } catch (e: Exception) {
