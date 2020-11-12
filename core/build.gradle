@@ -26,9 +26,10 @@ dependencies {
 
     def kotlin_version = '1.3.50'
     def lifecycle_version = "2.2.0"
-    def glide_version = "4.11.0"
     def retrofit_version = "2.9.0"
     def okhttp3_version = "4.9.0"
+    def glide_version = "4.11.0"
+
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
@@ -63,6 +64,8 @@ dependencies {
 
 
     /*第三方常用系列*/
+
+
     /*Glide*/
     /**
      *  Glide
@@ -97,16 +100,13 @@ dependencies {
      *
      */
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
+
     /**
      *  [logging-interceptor] okhttp请求日志打印拦截器，版本号与okhttp版本一致
      *  https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
      */
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
-//    /**
-//     *  [Retrofit CallAdapter]使用协程的形式返回Retrofit请求的结果
-//     *  https://github.com/JakeWharton/retrofit2-kotlin-coroutines-adapter
-//     */
-//    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
     /**
      *  [Retrofit Converter Gson] 使用Gson作为Retrofit的序列化和反序列化工具
      *  <proguard>
@@ -114,4 +114,8 @@ dependencies {
      *  https://github.com/google/gson
      */
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+
+    //permission: 个人权限处理框架
+    api('halo.android:permission:1.0.5-rc')
 }

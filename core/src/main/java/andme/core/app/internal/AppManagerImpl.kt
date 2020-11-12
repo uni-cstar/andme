@@ -16,6 +16,8 @@ import android.util.Log
 @TargetApi(14)
 internal object AppManagerImpl : AMAppManager {
 
+    override var debuggable: Boolean = true
+
     private const val TAG: String = "AppManagerImpl"
 
     //进入暂停状态时，延迟时间检测app的状态

@@ -17,6 +17,10 @@ inline fun Long?.orDefault(def: Long = 0) = this ?: def
 inline fun Double?.orDefault(def: Double = 0.0) = this ?: def
 inline fun <T> T?.orDefault(initializer: () -> T): T = this ?: initializer()
 
+inline fun <T, R> T.map(transformer: T.() -> R): R {
+    return transformer(this)
+}
+
 /**
  * 调试执行代码
  */
@@ -27,10 +31,11 @@ inline fun <T> T.runOnDebug(action: () -> Unit): T {
     return this
 }
 
-inline fun <T> T.runOnTrue(condition: Boolean, action: T.() -> Unit) {
+inline fun <T> T.runOnTrue(condition: Boolean, action: T.() -> Unit): T {
     if (condition) {
         action(this)
     }
+    return this
 }
 
 /**
@@ -52,8 +57,8 @@ var isTimeMonitorEnable: Boolean = true
  * 监控方法运行时间
  */
 inline fun runTimeMonitor(
-    tag: String = Thread.currentThread().stackTrace[1].methodName,
-    func: () -> Unit
+        tag: String = Thread.currentThread().stackTrace[1].methodName,
+        func: () -> Unit
 ) {
     val start = System.currentTimeMillis()
     func()

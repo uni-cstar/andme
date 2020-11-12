@@ -48,8 +48,14 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
      */
     @Note(message = "注意：自动推断在有几种情况下无法推断出正确类型，比如范型的个数、位置等会影响范型的推断，对于只有一个类型的范型子类推断无问题。")
     protected open fun deduceViewModelClass(): Class<VM>? {
-        return AMViewModelOwnerDelegate.deduceViewModelClass(this)
+        return AMViewModelOwnerDelegate.deduceViewModelClass(this,viewModelParameterPosition)
     }
+
+    /**
+     * viewmodel 类型的位置
+     * 比如：BaseActivity<T1,T2,T3>，如果ViewModel放在T1位置则为0，T2则为1，T3则为2，依次类推，默认定义放在第一个位置
+     */
+    protected var viewModelParameterPosition = 0
 
     //绑定viewmodel事件:用于非主viewmodel调用的情况
     protected fun registerViewModelEvent(viewModel: AMViewModel) {
@@ -62,7 +68,9 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
     }
 
     override fun onDestroy() {
-        unregisterViewModelEvent(viewModel)
+        tryCatch {
+            unregisterViewModelEvent(viewModel)
+        }
         super.onDestroy()
     }
 

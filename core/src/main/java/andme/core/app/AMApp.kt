@@ -1,7 +1,7 @@
 package andme.core.app
 
-import andme.core.app.internal.AppManagerImpl
 import andme.core.appManagerAM
+import andme.core.initCore
 import android.app.Application
 
 /**
@@ -12,7 +12,7 @@ abstract class AMApp : Application(), AMAppManager by appManagerAM {
     override fun onCreate() {
         super.onCreate()
         //初始化管理器
-        AppManagerImpl.init(this)
+        initCore(this)
     }
 
 }

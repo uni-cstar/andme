@@ -15,29 +15,6 @@
 ##---------------END: EXTRA  ----------
 
 
-##---------------BEGIN: Glide  ----------
-# 来源: https://github.com/bumptech/glide#proguard
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep class * extends com.bumptech.glide.module.AppGlideModule {
- <init>(...);
-}
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
--keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
-  *** rewind();
-}
-
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
-
-# target api < 27添加下面混淆规则 来源：http://bumptech.github.io/glide/doc/download-setup.html#proguard
-#-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
-
-##---------------END: Glide  ----------
-
-
 ##---------------BEGIN: Retrofit（启用R8则无需添加）  ----------
 # 来源: https://github.com/square/retrofit/blob/master/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro
 
@@ -72,7 +49,6 @@
 -keep,allowobfuscation interface <1>
 
 ##---------------END: Retrofit  ----------
-
 
 
 ##---------------BEGIN: OkHttp3 （启用R8则无需添加） ----------
@@ -134,3 +110,26 @@
   @com.google.gson.annotations.SerializedName <fields>;
 }
 ##---------------END: Gson  ----------
+
+
+##---------------BEGIN: Glide  ----------
+# 来源: https://github.com/bumptech/glide#proguard
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
+
+# for DexGuard only
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+# target api < 27添加下面混淆规则 来源：http://bumptech.github.io/glide/doc/download-setup.html#proguard
+#-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+
+##---------------END: Glide  ----------

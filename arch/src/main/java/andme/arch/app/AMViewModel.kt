@@ -1,13 +1,19 @@
 package andme.arch.app
 
+import andme.core.dialogHandler
 import andme.core.exceptionHandler
 import andme.core.lifecycle.SingleEvent
 import andme.core.lifecycle.SingleLiveEvent
+import andme.core.ui.AMDialog
+import andme.core.ui.showAlertDialog
 import android.app.Application
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.MainThread
+import androidx.annotation.StringRes
 import androidx.lifecycle.*
 
 /**
@@ -15,7 +21,7 @@ import androidx.lifecycle.*
  * ViewModel基础类：支持生命周期和常规与Activity、Fragment联动的方法
  */
 open class AMViewModel(application: Application) : AndroidViewModel(application),
-    LifecycleObserver {
+        LifecycleObserver {
 
     /**
      * 与Context操作相关的行为回调接口
@@ -24,6 +30,9 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         fun onContextAction(ctx: Context)
     }
 
+    protected var loadingDialog: AMDialog? = null
+        private set
+
     val finishEvent: SingleEvent = SingleEvent()
 
     val backPressedEvent: SingleEvent = SingleEvent()
@@ -31,13 +40,13 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
     val startActivityEvent: SingleLiveEvent<Intent> = SingleLiveEvent<Intent>()
 
     val startActivityForResultEvent: SingleLiveEvent<Pair<Intent, Int>> =
-        SingleLiveEvent<Pair<Intent, Int>>()
+            SingleLiveEvent<Pair<Intent, Int>>()
 
     val toastEvent: SingleLiveEvent<Pair<String, Int>> =
-        SingleLiveEvent<Pair<String, Int>>()
+            SingleLiveEvent<Pair<String, Int>>()
 
     val contextActionEvent: MutableLiveData<ContextAction> =
-        MutableLiveData<ContextAction>()
+            MutableLiveData<ContextAction>()
 
     protected open fun log(msg: String) {
         Log.d("AMViewModel", msg)
@@ -99,8 +108,27 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
     }
 
     @MainThread
-    open fun toast(msg: String, length: Int) {
-        toastEvent.value = Pair(msg, length)
+    open fun toast(message: String, length: Int) {
+        toastEvent.value = Pair(message, length)
+    }
+
+    @MainThread
+    open fun toast(message: String) {
+        toast(message, Toast.LENGTH_SHORT)
+    }
+
+    @MainThread
+    fun showLoading(message: String) {
+        hideLoading()
+        invokeContextAction {
+            loadingDialog = dialogHandler.showLoading(it, message)
+        }
+    }
+
+    @MainThread
+    fun hideLoading() {
+        loadingDialog?.dismiss()
+        loadingDialog = null
     }
 
     /**
@@ -126,17 +154,63 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
     open fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //nothing
     }
-
 }
 
-inline fun AMViewModel.tryUi(func: AMViewModel.() -> Unit):Throwable? {
+inline fun AMViewModel.tryUi(func: AMViewModel.() -> Unit): Throwable? {
     return try {
         func(this)
         null
     } catch (e: Exception) {
         invokeContextAction {
-            exceptionHandler.handleUIException(it,e)
+            exceptionHandler.handleUIException(it, e)
         }
         e
+    }
+}
+
+
+fun AMViewModel.showAlertDialog(@StringRes messageId: Int, @StringRes positiveTextId: Int) {
+    invokeContextAction {
+        it.showAlertDialog(messageId, positiveTextId)
+    }
+}
+
+fun AMViewModel.showAlertDialog(message: CharSequence, positiveBtnText: CharSequence) {
+    invokeContextAction {
+        it.showAlertDialog(message, positiveBtnText)
+    }
+}
+
+fun AMViewModel.showAlertDialog(message: CharSequence, okPair: Pair<CharSequence, DialogInterface.OnClickListener?>, cancelable: Boolean = true) {
+    invokeContextAction {
+        it.showAlertDialog(message, okPair, cancelable)
+    }
+}
+
+fun AMViewModel.showAlertDialog(@StringRes messageId: Int, okPair: Pair<Int, DialogInterface.OnClickListener?>, cancelable: Boolean = true) {
+    invokeContextAction {
+        it.showAlertDialog(messageId, okPair, cancelable)
+    }
+}
+
+fun AMViewModel.showAlertDialog(
+        message: CharSequence,
+        okPair: Pair<CharSequence, DialogInterface.OnClickListener?>,
+        cancelPair: Pair<CharSequence, DialogInterface.OnClickListener?>? = null,
+        cancelable: Boolean = true
+) {
+    invokeContextAction {
+        it.showAlertDialog(message, okPair, cancelPair, cancelable)
+    }
+}
+
+fun AMViewModel.showAlertDialog(
+        @StringRes messageId: Int,
+        okPair: Pair<Int, DialogInterface.OnClickListener?>,
+        cancelPair: Pair<Int, DialogInterface.OnClickListener?>? = null,
+        cancelable: Boolean = true
+) {
+    invokeContextAction {
+        it.showAlertDialog(messageId, okPair, cancelPair, cancelable)
     }
 }

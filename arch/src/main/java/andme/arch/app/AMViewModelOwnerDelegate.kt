@@ -2,9 +2,9 @@ package andme.arch.app
 
 import andme.core.kt.Note
 import andme.core.kt.runOnTrue
+import andme.core.toastHandler
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -100,7 +100,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
     }
 
     protected open fun onToastByViewModel(msg: String, length: Int) {
-        Toast.makeText(_owner.realCtx, msg, length).show()
+        toastHandler.showToast(_owner.realCtx,msg,length)
     }
 
     protected open fun onContextActionByViewModel(event: AMViewModel.ContextAction) {
@@ -114,12 +114,13 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
     companion object {
         /**
          * 推断ViewModel类型
+         * @param tPosition ViewModel类型定义的位置：即ViewModel的T类型是第几个参数
          */
         @JvmStatic
         @Note(message = "注意：自动推断在有几种情况下无法推断出正确类型，比如范型的个数、位置等会影响范型的推断，对于只有一个类型的范型子类推断无问题。")
-        internal fun <VM> deduceViewModelClass(instance: Any): Class<VM>? {
+        internal fun <VM> deduceViewModelClass(instance: Any,tPosition:Int = 0): Class<VM>? {
             val gSuperClass = findParameterizedType(instance.javaClass) ?: return null
-            val target = gSuperClass.actualTypeArguments[0]
+            val target = gSuperClass.actualTypeArguments[tPosition]
 
             if (target is Class<*>) {
                 return target as? Class<VM>
@@ -147,9 +148,9 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
         @JvmStatic
         private fun findParameterizedType(clazz: Class<*>): ParameterizedType? {
             val superClass = clazz.superclass ?: return null
-            if (superClass != AMActivity::class.java) {
-                return findParameterizedType(superClass)
-            }
+//            if (superClass != AMActivity::class.java) {
+//                return findParameterizedType(superClass)
+//            }
             val gSuperClass = clazz.genericSuperclass
             if (gSuperClass !is ParameterizedType)
                 return findParameterizedType(superClass)
