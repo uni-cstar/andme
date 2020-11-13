@@ -6,10 +6,12 @@ import andme.core.content.syncResourcesValues
 import andme.core.exception.CommonExceptionHandler
 import andme.core.exception.ExceptionHandler
 import andme.core.kt.orDefault
-import andme.core.ui.DefaultDialogHandler
-import andme.core.ui.DefaultToastHandler
-import andme.core.ui.DialogUI
-import andme.core.ui.ToastUI
+import andme.core.support.AMStorage
+import andme.core.support.io.AMStorageImpl
+import andme.core.support.ui.DefaultDialogHandler
+import andme.core.support.ui.DefaultToastHandler
+import andme.core.support.ui.DialogUI
+import andme.core.support.ui.ToastUI
 import andme.integration.imageloader.GlideImageLoader
 import andme.integration.imageloader.ImageLoader
 import andme.integration.media.MediaStore
@@ -18,6 +20,7 @@ import android.app.Application
 /**
  * Created by Lucio on 2020-11-09.
  */
+internal lateinit var mApp: Application
 
 /**
  * 初始化Core Lib
@@ -31,9 +34,8 @@ fun initCore(app: Application) {
 /**
  * 是否开启调试模式
  */
-var isDebuggable: Boolean = true
+var isDebuggable: Boolean = BuildConfig.DEBUG
 
-internal lateinit var mApp: Application
 
 /**
  * app管理器
@@ -90,3 +92,9 @@ var dialogHandler: DialogUI = DefaultDialogHandler
  * Toast交互
  */
 var toastHandler: ToastUI = DefaultToastHandler
+
+
+/**
+ * 文件存储统一管理
+ */
+var storageAM:AMStorage = AMStorageImpl

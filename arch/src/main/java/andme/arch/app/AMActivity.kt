@@ -3,7 +3,7 @@ package andme.arch.app
 import andme.arch.activity.AMBackPressedDispatcher
 import andme.arch.activity.AMBackPressedOwner
 import andme.core.kt.Note
-import andme.core.kt.tryCatch
+import andme.core.exception.tryCatch
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

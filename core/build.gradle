@@ -65,8 +65,7 @@ dependencies {
 
     /*第三方常用系列*/
 
-
-    /*Glide*/
+    /*START - Glide*/
     /**
      *  Glide
      *  <proguard>已添加混淆规则
@@ -87,8 +86,9 @@ dependencies {
     api("com.github.bumptech.glide:okhttp-integration:$glide_version") {
         exclude group: "com.squareup.okhttp3", module: "okhttp"
     }
+    /*END - Glide*/
 
-    /*retrofit*/
+    /*START - retrofit*/
     /**
      *  [Retrofit]  Http客户端实现
      *  <proguard>
@@ -115,6 +115,10 @@ dependencies {
      */
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
+    /*END - Retrofit*/
+
+    /*<proguard>*/
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
 
     //permission: 个人权限处理框架
     api('halo.android:permission:1.0.5-rc')

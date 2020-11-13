@@ -16,7 +16,11 @@ import android.util.Log
 @TargetApi(14)
 internal object AppManagerImpl : AMAppManager {
 
-    override var debuggable: Boolean = true
+    override var debuggable: Boolean
+        set(value) {
+            andme.core.isDebuggable = value
+        }
+        get() = andme.core.isDebuggable
 
     private const val TAG: String = "AppManagerImpl"
 
@@ -87,73 +91,73 @@ internal object AppManagerImpl : AMAppManager {
     }
 
     private val _activityLifecycleCallbacks: Application.ActivityLifecycleCallbacks =
-        object : Application.ActivityLifecycleCallbacks {
+            object : Application.ActivityLifecycleCallbacks {
 
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                activityStack.add(activity)
-            }
-
-            override fun onActivityStarted(activity: Activity) {}
-
-            override fun onActivityResumed(activity: Activity) {
-                _isPausing = false
-                val isBackground = !isForeground
-                isForeground = true
-
-                _checkRunnable?.let {
-                    _handler.removeCallbacks(it)
+                override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                    activityStack.add(activity)
                 }
 
-                if (isBackground) {
-                    Log.d(TAG, "background became foreground")
-                    _stateListeners?.forEach {
-                        try {
-                            it.onAppBecameForeground()
-                        } catch (e: Exception) {
-                            Log.d(TAG, "listener throw exception", e)
-                        }
+                override fun onActivityStarted(activity: Activity) {}
+
+                override fun onActivityResumed(activity: Activity) {
+                    _isPausing = false
+                    val isBackground = !isForeground
+                    isForeground = true
+
+                    _checkRunnable?.let {
+                        _handler.removeCallbacks(it)
                     }
-                } else {
-                    Log.d(TAG, "still foreground")
-                }
-            }
 
-            override fun onActivityPaused(activity: Activity) {
-                _isPausing = true
-                if (_checkRunnable != null) {
-                    _handler.removeCallbacks(_checkRunnable)
-                }
-
-                _checkRunnable = Runnable {
-                    if (isForeground && _isPausing) {
-                        isForeground = false
-                        Log.d(TAG, "became background")
-                        if (_stateListeners == null)
-                            return@Runnable
-                        for (listener in _stateListeners!!) {
+                    if (isBackground) {
+                        Log.d(TAG, "background became foreground")
+                        _stateListeners?.forEach {
                             try {
-                                listener.onAppBecameBackground()
+                                it.onAppBecameForeground()
                             } catch (e: Exception) {
-                                e.printStackTrace()
-                                Log.e(TAG, "listener throw exception!", e)
+                                Log.d(TAG, "listener throw exception", e)
                             }
                         }
                     } else {
                         Log.d(TAG, "still foreground")
                     }
                 }
-                _handler.postDelayed(
-                    _checkRunnable,
-                    PAUSE_STATE_CHECK_DELAY_TIME
-                )
+
+                override fun onActivityPaused(activity: Activity) {
+                    _isPausing = true
+                    if (_checkRunnable != null) {
+                        _handler.removeCallbacks(_checkRunnable)
+                    }
+
+                    _checkRunnable = Runnable {
+                        if (isForeground && _isPausing) {
+                            isForeground = false
+                            Log.d(TAG, "became background")
+                            if (_stateListeners == null)
+                                return@Runnable
+                            for (listener in _stateListeners!!) {
+                                try {
+                                    listener.onAppBecameBackground()
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                    Log.e(TAG, "listener throw exception!", e)
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "still foreground")
+                        }
+                    }
+                    _handler.postDelayed(
+                            _checkRunnable,
+                            PAUSE_STATE_CHECK_DELAY_TIME
+                    )
+                }
+
+                override fun onActivityStopped(activity: Activity) {}
+
+                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {}
+
+                override fun onActivityDestroyed(activity: Activity) {
+                    activityStack.remove(activity)
+                }
             }
-
-            override fun onActivityStopped(activity: Activity) {}
-
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {}
-
-            override fun onActivityDestroyed(activity: Activity) {
-                activityStack.remove(activity)
-            }
-        }
 }

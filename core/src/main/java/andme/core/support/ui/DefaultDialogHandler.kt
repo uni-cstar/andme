@@ -1,4 +1,4 @@
-package andme.core.ui
+package andme.core.support.ui
 
 import andme.core.kt.map
 import andme.core.kt.runOnTrue

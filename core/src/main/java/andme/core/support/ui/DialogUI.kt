@@ -1,4 +1,4 @@
-package andme.core.ui
+package andme.core.support.ui
 
 import android.content.Context
 import android.content.DialogInterface

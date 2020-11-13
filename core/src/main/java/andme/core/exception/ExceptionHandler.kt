@@ -5,7 +5,10 @@
 package andme.core.exception
 
 import andme.core.exceptionHandler
+import andme.core.isDebuggable
 import android.content.Context
+import android.view.View
+import androidx.fragment.app.Fragment
 
 /**
  * 异常处理器,用于处理程序中相关的各种类型的异常
@@ -35,14 +38,17 @@ interface ExceptionHandler {
 
 }
 
-
+/**
+ * 扩展友好消息字段，用于将异常转换成对用户比较容易理解的信息。
+ */
+inline val Throwable.friendlyMessage: String? get() = exceptionHandler.getFriendlyMessage(this)
 
 /**
  * 捕获ui异常
  */
-inline fun Context.tryUi(func: Context.() -> Unit): Throwable? {
+inline fun Context.tryUi(action: () -> Unit): Throwable? {
     return try {
-        func(this)
+        action()
         null
     } catch (e: Exception) {
         exceptionHandler.handleUIException(this, e)
@@ -50,7 +56,25 @@ inline fun Context.tryUi(func: Context.() -> Unit): Throwable? {
     }
 }
 
+inline fun View.tryUi(action: () -> Unit): Throwable? {
+    return context.tryUi(action)
+}
+
+inline fun Fragment.tryUi(action: () -> Unit): Throwable? {
+    return context?.tryUi(action)
+}
+
 /**
- * 扩展友好消息字段，用于将异常转换成对用户比较容易理解的信息。
+ * 异常处理
+ * @param printStack 异常时，是否调用printStackTrace方法打印日常
  */
-inline val Throwable.friendlyMessage: String? get() = exceptionHandler.getFriendlyMessage(this)
+inline fun <T> T.tryCatch(printStack: Boolean = false, action: T.() -> Unit) {
+    try {
+        action()
+    } catch (e: Exception) {
+        if (printStack) {
+            e.printStackTrace()
+        }
+        exceptionHandler.handleCatchException(e)
+    }
+}

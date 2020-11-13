@@ -4,8 +4,8 @@ import andme.core.dialogHandler
 import andme.core.exceptionHandler
 import andme.core.lifecycle.SingleEvent
 import andme.core.lifecycle.SingleLiveEvent
-import andme.core.ui.AMDialog
-import andme.core.ui.showAlertDialog
+import andme.core.support.ui.AMDialog
+import andme.core.support.ui.showAlertDialog
 import android.app.Application
 import android.content.Context
 import android.content.DialogInterface
