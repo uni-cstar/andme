@@ -1,2 +1,2 @@
-include ':app', ':core', ':arch', ':integration-mediastore', ':integration-glide'
+include ':app', ':core', ':arch', ':integration-mediastore'
 rootProject.name='andme'
