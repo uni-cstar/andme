@@ -5,6 +5,7 @@ import andme.core.app.AMAppManager
 import android.annotation.TargetApi
 import android.app.Activity
 import android.app.Application
+import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -16,7 +17,7 @@ import android.util.Log
 @TargetApi(14)
 internal object AppManagerImpl : AMAppManager {
 
-    override var debuggable: Boolean
+    override var isDebuggable: Boolean
         set(value) {
             andme.core.isDebuggable = value
         }
@@ -54,10 +55,12 @@ internal object AppManagerImpl : AMAppManager {
      * 初始化
      */
     fun init(app: Application) {
+        isDebuggable = (app.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
         //避免重复绑定
         app.unregisterActivityLifecycleCallbacks(_activityLifecycleCallbacks)
         //绑定回调
         app.registerActivityLifecycleCallbacks(_activityLifecycleCallbacks)
+
     }
 
     /**

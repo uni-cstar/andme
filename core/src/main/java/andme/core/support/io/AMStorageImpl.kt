@@ -1,7 +1,6 @@
 package andme.core.support.io
 
 import andme.core.mApp
-import andme.core.support.AMStorage
 import android.os.Build
 import android.os.Environment
 import java.io.File
@@ -61,10 +60,8 @@ internal object AMStorageImpl : AMStorage {
         require(child.isNotEmpty()) { "child path is empty." }
         val parent = getCacheDirectory()
         val dir = File(parent, child)
-        if (!dir.exists()) {
-            if (!dir.mkdirs())
-                throw NoSuchFileException(dir, null, "create directory failed")
-        }
+        if (!dir.exists() && !dir.mkdirs())
+            throw NoSuchFileException(dir, null, "create directory failed")
         return dir
     }
 
@@ -82,10 +79,8 @@ internal object AMStorageImpl : AMStorage {
         require(child.isNotEmpty()) { "child path is empty." }
         val parent = getFilesDirectory()
         val dir = File(parent, child)
-        if (!dir.exists()) {
-            if (!dir.mkdirs())
-                throw NoSuchFileException(dir, null, "create directory failed")
-        }
+        if (!dir.exists() && !dir.mkdirs())
+            throw NoSuchFileException(dir, null, "create directory failed")
         return dir
     }
 
@@ -95,11 +90,8 @@ internal object AMStorageImpl : AMStorage {
 
     override fun getInnerDownloadDirectory(): File {
         val dir = File(mApp.filesDir, DIR_TYPE_DOWNLOAD)
-        if (!dir.exists()) {
-            if (dir.mkdirs()) {
-                throw NoSuchFileException(dir, null, "create $DIR_TYPE_DOWNLOAD directory failed")
-            }
-        }
+        if (!dir.exists() && !dir.mkdirs())
+            throw NoSuchFileException(dir, null, "create $DIR_TYPE_DOWNLOAD directory failed")
         return dir
     }
 

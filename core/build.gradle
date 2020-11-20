@@ -122,4 +122,6 @@ dependencies {
 
     //permission: 个人权限处理框架
     api('halo.android:permission:1.0.5-rc')
+
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
 }

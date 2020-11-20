@@ -2,7 +2,7 @@ package andme.arch.app
 
 import andme.core.kt.Note
 import andme.core.kt.runOnTrue
-import andme.core.toastHandler
+import andme.core.toastHandlerAM
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -100,7 +100,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
     }
 
     protected open fun onToastByViewModel(msg: String, length: Int) {
-        toastHandler.showToast(_owner.realCtx,msg,length)
+        toastHandlerAM.showToast(_owner.realCtx,msg,length)
     }
 
     protected open fun onContextActionByViewModel(event: AMViewModel.ContextAction) {

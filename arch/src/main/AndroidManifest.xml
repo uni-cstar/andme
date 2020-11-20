@@ -1,2 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="andme.arch" />
+    package="andme.arch" >
+
+    <application>
+        <activity android:name=".app.AMContainerActivity" />
+    </application>
+</manifest>

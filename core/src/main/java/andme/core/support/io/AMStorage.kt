@@ -1,9 +1,10 @@
-package andme.core.support
+package andme.core.support.io
 
 import java.io.File
 
 /**
  * Created by Lucio on 2020-02-28.
+ * 文件统一管理器
  */
 interface AMStorage {
 

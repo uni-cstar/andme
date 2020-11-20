@@ -4,8 +4,7 @@
  */
 package andme.core.exception
 
-import andme.core.exceptionHandler
-import andme.core.isDebuggable
+import andme.core.exceptionHandlerAM
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -41,7 +40,7 @@ interface ExceptionHandler {
 /**
  * 扩展友好消息字段，用于将异常转换成对用户比较容易理解的信息。
  */
-inline val Throwable.friendlyMessage: String? get() = exceptionHandler.getFriendlyMessage(this)
+inline val Throwable.friendlyMessage: String? get() = exceptionHandlerAM.getFriendlyMessage(this)
 
 /**
  * 捕获ui异常
@@ -51,7 +50,7 @@ inline fun Context.tryUi(action: () -> Unit): Throwable? {
         action()
         null
     } catch (e: Exception) {
-        exceptionHandler.handleUIException(this, e)
+        exceptionHandlerAM.handleUIException(this, e)
         e
     }
 }
@@ -68,13 +67,15 @@ inline fun Fragment.tryUi(action: () -> Unit): Throwable? {
  * 异常处理
  * @param printStack 异常时，是否调用printStackTrace方法打印日常
  */
-inline fun <T> T.tryCatch(printStack: Boolean = false, action: T.() -> Unit) {
+inline fun <T> T.tryCatch(printStack: Boolean = false, action: T.() -> Unit):Throwable? {
     try {
         action()
+        return null
     } catch (e: Exception) {
         if (printStack) {
             e.printStackTrace()
         }
-        exceptionHandler.handleCatchException(e)
+        exceptionHandlerAM.handleCatchException(e)
+        return e
     }
 }

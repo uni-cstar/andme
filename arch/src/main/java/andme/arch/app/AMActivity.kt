@@ -2,8 +2,10 @@ package andme.arch.app
 
 import andme.arch.activity.AMBackPressedDispatcher
 import andme.arch.activity.AMBackPressedOwner
-import andme.core.kt.Note
 import andme.core.exception.tryCatch
+import andme.core.kt.Note
+import andme.core.systemUIAM
+import andme.core.sysui.AMSystemUI
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +19,9 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
     protected inline val activity: AMActivity<VM> get() = this
 
     //主ViewModel
-    protected  val viewModel: VM get() = viewModelDelegate.viewModel
+    protected val viewModel: VM get() = viewModelDelegate.viewModel
 
-    protected open val viewModelDelegate:AMViewModelOwnerDelegate<VM> = AMViewModelOwnerDelegate<VM>(this)
+    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelOwnerDelegate<VM>(this)
 
     //返回键分发器
     private val _backPressedDispatcher = AMBackPressedDispatcher(this)
@@ -39,8 +41,8 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
      */
     protected open fun createMainViewModel(savedInstanceState: Bundle?) {
         val vmClass = deduceViewModelClass()
-            ?: throw RuntimeException("无法正确推断ViewModel的类型，请重写deduceViewModelClass方法返回自定义的ViewModel Class")
-        viewModelDelegate.onCreate(savedInstanceState,vmClass)
+                ?: throw RuntimeException("无法正确推断ViewModel的类型，请重写deduceViewModelClass方法返回自定义的ViewModel Class")
+        viewModelDelegate.onCreate(savedInstanceState, vmClass)
     }
 
     /**
@@ -48,7 +50,7 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
      */
     @Note(message = "注意：自动推断在有几种情况下无法推断出正确类型，比如范型的个数、位置等会影响范型的推断，对于只有一个类型的范型子类推断无问题。")
     protected open fun deduceViewModelClass(): Class<VM>? {
-        return AMViewModelOwnerDelegate.deduceViewModelClass(this,viewModelParameterPosition)
+        return AMViewModelOwnerDelegate.deduceViewModelClass(this, viewModelParameterPosition)
     }
 
     /**

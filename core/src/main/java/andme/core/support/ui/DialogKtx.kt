@@ -1,6 +1,6 @@
 package andme.core.support.ui
 
-import andme.core.dialogHandler
+import andme.core.dialogHandlerAM
 import android.content.Context
 import android.content.DialogInterface
 import android.view.View
@@ -12,23 +12,23 @@ import androidx.fragment.app.Fragment
  */
 
 fun Context.showLoading(message: CharSequence): AMDialog {
-    return dialogHandler.showLoading(this, message)
+    return dialogHandlerAM.showLoading(this, message)
 }
 
 fun Context.showAlertDialog(@StringRes messageId: Int, @StringRes positiveTextId: Int): AMDialog {
-    return dialogHandler.showAlertDialog(this, messageId, positiveTextId)
+    return dialogHandlerAM.showAlertDialog(this, messageId, positiveTextId)
 }
 
 fun Context.showAlertDialog(message: CharSequence, positiveBtnText: CharSequence): AMDialog {
-    return dialogHandler.showAlertDialog(this, message, positiveBtnText)
+    return dialogHandlerAM.showAlertDialog(this, message, positiveBtnText)
 }
 
 fun Context.showAlertDialog(message: CharSequence, okPair: Pair<CharSequence, DialogInterface.OnClickListener?>, cancelable: Boolean = true): AMDialog {
-    return dialogHandler.showAlertDialog(this, message, okPair, cancelable)
+    return dialogHandlerAM.showAlertDialog(this, message, okPair, cancelable)
 }
 
 fun Context.showAlertDialog(@StringRes messageId: Int, okPair: Pair<Int, DialogInterface.OnClickListener?>, cancelable: Boolean = true): AMDialog {
-    return dialogHandler.showAlertDialog(this, messageId, okPair, cancelable)
+    return dialogHandlerAM.showAlertDialog(this, messageId, okPair, cancelable)
 }
 
 fun Context.showAlertDialog(
@@ -37,7 +37,7 @@ fun Context.showAlertDialog(
         cancelPair: Pair<CharSequence, DialogInterface.OnClickListener?>? = null,
         cancelable: Boolean = true
 ): AMDialog {
-    return dialogHandler.showAlertDialog(this, message, okPair, cancelPair, cancelable)
+    return dialogHandlerAM.showAlertDialog(this, message, okPair, cancelPair, cancelable)
 }
 
 fun Context.showAlertDialog(
@@ -46,7 +46,7 @@ fun Context.showAlertDialog(
         cancelPair: Pair<Int, DialogInterface.OnClickListener?>? = null,
         cancelable: Boolean = true
 ): AMDialog {
-    return dialogHandler.showAlertDialog(this, messageId, okPair, cancelPair, cancelable)
+    return dialogHandlerAM.showAlertDialog(this, messageId, okPair, cancelPair, cancelable)
 }
 
 

@@ -6,21 +6,24 @@ import andme.core.content.syncResourcesValues
 import andme.core.exception.CommonExceptionHandler
 import andme.core.exception.ExceptionHandler
 import andme.core.kt.orDefault
-import andme.core.support.AMStorage
+import andme.core.support.io.AMStorage
 import andme.core.support.io.AMStorageImpl
 import andme.core.support.ui.DefaultDialogHandler
 import andme.core.support.ui.DefaultToastHandler
 import andme.core.support.ui.DialogUI
 import andme.core.support.ui.ToastUI
+import andme.core.sysui.AMSystemUI
+import andme.core.sysui.AMSystemUIImpl
 import andme.integration.imageloader.GlideImageLoader
 import andme.integration.imageloader.ImageLoader
 import andme.integration.media.MediaStore
 import android.app.Application
+import android.content.Context
 
 /**
  * Created by Lucio on 2020-11-09.
  */
-internal lateinit var mApp: Application
+ lateinit var mApp: Context
 
 /**
  * 初始化Core Lib
@@ -76,25 +79,27 @@ var imageLoaderAM: ImageLoader = GlideImageLoader
 /**
  * 默认异常处理器
  */
-val DefaultExceptionHandler = CommonExceptionHandler()
+val defaultExceptionHandler = CommonExceptionHandler()
 
 /**
  * 全局异常处理器
  */
-var exceptionHandler: ExceptionHandler = DefaultExceptionHandler
+var exceptionHandlerAM: ExceptionHandler = defaultExceptionHandler
 
 /**
  * 对话框交互
  */
-var dialogHandler: DialogUI = DefaultDialogHandler
+var dialogHandlerAM: DialogUI = DefaultDialogHandler
 
 /**
  * Toast交互
  */
-var toastHandler: ToastUI = DefaultToastHandler
-
+var toastHandlerAM: ToastUI = DefaultToastHandler
 
 /**
  * 文件存储统一管理
  */
-var storageAM:AMStorage = AMStorageImpl
+var storageAM: AMStorage = AMStorageImpl
+
+
+var systemUIAM:AMSystemUI = AMSystemUIImpl

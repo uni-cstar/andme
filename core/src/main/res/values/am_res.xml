@@ -5,4 +5,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <item name="am_id_fake_status_bar" type="id"/>
+
 </resources>

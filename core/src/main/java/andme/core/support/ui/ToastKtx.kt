@@ -1,6 +1,7 @@
+@file:JvmName("ToastAM")
 package andme.core.support.ui
 
-import andme.core.toastHandler
+import andme.core.toastHandlerAM
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,30 +11,30 @@ import androidx.fragment.app.Fragment
  */
 
 fun Context.toast(msg: String) {
-    toastHandler.showToast(this, msg)
+    toastHandlerAM.showToast(this, msg)
 }
 
 fun Context.toast(msg: String, length: Int) {
-    toastHandler.showToast(this, msg, length)
+    toastHandlerAM.showToast(this, msg, length)
 }
 
 
 fun Fragment.toast(msg: String) {
     activity?.let {
-        toastHandler.showToast(it, msg)
+        toastHandlerAM.showToast(it, msg)
     }
 }
 
 fun Fragment.toast(msg: String, length: Int) {
     activity?.let {
-        toastHandler.showToast(it, msg, length)
+        toastHandlerAM.showToast(it, msg, length)
     }
 }
 
 fun View.toast(msg: String) {
-    toastHandler.showToast(context, msg)
+    toastHandlerAM.showToast(context, msg)
 }
 
 fun View.toast(msg: String, length: Int) {
-    toastHandler.showToast(context, msg, length)
+    toastHandlerAM.showToast(context, msg, length)
 }

@@ -29,7 +29,7 @@ interface AMAppManager {
     /**
      * 是否支持调试：控制一些调试逻辑、调试日志的控制等
      */
-    var debuggable: Boolean
+    var isDebuggable: Boolean
 
     interface OnAppStateChangedListener {
 

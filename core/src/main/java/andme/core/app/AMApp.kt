@@ -14,5 +14,4 @@ abstract class AMApp : Application(), AMAppManager by appManagerAM {
         //初始化管理器
         initCore(this)
     }
-
 }

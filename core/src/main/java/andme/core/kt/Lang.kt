@@ -12,8 +12,16 @@ inline fun Int?.orDefault(def: Int = 0) = this ?: def
 inline fun Float?.orDefault(def: Float = 0f) = this ?: def
 inline fun Long?.orDefault(def: Long = 0) = this ?: def
 inline fun Double?.orDefault(def: Double = 0.0) = this ?: def
+/**
+ * null或空字符串时使用默认值
+ */
+inline fun String?.orDefaultIfNullOrEmpty(def: String = ""): String = if (this.isNullOrEmpty()) def else this
+
 inline fun <T> T?.orDefault(initializer: () -> T): T = this ?: initializer()
 
+/**
+ * 将一个对象转换成另外一个对象
+ */
 inline fun <T, R> T.map(transformer: T.() -> R): R {
     return transformer(this)
 }
@@ -28,6 +36,10 @@ inline fun <T> T.runOnDebug(action: () -> Unit): T {
     return this
 }
 
+
+/**
+ * 此方法看起来与if(){}没有差别，但是此方法可以实现链式调用，而if不能
+ */
 inline fun <T> T.runOnTrue(condition: Boolean, action: T.() -> Unit): T {
     if (condition) {
         action(this)
