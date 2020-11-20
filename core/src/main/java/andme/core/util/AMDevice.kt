@@ -166,7 +166,7 @@ fun Activity.toggleFullScreen(isFullScreen: Boolean, hideNavBar: Boolean = true)
  */
 fun Context.copyToClipboard(content: String) {
     val clip = ClipData.newPlainText(null, content)
-    clipboardManager.primaryClip = clip
+    clipboardManager.setPrimaryClip(clip)
 }
 
 /**
@@ -267,12 +267,12 @@ fun Dialog.showSoftInputAlways(): Dialog {
  * 对话框显示时,总是显示输入法
  */
 fun Dialog.showSoftInputAlwaysImpl() {
-    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+    window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 }
 
 /**
  * 对话框显示时,总是隐藏输入法
  */
 fun Dialog.hideSoftInputAlwaysImpl() {
-    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+    window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 }

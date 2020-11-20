@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 19
@@ -29,4 +29,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api project(path: ':core')
+
+    api 'com.lxj:xpopup:2.2.1'
 }
