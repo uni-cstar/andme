@@ -127,10 +127,9 @@ internal object AppManagerImpl : AMAppManager {
 
                 override fun onActivityPaused(activity: Activity) {
                     _isPausing = true
-                    if (_checkRunnable != null) {
-                        _handler.removeCallbacks(_checkRunnable)
+                    _checkRunnable?.let {
+                        _handler.removeCallbacks(it)
                     }
-
                     _checkRunnable = Runnable {
                         if (isForeground && _isPausing) {
                             isForeground = false
@@ -150,7 +149,7 @@ internal object AppManagerImpl : AMAppManager {
                         }
                     }
                     _handler.postDelayed(
-                            _checkRunnable,
+                            _checkRunnable!!,
                             PAUSE_STATE_CHECK_DELAY_TIME
                     )
                 }

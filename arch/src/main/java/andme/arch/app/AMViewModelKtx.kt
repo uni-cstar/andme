@@ -1,9 +1,12 @@
 package andme.arch.app
 
+import andme.core.exception.RetryException
 import andme.core.exceptionHandlerAM
+import andme.core.kt.launchRetryable
 import andme.core.support.ui.showAlertDialog
 import android.content.DialogInterface
 import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -15,13 +18,26 @@ import kotlin.coroutines.EmptyCoroutineContext
  * Created by Lucio on 2020-11-18.
  */
 
-fun AMViewModel.launch(
+/**
+ * launch方法的增强版，支持重试，类似RxJava的retryWhen效果
+ * 当捕获了[block]执行过程中抛出的[RetryException]时，将会重新执行[block]
+ */
+fun ViewModel.launchRetryable(
+        context: CoroutineContext = EmptyCoroutineContext,
+        start: CoroutineStart = CoroutineStart.DEFAULT,
+        block: suspend CoroutineScope.() -> Unit
+) {
+    viewModelScope.launchRetryable(context, start, block)
+}
+
+fun ViewModel.launch(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
         block: suspend CoroutineScope.() -> Unit
 ) {
     viewModelScope.launch(context, start, block)
 }
+
 
 inline fun AMViewModel.tryUi(func: AMViewModel.() -> Unit): Throwable? {
     return try {

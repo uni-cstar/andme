@@ -1,3 +1,8 @@
+@file:JvmName("AMCore")
+@file:JvmMultifileClass
+/**
+ * Created by Lucio on 2020-11-09.
+ */
 package andme.core
 
 import andme.core.app.AMAppManager
@@ -20,10 +25,7 @@ import andme.integration.media.MediaStore
 import android.app.Application
 import android.content.Context
 
-/**
- * Created by Lucio on 2020-11-09.
- */
- lateinit var mApp: Context
+lateinit var mApp: Context
 
 /**
  * 初始化Core Lib
@@ -39,20 +41,14 @@ fun initCore(app: Application) {
  */
 var isDebuggable: Boolean = BuildConfig.DEBUG
 
-
 /**
  * app管理器
  */
 val appManagerAM: AMAppManager = AppManagerImpl
 
-private var mMediaStore: MediaStore? = null
 
-//默认集成库包名路径
-private const val INTEGRATION_PKG_NAME = "andme.integration.support"
 
-/**
- * 懒加载
- */
+//媒体相关功能支持器懒加载函数
 var mediaStoreCreator: (() -> MediaStore)? = null
 
 /**
@@ -101,5 +97,7 @@ var toastHandlerAM: ToastUI = DefaultToastHandler
  */
 var storageAM: AMStorage = AMStorageImpl
 
-
-var systemUIAM:AMSystemUI = AMSystemUIImpl
+/**
+ * 系统UI交互：状态栏，虚拟导航栏
+ */
+var systemUIAM: AMSystemUI = AMSystemUIImpl

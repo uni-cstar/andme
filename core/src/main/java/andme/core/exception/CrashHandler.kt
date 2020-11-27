@@ -5,7 +5,7 @@ package andme.core.exception
  */
 class CrashHandler : Thread.UncaughtExceptionHandler {
 
-    private val mDefaultHandler: Thread.UncaughtExceptionHandler
+    private val mDefaultHandler: Thread.UncaughtExceptionHandler?
 
     init {
         // 获取系统默认的 UncaughtException 处理器

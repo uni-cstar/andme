@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--定义与主题色一致的文本颜色-->
+    <attr name="textColorTheme" format="reference|color" />
+    <!--分割线颜色-->
+    <attr name="dividerColor" format="reference|color" />
+    <!--圆角半径-->
+    <attr name="connerRadius" format="reference|dimension" />
+
+</resources>

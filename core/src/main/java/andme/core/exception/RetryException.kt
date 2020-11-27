@@ -1,8 +1,10 @@
 package andme.core.exception
 
 
-class ToastException : RuntimeException{
-
+/**
+ * Created by Lucio on 2020/11/26.
+ */
+class RetryException : RuntimeException {
     constructor() : super()
     constructor(message: String?) : super(message)
     constructor(message: String?, cause: Throwable?) : super(message, cause)
