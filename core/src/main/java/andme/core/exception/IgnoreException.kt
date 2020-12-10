@@ -3,7 +3,7 @@ package andme.core.exception
 /**
  * 忽略异常，即捕获之后不做任何处理
  */
-class IgnoreException : RuntimeException {
+open class IgnoreException : RuntimeException {
 
     constructor() : super()
     constructor(message: String?) : super(message)

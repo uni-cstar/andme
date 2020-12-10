@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UI">
+
+    </style>
+
+    <style name="UI.Button" parent="Widget.AppCompat.Button">
+        <item name="android:minHeight">40dp</item>
+        <item name="android:minWidth">68dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">@style/Text.Button</item>
+    </style>
+
+    <style name="UI.Button.Inverse">
+        <item name="android:textAppearance">@style/Text.Button.Inverse</item>
+    </style>
+
+    <style name="UI.Button.Medium">
+        <item name="android:textAppearance">@style/Text.Button.Medium</item>
+    </style>
+
+    <style name="UI.Button.Inverse.Medium">
+        <item name="android:textAppearance">@style/Text.Button.Inverse.Medium</item>
+    </style>
+
+    <style name="UI.Button.Secondary" >
+        <item name="android:textAppearance">@style/Text.Button.Secondary</item>
+    </style>
+
+    <style name="UI.Text">
+        <item name="android:textAppearance">@style/Text</item>
+    </style>
+
+    <style name="UI.Text.Title">
+        <item name="android:textAppearance">@style/Text.Title</item>
+    </style>
+
+    <style name="UI.Text.Body">
+        <item name="android:textAppearance">@style/Text.Body</item>
+    </style>
+
+    <style name="UI.Text.Caption">
+        <item name="android:textAppearance">@style/Text.Caption</item>
+    </style>
+
+    <style name="UI.Text.Caption.Primary">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="UI.Text.Caption.Secondary">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="UI.Edit" parent="Widget.AppCompat.EditText">
+        <item name="android:textAppearance">@style/Text.Body</item>
+    </style>
+
+
+    <style name="UI.Divider">
+        <item name="android:background">@drawable/shape_divider_am</item>
+    </style>
+    <style name="UI.Divider.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="UI.Divider.Vertical">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+</resources>

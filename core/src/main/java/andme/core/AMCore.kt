@@ -24,6 +24,7 @@ import andme.integration.imageloader.ImageLoader
 import andme.integration.media.MediaStore
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 
 lateinit var mApp: Context
 

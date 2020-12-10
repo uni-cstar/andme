@@ -13,11 +13,11 @@ import androidx.appcompat.app.AlertDialog
  */
 object DefaultDialogHandler : DialogUI {
 
-    override fun showLoading(ctx: Context, message: CharSequence): AMDialog {
+    override fun showLoading(ctx: Context, message: CharSequence): AMProgressDialog {
         val dialog = ProgressDialog(ctx)
         dialog.setMessage(message)
         dialog.show()
-        return wrapper(dialog)
+        return wrapperProgressDialog(dialog)
     }
 
     override fun showAlertDialog(ctx: Context, message: CharSequence, positiveBtnText: CharSequence): AMDialog {
@@ -64,4 +64,15 @@ object DefaultDialogHandler : DialogUI {
         }
     }
 
+    private fun wrapperProgressDialog(dialog: ProgressDialog): AMProgressDialog {
+        return object : AMProgressDialog {
+            override fun setMessage(msg: String) {
+                dialog.setMessage(msg)
+            }
+
+            override fun dismiss() {
+                dialog.dismiss()
+            }
+        }
+    }
 }

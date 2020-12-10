@@ -10,7 +10,7 @@ import androidx.annotation.StringRes
 
 interface DialogUI {
 
-    fun showLoading(ctx: Context, message: CharSequence): AMDialog
+    fun showLoading(ctx: Context, message: CharSequence): AMProgressDialog
 
     fun showAlertDialog(ctx: Context, @StringRes messageId: Int, @StringRes positiveTextId: Int): AMDialog {
         return showAlertDialog(ctx, ctx.getText(messageId), ctx.getText(positiveTextId))
@@ -46,3 +46,7 @@ interface AMDialog {
     fun dismiss()
 }
 
+
+interface AMProgressDialog : AMDialog{
+    fun setMessage(msg:String)
+}

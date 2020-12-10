@@ -40,7 +40,11 @@ internal class ActivityStackImpl : AMActivityStack {
     }
 
     override fun getCurrent(): Activity? {
-        return mStack.lastElement()
+        if(mStack.size == 0){
+            return null
+        }else{
+            return mStack.lastElement()
+        }
     }
 
     /**

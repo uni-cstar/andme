@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--分割线颜色-->
+    <attr name="colorDivider" format="reference|color" />
     <!--定义与主题色一致的文本颜色-->
     <attr name="textColorTheme" format="reference|color" />
-    <!--分割线颜色-->
-    <attr name="dividerColor" format="reference|color" />
+    <!--描述文本颜色-->
+    <attr name="textColorCaption" format="reference|color" />
+    <!--描述文本相反色-->
+    <attr name="textColorCaptionInverse" format="reference|color" />
     <!--圆角半径-->
-    <attr name="connerRadius" format="reference|dimension" />
+    <attr name="roundedRadius" format="reference|dimension" />
 
 </resources>

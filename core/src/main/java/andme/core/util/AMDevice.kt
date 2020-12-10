@@ -53,7 +53,6 @@ fun Context.getNetworkType(): Int {
 /**
  * 网络是否连接
  */
-@RequiresPermission(value = Manifest.permission.ACCESS_NETWORK_STATE)
 fun Context.isNetworkConnected(): Boolean {
     val cm = connectivityManager ?: return false
     if (Build.VERSION.SDK_INT < 23) {

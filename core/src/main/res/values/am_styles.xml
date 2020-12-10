@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AMTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="backgroundColor">@color/background_color</item>
+        <item name="roundedRadius">@dimen/rounded_radius</item>
+        <!--标题栏背景色-->
+        <item name="colorPrimary">@color/color_primary</item>
+        <!--状态栏背景色-->
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <!--控件激活颜色-->
+        <item name="colorAccent">@color/color_accent</item>
+        <!--分割线颜色-->
+        <item name="colorDivider">@color/color_divider</item>
+        <!--主题色文本-->
+        <item name="textColorTheme">@color/text_color_theme</item>
+        <!--标题栏文本颜色-->
+        <item name="android:textColorPrimary">@color/text_color_primary</item>
+        <item name="android:textColorPrimaryInverse">@color/text_color_primary_inverse</item>
+        <item name="android:textColorSecondary">@color/text_color_secondary</item>
+        <item name="android:textColorSecondaryInverse">@color/text_color_secondary_inverse</item>
+        <item name="textColorCaption">@color/text_color_caption</item>
+        <item name="textColorCaptionInverse">@color/text_color_caption_inverse</item>
+        <item name="android:textColorLink">@color/text_color_link</item>
+        <item name="android:textColorLinkInverse">@color/text_color_link_inverse</item>
+        <item name="android:buttonStyle">@style/UI.Button</item>
+    </style>
+
+
+    <style name="Text" parent="TextAppearance.AppCompat" />
+
+    <style name="Text.Inverse" parent="TextAppearance.AppCompat.Inverse" />
+
+    <!--标题： 20sp 主文本色-->
+    <style name="Text.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
+    </style>
+
+    <!--相反标题色-->
+    <style name="Text.Title.Inverse" parent="TextAppearance.AppCompat.Title.Inverse">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
+    </style>
+
+    <!-- 副标题：16sp 主文本色-->
+    <style name="Text.SubHead" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_subhead</item>
+    </style>
+
+    <!--相反色副标题-->
+    <style name="Text.SubHead.Inverse" parent="TextAppearance.AppCompat.Subhead.Inverse">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/text_size_subhead</item>
+    </style>
+
+    <!-- 主文本：14sp 主文本色-->
+    <style name="Text.Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_body</item>
+    </style>
+
+    <!-- 相反主文本-->
+    <style name="Text.Body.Inverse">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/text_size_body</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+        <item name="android:textColorHighlight">?android:textColorHighlightInverse</item>
+        <item name="android:textColorLink">?android:textColorLinkInverse</item>
+    </style>
+
+    <style name="Text.Body.Secondary">
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <!--主题色文本 14sp-->
+    <style name="Text.Theme">
+        <item name="android:textColor">?textColorTheme</item>
+        <item name="android:textSize">@dimen/text_size_body</item>
+    </style>
+
+    <!--描述性文本：12sp caption color-->
+    <style name="Text.Caption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">?textColorCaption</item>
+        <item name="android:textSize">@dimen/text_size_caption</item>
+    </style>
+
+    <!--相反描述性文本：12sp caption inverse color-->
+    <style name="Text.Caption.Inverse">
+        <item name="android:textColor">?textColorCaptionInverse</item>
+        <item name="android:textSize">@dimen/text_size_caption</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+        <item name="android:textColorHighlight">?android:textColorHighlightInverse</item>
+        <item name="android:textColorLink">?android:textColorLinkInverse</item>
+    </style>
+
+    <!--超小文本：10sp 主文本色-->
+    <style name="Text.Tiny">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+    </style>
+
+    <style name="Text.Tiny.Secondary">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+    </style>
+
+    <!--相反色超小文本-->
+    <style name="Text.Tiny.Inverse">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+        <item name="android:textColorHighlight">?android:textColorHighlightInverse</item>
+        <item name="android:textColorLink">?android:textColorLinkInverse</item>
+    </style>
+
+    <!--按钮主文本 14sp-->
+    <style name="Text.Button" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+    </style>
+
+    <style name="Text.Button.Secondary" >
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <!--相反按钮主文本-->
+    <style name="Text.Button.Inverse">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:textColorHint">?android:textColorHintInverse</item>
+        <item name="android:textColorHighlight">?android:textColorHighlightInverse</item>
+        <item name="android:textColorLink">?android:textColorLinkInverse</item>
+    </style>
+
+    <style name="Text.Button.Medium">
+        <item name="android:textSize">@dimen/text_size_button_medium</item>
+    </style>
+
+    <style name="Text.Button.Inverse.Medium">
+        <item name="android:textSize">@dimen/text_size_button_medium</item>
+    </style>
+
+</resources>

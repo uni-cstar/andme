@@ -1,10 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#D81B60</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!--主题颜色 blue-500-->
+    <color name="color_primary">#2196F3</color>
+    <!--状态栏背景色 blue-600-->
+    <color name="color_primary_dark">#1976D2</color>
+    <!-- CheckBox，RadioButton，SwitchCompat等一般控件的选中效果默认采用该颜色;保持与主题色一致    -->
+    <color name="color_accent">@color/color_primary</color>
+    <!--Grey300 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色-->
+    <color name="color_divider">#DADADA</color>
 
-    <item name="am_id_fake_status_bar" type="id"/>
+    <!--圆角半径-->
+    <dimen name="rounded_radius">6dp</dimen>
+
+    <!--标题文本大小-->
+    <dimen name="text_size_title">20sp</dimen>
+    <!--子标题文本大小-->
+    <dimen name="text_size_subhead">16sp</dimen>
+    <!--正文文本大小-->
+    <dimen name="text_size_body">14sp</dimen>
+
+    <!--描述性文本-->
+    <dimen name="text_size_caption">12sp</dimen>
+    <!--按钮文本大小-->
+    <dimen name="text_size_button">14sp</dimen>
+    <!--大号按钮文本-->
+    <dimen name="text_size_button_medium">16sp</dimen>
+
+    <!--超小文本：通常不建议使用，用在app内的角标数-->
+    <dimen name="text_size_tiny">10sp</dimen>
+
+    <!--与主题色相同的文本色-->
+    <color name="text_color_theme">@color/color_primary</color>
+    <!--Grey900 主文本色：标题栏文字颜色-->
+    <color name="text_color_primary">#212121</color>
+    <!--主文本相反色-->
+    <color name="text_color_primary_inverse">#FFFFFF</color>
+
+    <!--Grey500-->
+    <color name="text_color_secondary">#9E9E9E</color>
+
+    <color name="text_color_secondary_inverse">#7D9E9E9E</color>
+
+    <!--Grey300-->
+    <color name="text_color_hint">#E0E0E0</color>
+
+    <!--Grey300-->
+    <color name="text_color_hint_inverse">#4DE0E0E0</color>
+
+    <!--Grey300-->
+    <color name="text_color_caption">#CCCCCC</color>
+
+    <!--Grey300-->
+    <color name="text_color_caption_inverse">#7DE0E0E0</color>
+
+    <!--Grey400-->
+    <color name="text_color_highlight">#BDBDBD</color>
+
+    <color name="text_color_highlight_inverse">#7DBDBDBD</color>
+
+    <!--链接文本色-->
+    <color name="text_color_link">@color/color_primary</color>
+
+    <!--链接文本色-->
+    <color name="text_color_link_inverse">@color/color_primary</color>
+
+    <!--背景色-->
+    <color name="background_color">#FFFFFF</color>
+
+    <color name="background_color_inverse">#000000</color>
+
+    <!--fake status bar id-->
+    <item name="am_id_fake_status_bar" type="id" />
 
 </resources>

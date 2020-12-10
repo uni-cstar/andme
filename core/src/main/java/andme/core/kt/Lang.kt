@@ -1,6 +1,7 @@
 package andme.core.kt
 
 import andme.core.isDebuggable
+import kotlin.system.measureTimeMillis
 
 /**
  * Created by Lucio on 2020-10-29.
@@ -19,6 +20,10 @@ inline fun String?.orDefaultIfNullOrEmpty(def: String = ""): String = if (this.i
 
 inline fun <T> T?.orDefault(initializer: () -> T): T = this ?: initializer()
 
+inline fun <E> MutableList<E>.addAllNotNull(elements: Collection<E>?){
+    if(!elements.isNullOrEmpty())
+        addAll(elements)
+}
 /**
  * 将一个对象转换成另外一个对象
  */
@@ -54,16 +59,15 @@ var isTimeMonitorEnable: Boolean = true
 inline fun runTimeMonitor(
         tag: String = Thread.currentThread().stackTrace[1].methodName,
         func: () -> Unit
-) {
-    val start = System.currentTimeMillis()
-    func()
+):Long {
+    val time = measureTimeMillis(func)
     if (!isTimeMonitorEnable)
-        return
-    val end = System.currentTimeMillis() - start
-    if (end > 500) {
-        println("[TimeMonitor]: $tag takes ${end / 1000.0} seconds")
+        return time
+    if (time > 500) {
+        println("[TimeMonitor]: $tag takes ${time / 1000.0} seconds")
     } else {
-        println("[TimeMonitor]: $tag takes $end milliseconds")
+        println("[TimeMonitor]: $tag takes $time milliseconds")
     }
+    return time
 }
 

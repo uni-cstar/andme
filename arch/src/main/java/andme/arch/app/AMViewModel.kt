@@ -1,19 +1,16 @@
 package andme.arch.app
 
 import andme.core.dialogHandlerAM
-import andme.core.exceptionHandlerAM
+import andme.core.kt.concurrency.ControlledRunner
 import andme.core.lifecycle.SingleEvent
 import andme.core.lifecycle.SingleLiveEvent
 import andme.core.support.ui.AMDialog
-import andme.core.support.ui.showAlertDialog
 import android.app.Application
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.MainThread
-import androidx.annotation.StringRes
 import androidx.lifecycle.*
 
 /**
@@ -153,5 +150,13 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
 
     open fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //nothing
+    }
+
+    private val cancelPreviousRunner: ControlledRunner<Any?> by lazy {
+        ControlledRunner<Any?>()
+    }
+
+    suspend fun <T> launchAndCancelPrevious(func: suspend () -> T): T {
+        return cancelPreviousRunner.cancelPreviousThenRun(func) as T
     }
 }
