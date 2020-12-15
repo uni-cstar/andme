@@ -1,4 +1,4 @@
-package andme.core.kt.concurrency
+package andme.lang.coroutines
 
 import kotlinx.coroutines.*
 import java.io.Closeable

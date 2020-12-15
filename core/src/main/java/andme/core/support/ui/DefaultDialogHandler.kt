@@ -1,7 +1,7 @@
 package andme.core.support.ui
 
-import andme.core.kt.map
-import andme.core.kt.runOnTrue
+import andme.lang.map
+import andme.lang.runOnTrue
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context

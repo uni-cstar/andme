@@ -1,3 +1,6 @@
+/**
+ * Created by Lucio on 2020-11-18.
+ */
 package andme.arch.app
 
 import andme.core.systemUIAM
@@ -5,9 +8,6 @@ import android.app.Activity
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 
-/**
- * Created by Lucio on 2020-11-18.
- */
 /**
  * 设置沉浸式状态栏模式（即状态栏会覆盖布局内容），并且状态栏背景透明
  */

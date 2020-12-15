@@ -1,3 +1,7 @@
+/**
+ * Created by Lucio on 2020-11-01.
+ */
+
 package andme.core.ktx
 
 import andme.core.R
@@ -10,22 +14,14 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
 
-
-/**
- * Created by Lucio on 2020-11-01.
- */
-
-
 /**
  * 获取与自己生命周期相关的ViewModel
  */
-fun <T : AndroidViewModel> FragmentActivity.obtainViewModel(clz: Class<T>): T {
+inline fun <reified T : AndroidViewModel> FragmentActivity.obtainViewModel(): T {
     return ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
-    ).get(clz)
-
-
+    ).get(T::class.java)
 }
 
 /**

@@ -10,7 +10,7 @@ import andme.core.app.internal.AppManagerImpl
 import andme.core.content.syncResourcesValues
 import andme.core.exception.CommonExceptionHandler
 import andme.core.exception.ExceptionHandler
-import andme.core.kt.orDefault
+import andme.lang.orDefault
 import andme.core.support.io.AMStorage
 import andme.core.support.io.AMStorageImpl
 import andme.core.support.ui.DefaultDialogHandler

@@ -17,7 +17,6 @@ interface AMAnonyContext {
 
     fun startActivityForResult(intent: Intent, requestCode: Int)
 
-
     private class ActivityContext(val activity: Activity): AMAnonyContext {
         override val realCtx: Context
             get() = activity

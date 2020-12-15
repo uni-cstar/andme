@@ -13,23 +13,23 @@ import androidx.lifecycle.ViewModelProvider
  * Created by Lucio on 2020-11-02.
  */
 
-interface AMViewModelOwner: AMAnonyContext {
+abstract class AMViewModelOwner: AMAnonyContext {
 
-    fun getLifecycle(): Lifecycle
+    abstract fun getLifecycle(): Lifecycle
 
-    fun getLifecycleOwner(): LifecycleOwner
+    abstract fun getLifecycleOwner(): LifecycleOwner
 
-    fun getViewModelProvider(): ViewModelProvider
+    abstract fun getViewModelProvider(): ViewModelProvider
 
-    fun finish()
+    abstract fun finish()
 
-    fun onBackPressed()
+    abstract fun onBackPressed()
 
 
     companion object {
 
         fun new(activity: ComponentActivity): AMViewModelOwner {
-           return object :AMViewModelOwner{
+           return object : AMViewModelOwner() {
                override val realCtx: Context
                    get() = activity
 
@@ -67,7 +67,7 @@ interface AMViewModelOwner: AMAnonyContext {
         }
 
         fun new(fragment: Fragment): AMViewModelOwner {
-            return object:AMViewModelOwner{
+            return object: AMViewModelOwner() {
                 override fun getLifecycle(): Lifecycle {
                     return fragment.lifecycle
                 }
@@ -78,8 +78,8 @@ interface AMViewModelOwner: AMAnonyContext {
 
                 override fun getViewModelProvider(): ViewModelProvider {
                     return ViewModelProvider(
-                        fragment,
-                        ViewModelProvider.AndroidViewModelFactory.getInstance(fragment.requireActivity().application)
+                            fragment,
+                            ViewModelProvider.AndroidViewModelFactory.getInstance(fragment.requireActivity().application)
                     )
                 }
 

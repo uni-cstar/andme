@@ -1,9 +1,6 @@
-/**
- * Created by Lucio on 2020/11/27.
- */
-package andme.core.kt
+package andme.lang.coroutines
 
-import andme.core.exception.RetryException
+import andme.lang.RetryException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.coroutineScope
@@ -11,6 +8,9 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
+/**
+ * Created by Lucio on 2020/12/14.
+ */
 /**
  * launch方法的增强版，支持重试，类似RxJava的retryWhen效果
  * 当捕获了[block]执行过程中抛出的[RetryException]时，将会重新执行[block]

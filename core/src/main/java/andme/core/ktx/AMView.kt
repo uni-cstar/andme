@@ -1,6 +1,6 @@
 package andme.core.ktx
 
-import andme.core.kt.orDefault
+import andme.lang.orDefault
 import android.view.View
 import android.view.ViewGroup
 

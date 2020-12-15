@@ -1,10 +1,10 @@
-package andme.core.exception
+package andme.lang
+
 
 /**
- * 忽略异常，即捕获之后不做任何处理
+ * Created by Lucio on 2020/11/26.
  */
-open class IgnoreException : RuntimeException {
-
+class RetryException : RuntimeException {
     constructor() : super()
     constructor(message: String?) : super(message)
     constructor(message: String?, cause: Throwable?) : super(message, cause)

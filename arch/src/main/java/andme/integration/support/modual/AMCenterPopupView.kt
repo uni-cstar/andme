@@ -1,7 +1,7 @@
 package andme.integration.support.modual
 
 import andme.core.content.layoutInflater
-import andme.core.kt.orDefault
+import andme.lang.orDefault
 import andme.core.ktx.removeSelf
 import android.annotation.SuppressLint
 import android.content.Context

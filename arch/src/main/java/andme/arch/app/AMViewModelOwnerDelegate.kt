@@ -1,8 +1,8 @@
 package andme.arch.app
 
-import andme.core.kt.Note
-import andme.core.kt.runOnTrue
 import andme.core.toastHandlerAM
+import andme.lang.Note
+import andme.lang.runOnTrue
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,14 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import java.lang.reflect.ParameterizedType
 
+/**
+ * [AMViewModel]的事件绑定、实现等代理类
+ */
 open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(private val _owner: AMViewModelOwner) {
 
     lateinit var viewModel: VM
         private set
 
-    constructor(activity: ComponentActivity) : this(AMViewModelOwner.Companion.new(activity))
+    constructor(activity: ComponentActivity) : this(AMViewModelOwner.new(activity))
 
-    constructor(fragment: Fragment) : this(AMViewModelOwner.Companion.new(fragment))
+    constructor(fragment: Fragment) : this(AMViewModelOwner.new(fragment))
 
     open fun onCreate(savedInstanceState: Bundle?, vmClass: Class<VM>) {
         viewModel = _owner.getViewModelProvider().get(vmClass)
@@ -39,7 +42,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
     }
 
     //绑定viewmodel事件
-     fun registerViewModelEvent(viewModel: AMViewModel) {
+    fun registerViewModelEvent(viewModel: AMViewModel) {
         _owner.getLifecycle().addObserver(viewModel)
         val lifecycleOwner = _owner.getLifecycleOwner()
         viewModel.apply {
@@ -69,7 +72,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
     }
 
     //注销ViewModel事件
-     fun unregisterViewModelEvent(viewModel: AMViewModel) {
+    fun unregisterViewModelEvent(viewModel: AMViewModel) {
         _owner.getLifecycle().removeObserver(viewModel)
         val lifecycleOwner = _owner.getLifecycleOwner()
         viewModel.apply {
@@ -100,14 +103,14 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
     }
 
     protected open fun onToastByViewModel(msg: String, length: Int) {
-        toastHandlerAM.showToast(_owner.realCtx,msg,length)
+        toastHandlerAM.showToast(_owner.realCtx, msg, length)
     }
 
     protected open fun onContextActionByViewModel(event: AMViewModel.ContextAction) {
         event.onContextAction(_owner.realCtx)
     }
 
-     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         viewModel.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -118,7 +121,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
          */
         @JvmStatic
         @Note(message = "注意：自动推断在有几种情况下无法推断出正确类型，比如范型的个数、位置等会影响范型的推断，对于只有一个类型的范型子类推断无问题。")
-        internal fun <VM> deduceViewModelClass(instance: Any,tPosition:Int = 0): Class<VM>? {
+        internal fun <VM> deduceViewModelClass(instance: Any, tPosition: Int = 0): Class<VM>? {
             val gSuperClass = findParameterizedType(instance.javaClass) ?: return null
             val target = gSuperClass.actualTypeArguments[tPosition]
 

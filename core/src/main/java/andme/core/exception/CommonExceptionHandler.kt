@@ -1,7 +1,7 @@
 package andme.core.exception
 
 import andme.core.dialogHandlerAM
-import andme.core.kt.runOnDebug
+import andme.lang.runOnDebug
 import android.content.Context
 
 open class CommonExceptionHandler : ExceptionHandler {

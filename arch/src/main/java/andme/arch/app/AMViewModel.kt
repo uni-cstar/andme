@@ -1,10 +1,11 @@
 package andme.arch.app
 
 import andme.core.dialogHandlerAM
-import andme.core.kt.concurrency.ControlledRunner
+import andme.lang.coroutines.ControlledRunner
 import andme.core.lifecycle.SingleEvent
 import andme.core.lifecycle.SingleLiveEvent
 import andme.core.support.ui.AMDialog
+import andme.lang.Note
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -19,6 +20,8 @@ import androidx.lifecycle.*
  */
 open class AMViewModel(application: Application) : AndroidViewModel(application),
         LifecycleObserver {
+
+    protected val logTag:String get() = this::class.java.name
 
     /**
      * 与Context操作相关的行为回调接口
@@ -46,7 +49,7 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
             MutableLiveData<ContextAction>()
 
     protected open fun log(msg: String) {
-        Log.d("AMViewModel", msg)
+        Log.d(logTag, msg)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
@@ -148,6 +151,8 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         })
     }
 
+    @Deprecated("@See Note")
+    @Note("此方法只会在主ViewModel中回调，其他ViewModel需要用户从Activity或者Fragment的onActivityResult方法中回调过来")
     open fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //nothing
     }

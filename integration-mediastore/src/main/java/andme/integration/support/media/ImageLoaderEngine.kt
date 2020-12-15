@@ -3,9 +3,6 @@ package andme.integration.support.media
 import andme.core.imageLoaderAM
 import android.content.Context
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
-import com.bumptech.glide.request.RequestOptions
 import com.luck.picture.lib.engine.ImageEngine
 import com.luck.picture.lib.listener.OnImageCompleteCallback
 import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView

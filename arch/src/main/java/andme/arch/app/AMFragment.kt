@@ -2,7 +2,7 @@ package andme.arch.app
 
 import andme.arch.activity.AMBackPressedCallback
 import andme.arch.activity.AMBackPressedOwner
-import andme.core.kt.Note
+import andme.lang.Note
 import andme.core.ktx.removeSelf
 import android.content.Context
 import android.content.Intent

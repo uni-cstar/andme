@@ -1,4 +1,4 @@
-package andme.core.kt
+package andme.lang
 
 import andme.core.isDebuggable
 import kotlin.system.measureTimeMillis
@@ -13,17 +13,12 @@ inline fun Int?.orDefault(def: Int = 0) = this ?: def
 inline fun Float?.orDefault(def: Float = 0f) = this ?: def
 inline fun Long?.orDefault(def: Long = 0) = this ?: def
 inline fun Double?.orDefault(def: Double = 0.0) = this ?: def
-/**
- * null或空字符串时使用默认值
- */
-inline fun String?.orDefaultIfNullOrEmpty(def: String = ""): String = if (this.isNullOrEmpty()) def else this
 
+/**
+ * 当前对象为空，则使用默认值
+ */
 inline fun <T> T?.orDefault(initializer: () -> T): T = this ?: initializer()
 
-inline fun <E> MutableList<E>.addAllNotNull(elements: Collection<E>?){
-    if(!elements.isNullOrEmpty())
-        addAll(elements)
-}
 /**
  * 将一个对象转换成另外一个对象
  */

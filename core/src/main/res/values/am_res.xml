@@ -73,4 +73,7 @@
     <!--fake status bar id-->
     <item name="am_id_fake_status_bar" type="id" />
 
+    <item name="am_id_extra_coordinator_effect_in_anim" type="id"/>
+    <item name="am_id_extra_coordinator_effect_out_anim" type="id"/>
+
 </resources>
