@@ -1,12 +1,13 @@
 package andme.arch.app
 
-import andme.arch.activity.AMBackPressedDispatcher
-import andme.arch.activity.AMBackPressedOwner
+import andme.core.activity.AMBackPressedDispatcher
+import andme.core.activity.AMBackPressedOwner
 import andme.core.exception.tryCatch
 import andme.lang.Note
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 
 /**
  * Created by Lucio on 2020/11/1.
@@ -19,7 +20,7 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
     //主ViewModel
     protected val viewModel: VM get() = viewModelDelegate.viewModel
 
-    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelOwnerDelegate<VM>(this)
+    internal open val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelOwnerDelegate<VM>(this)
 
     //返回键分发器
     private val _backPressedDispatcher = AMBackPressedDispatcher(this)
@@ -32,6 +33,13 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         createMainViewModel(savedInstanceState)
+    }
+
+    /**
+     * @param autoBindOwnerIfMatch 如果获取的ViewModel是[AMViewModel]是否自动绑定事件，默认自动绑定
+     */
+    fun <T : ViewModel> obtainViewModel(clazz: Class<T>, autoBindOwnerIfMatch: Boolean = true): T {
+        return this.viewModelDelegate.obtainViewModel(clazz,autoBindOwnerIfMatch)
     }
 
     /**

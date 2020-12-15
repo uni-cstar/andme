@@ -1,11 +1,11 @@
 package andme.arch.app
 
 import andme.core.dialogHandlerAM
-import andme.lang.coroutines.ControlledRunner
 import andme.core.lifecycle.SingleEvent
 import andme.core.lifecycle.SingleLiveEvent
 import andme.core.support.ui.AMDialog
 import andme.lang.Note
+import andme.lang.coroutines.ControlledRunner
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -21,7 +21,13 @@ import androidx.lifecycle.*
 open class AMViewModel(application: Application) : AndroidViewModel(application),
         LifecycleObserver {
 
-    protected val logTag:String get() = this::class.java.name
+    protected val logTag: String get() = this::class.java.name
+
+    /**
+     * ViewModel是否已绑定到所有者：即已经注册了事件
+     */
+    @Volatile
+    internal var hasBindOwner:Boolean = false
 
     /**
      * 与Context操作相关的行为回调接口
@@ -47,6 +53,20 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
 
     val contextActionEvent: MutableLiveData<ContextAction> =
             MutableLiveData<ContextAction>()
+
+    internal fun unregister(owner:AMViewModelOwner) {
+        //移除生命周期监听
+        owner.getLifecycle().removeObserver(this)
+        //移除常规事件监听
+        val lifecycleOwner = owner.getLifecycleOwner()
+        finishEvent.removeObservers(lifecycleOwner)
+        backPressedEvent.removeObservers(lifecycleOwner)
+        startActivityEvent.removeObservers(lifecycleOwner)
+        startActivityForResultEvent.removeObservers(lifecycleOwner)
+        toastEvent.removeObservers(lifecycleOwner)
+        contextActionEvent.removeObservers(lifecycleOwner)
+        hasBindOwner = false
+    }
 
     protected open fun log(msg: String) {
         Log.d(logTag, msg)

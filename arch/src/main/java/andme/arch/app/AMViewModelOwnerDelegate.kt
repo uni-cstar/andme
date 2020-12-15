@@ -8,12 +8,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import java.lang.reflect.ParameterizedType
 
 /**
  * [AMViewModel]的事件绑定、实现等代理类
  */
-open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(private val _owner: AMViewModelOwner) {
+open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(internal val _owner: AMViewModelOwner) {
 
     lateinit var viewModel: VM
         private set
@@ -28,6 +29,17 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
     }
 
     /**
+     * @param autoBindOwnerIfMatch 如果获取的ViewModel是[AMViewModel]是否自动绑定事件，默认自动绑定
+     */
+    fun <T : ViewModel> obtainViewModel(clazz: Class<T>, autoBindOwnerIfMatch: Boolean = true): T {
+        return _owner.getViewModelProvider().get(clazz).also {
+            if (autoBindOwnerIfMatch && it is AMViewModel && !it.hasBindOwner) {
+                initViewModelEvent(viewModel, false)
+            }
+        }
+    }
+
+    /**
      * 初始化viewmodel相关事件
      * @param removePrevious 是否在绑定事件之前先调用移除方法，避免多次绑定
      */
@@ -36,13 +48,13 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
         this.runOnTrue(removePrevious) {
             unregisterViewModelEvent(viewModel)
         }
-
         //添加观察
         registerViewModelEvent(viewModel)
     }
 
     //绑定viewmodel事件
     fun registerViewModelEvent(viewModel: AMViewModel) {
+        viewModel.hasBindOwner = true
         _owner.getLifecycle().addObserver(viewModel)
         val lifecycleOwner = _owner.getLifecycleOwner()
         viewModel.apply {
@@ -73,17 +85,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(privat
 
     //注销ViewModel事件
     fun unregisterViewModelEvent(viewModel: AMViewModel) {
-        _owner.getLifecycle().removeObserver(viewModel)
-        val lifecycleOwner = _owner.getLifecycleOwner()
-        viewModel.apply {
-            //先移除所有事件
-            finishEvent.removeObservers(lifecycleOwner)
-            backPressedEvent.removeObservers(lifecycleOwner)
-            startActivityEvent.removeObservers(lifecycleOwner)
-            startActivityForResultEvent.removeObservers(lifecycleOwner)
-            toastEvent.removeObservers(lifecycleOwner)
-            contextActionEvent.removeObservers(lifecycleOwner)
-        }
+        viewModel.unregister(_owner)
     }
 
     protected open fun onFinishByViewModel() {

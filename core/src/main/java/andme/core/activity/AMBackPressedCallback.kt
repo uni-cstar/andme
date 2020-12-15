@@ -1,4 +1,4 @@
-package andme.arch.activity
+package andme.core.activity
 
 import androidx.annotation.MainThread
 import java.util.concurrent.CopyOnWriteArrayList

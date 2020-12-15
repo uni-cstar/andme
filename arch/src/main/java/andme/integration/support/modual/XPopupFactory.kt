@@ -41,6 +41,11 @@ fun XPopupBuilder.showAtCenter(ctx: Context, layoutId: Int, onViewCreated: com.l
             .show()
 }
 
+/**
+ * 居中显示
+ * @param contentView 显示的布局视图
+ * @param onViewCreated
+ */
 fun XPopupBuilder.showAtCenter(contentView: View, onViewCreated: com.lxj.xpopup.core.CenterPopupView.() -> Unit) {
     this.asCustom(CenterPopupViewWrapper.create(contentView, onViewCreated))
             .show()

@@ -1,4 +1,4 @@
-package andme.arch.activity
+package andme.core.activity
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.Lifecycle
@@ -90,7 +90,7 @@ class AMBackPressedDispatcher constructor(val owner: AMBackPressedOwner) {
      * 当调用callback的remove方法是，通过callback中添加的cancellabe对象从dispatcher中将自己移除
      */
     private inner class OnBackPressedCancellable internal constructor(private val mOnBackPressedCallback: AMBackPressedCallback) :
-        Cancellable {
+            Cancellable {
 
         override fun cancel() {
             mOnBackPressedCallbacks.remove(mOnBackPressedCallback)

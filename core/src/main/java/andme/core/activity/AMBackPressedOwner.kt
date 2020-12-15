@@ -1,4 +1,4 @@
-package andme.arch.activity
+package andme.core.activity
 
 /**
  * Created by Lucio on 2020-11-02.
