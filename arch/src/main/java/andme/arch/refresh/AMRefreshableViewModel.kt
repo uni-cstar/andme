@@ -12,7 +12,7 @@ import androidx.annotation.MainThread
  * Created by Lucio on 2020/12/16.
  * 支持刷新和加载的事件模型
  */
-@Note("由于可能只需要刷新事件，所以加载更多的事件变量均为懒加载")
+@Note("由于可能只需要刷新事件，所以加载更多的事件变量均为懒加载:这么做其实也没啥必要，对性能没啥影响")
 open class AMRefreshableViewModel(application: Application) : AMViewModel(application) {
 
     val refreshSuccessEvent = SingleEvent()
@@ -41,20 +41,18 @@ open class AMRefreshableViewModel(application: Application) : AMViewModel(applic
 
     override fun unregister(owner: AMViewModelOwner) {
         //移除常规事件监听
-        val lifecycleOwner = owner.getLifecycleOwner()
-
-        refreshSuccessEvent.removeObservers(lifecycleOwner)
-        refreshSuccessEvent2.removeObservers(lifecycleOwner)
-        refreshFailEvent.removeObservers(lifecycleOwner)
+        refreshSuccessEvent.removeObservers(owner)
+        refreshSuccessEvent2.removeObservers(owner)
+        refreshFailEvent.removeObservers(owner)
 
         if (hasMoreEventDelegate.isInitialized()) {
-            hasMoreEvent.removeObservers(lifecycleOwner)
+            hasMoreEvent.removeObservers(owner)
         }
         if (loadMoreSuccessEventDelegate.isInitialized()) {
-            loadMoreSuccessEvent.removeObservers(lifecycleOwner)
+            loadMoreSuccessEvent.removeObservers(owner)
         }
         if (loadMoreFailEventDelegate.isInitialized()) {
-            loadMoreFailEvent.removeObservers(lifecycleOwner)
+            loadMoreFailEvent.removeObservers(owner)
         }
         super.unregister(owner)
     }

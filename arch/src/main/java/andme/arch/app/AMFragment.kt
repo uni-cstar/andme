@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModelProvider
  * Fragment基类
  *  支持：主viewmodel支持、返回键事件拦截处理、view缓存处理
  */
-abstract class AMFragment<VM : AMViewModel> : Fragment() {
+ abstract class AMFragment<VM : AMViewModel> : Fragment(),AMViewModelOwner {
 
     @JvmField
     protected var contentView: View? = null
@@ -211,5 +211,23 @@ abstract class AMFragment<VM : AMViewModel> : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         viewModelDelegate.onActivityResult(requestCode, resultCode, data)
     }
+
+    override fun getViewModelProvider(): ViewModelProvider {
+        return ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(this.requireActivity().application)
+        )
+    }
+
+    override fun finish() {
+        activity?.finish()
+    }
+
+    override fun onBackPressed() {
+        activity?.onBackPressed()
+    }
+
+    override val realCtx: Context
+        get() = requireContext()
 
 }

@@ -5,8 +5,6 @@ import andme.lang.Note
 import andme.lang.runOnTrue
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import java.lang.reflect.ParameterizedType
@@ -14,14 +12,10 @@ import java.lang.reflect.ParameterizedType
 /**
  * [AMViewModel]的事件绑定、实现等代理类
  */
-open class AMViewModelOwnerDelegate<VM : AMViewModel> internal constructor(internal val _owner: AMViewModelOwner) : AMViewModelOwner by _owner {
+open class AMViewModelOwnerDelegate<VM : AMViewModel> constructor(open val realOwner: AMViewModelOwner) : AMViewModelOwner by realOwner {
 
     lateinit var viewModel: VM
         private set
-
-    constructor(activity: ComponentActivity) : this(AMViewModelOwner.new(activity))
-
-    constructor(fragment: Fragment) : this(AMViewModelOwner.new(fragment))
 
     open fun onCreate(savedInstanceState: Bundle?, vmClass: Class<VM>) {
         viewModel = getViewModelProvider().get(vmClass)
@@ -55,8 +49,8 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> internal constructor(inter
     //绑定viewmodel事件
     open fun registerViewModelEvent(viewModel: AMViewModel) {
         viewModel.hasBindOwner = true
-        getLifecycle().addObserver(viewModel)
-        val lifecycleOwner = getLifecycleOwner()
+        lifecycle.addObserver(viewModel)
+        val lifecycleOwner = this
         viewModel.apply {
             finishEvent.observe(lifecycleOwner, Observer {
                 onFinishByViewModel()

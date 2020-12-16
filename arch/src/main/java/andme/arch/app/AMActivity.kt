@@ -4,16 +4,18 @@ import andme.core.activity.AMBackPressedDispatcher
 import andme.core.activity.AMBackPressedOwner
 import andme.core.exception.tryCatch
 import andme.lang.Note
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 /**
  * Created by Lucio on 2020/11/1.
  * 提供功能：基础ViewModel支持（常规UI事件、生命周期绑定等）、返回键事件分发，状态栏控制等
  */
-abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressedOwner {
+ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressedOwner ,AMViewModelOwner{
 
     protected inline val activity: AMActivity<VM> get() = this
 
@@ -99,6 +101,15 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
         super.onBackPressed()
     }
 
+    override val realCtx: Context
+        get() = this
+
+    override fun getViewModelProvider(): ViewModelProvider {
+        return ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
+        )
+    }
 //
 //    protected open val defaultStatusBarAlpha: Int = amStatusBar.defaultStatusBarAlpha
 //

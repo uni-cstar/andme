@@ -58,13 +58,12 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         //移除生命周期监听
         owner.getLifecycle().removeObserver(this)
         //移除常规事件监听
-        val lifecycleOwner = owner.getLifecycleOwner()
-        finishEvent.removeObservers(lifecycleOwner)
-        backPressedEvent.removeObservers(lifecycleOwner)
-        startActivityEvent.removeObservers(lifecycleOwner)
-        startActivityForResultEvent.removeObservers(lifecycleOwner)
-        toastEvent.removeObservers(lifecycleOwner)
-        contextActionEvent.removeObservers(lifecycleOwner)
+        finishEvent.removeObservers(owner)
+        backPressedEvent.removeObservers(owner)
+        startActivityEvent.removeObservers(owner)
+        startActivityForResultEvent.removeObservers(owner)
+        toastEvent.removeObservers(owner)
+        contextActionEvent.removeObservers(owner)
         hasBindOwner = false
     }
 
