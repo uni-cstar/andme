@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@id/am_itg_load_progress_layout"
+        style="@style/UIItg.RecyclerLoadingMoreContainer"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@id/am_itg_load_progress_view"
+            style="@android:style/Widget.Holo.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="20dp"
+            android:minHeight="20dp" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/loading_text"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="@dimen/dp_4"-->
+        <!--            android:text="@string/brvah_loading"-->
+        <!--            android:textColor="@android:color/black"-->
+        <!--            android:textSize="@dimen/sp_14"
+                     style="@style/LoadMoreText"/>-->
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@id/am_itg_load_fail_layout"
+        style="@style/UIItg.RecyclerLoadingMoreContainer"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@id/am_itg_load_fail_text"
+            style="@style/UIItg.LoadingMoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/am_itg_loading_more_fail" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@id/am_itg_load_complete_layout"
+        style="@style/UIItg.RecyclerLoadingMoreContainer"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@id/am_itg_load_complete_layout"
+            style="@style/UIItg.LoadingMoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/am_itg_loading_more_complete" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@id/am_itg_load_no_more_layout"
+        style="@style/UIItg.RecyclerLoadingMoreContainer"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1"
+            android:background="@drawable/shape_divider_am" />
+
+        <TextView
+            android:id="@id/am_itg_load_no_more_text"
+            style="@style/UIItg.LoadingMoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:text="@string/am_itg_loading_more_no_more_data" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1"
+            android:background="@drawable/shape_divider_am" />
+    </LinearLayout>
+</FrameLayout>

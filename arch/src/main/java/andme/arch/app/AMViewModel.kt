@@ -54,7 +54,7 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
     val contextActionEvent: MutableLiveData<ContextAction> =
             MutableLiveData<ContextAction>()
 
-    internal fun unregister(owner:AMViewModelOwner) {
+    internal open fun unregister(owner:AMViewModelOwner) {
         //移除生命周期监听
         owner.getLifecycle().removeObserver(this)
         //移除常规事件监听

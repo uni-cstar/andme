@@ -1,7 +1,6 @@
 package andme.core.app
 
 import andme.core.appManagerAM
-import andme.core.initCore
 import android.app.Application
 
 /**
@@ -9,9 +8,4 @@ import android.app.Application
  */
 abstract class AMApp : Application(), AMAppManager by appManagerAM {
 
-    override fun onCreate() {
-        super.onCreate()
-        //初始化管理器
-        initCore(this)
-    }
 }

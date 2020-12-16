@@ -14,7 +14,7 @@ import java.lang.reflect.ParameterizedType
 /**
  * [AMViewModel]的事件绑定、实现等代理类
  */
-open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(internal val _owner: AMViewModelOwner) {
+open class AMViewModelOwnerDelegate<VM : AMViewModel> internal constructor(internal val _owner: AMViewModelOwner) : AMViewModelOwner by _owner {
 
     lateinit var viewModel: VM
         private set
@@ -24,7 +24,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(intern
     constructor(fragment: Fragment) : this(AMViewModelOwner.new(fragment))
 
     open fun onCreate(savedInstanceState: Bundle?, vmClass: Class<VM>) {
-        viewModel = _owner.getViewModelProvider().get(vmClass)
+        viewModel = getViewModelProvider().get(vmClass)
         initViewModelEvent(viewModel, false)
     }
 
@@ -32,7 +32,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(intern
      * @param autoBindOwnerIfMatch 如果获取的ViewModel是[AMViewModel]是否自动绑定事件，默认自动绑定
      */
     fun <T : ViewModel> obtainViewModel(clazz: Class<T>, autoBindOwnerIfMatch: Boolean = true): T {
-        return _owner.getViewModelProvider().get(clazz).also {
+        return getViewModelProvider().get(clazz).also {
             if (autoBindOwnerIfMatch && it is AMViewModel && !it.hasBindOwner) {
                 initViewModelEvent(viewModel, false)
             }
@@ -53,10 +53,10 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(intern
     }
 
     //绑定viewmodel事件
-    fun registerViewModelEvent(viewModel: AMViewModel) {
+    open fun registerViewModelEvent(viewModel: AMViewModel) {
         viewModel.hasBindOwner = true
-        _owner.getLifecycle().addObserver(viewModel)
-        val lifecycleOwner = _owner.getLifecycleOwner()
+        getLifecycle().addObserver(viewModel)
+        val lifecycleOwner = getLifecycleOwner()
         viewModel.apply {
             finishEvent.observe(lifecycleOwner, Observer {
                 onFinishByViewModel()
@@ -84,32 +84,32 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> private constructor(intern
     }
 
     //注销ViewModel事件
-    fun unregisterViewModelEvent(viewModel: AMViewModel) {
-        viewModel.unregister(_owner)
+    open fun unregisterViewModelEvent(viewModel: AMViewModel) {
+        viewModel.unregister(this)
     }
 
     protected open fun onFinishByViewModel() {
-        _owner.finish()
+        finish()
     }
 
     protected open fun onBackPressedByViewModel() {
-        _owner.onBackPressed()
+        onBackPressed()
     }
 
     protected open fun onStartActivityByViewModel(intent: Intent) {
-        _owner.startActivity(intent)
+        startActivity(intent)
     }
 
     protected open fun startActivityForResultByViewModel(intent: Intent, requestCode: Int) {
-        _owner.startActivityForResult(intent, requestCode)
+        startActivityForResult(intent, requestCode)
     }
 
     protected open fun onToastByViewModel(msg: String, length: Int) {
-        toastHandlerAM.showToast(_owner.realCtx, msg, length)
+        toastHandlerAM.showToast(realCtx, msg, length)
     }
 
     protected open fun onContextActionByViewModel(event: AMViewModel.ContextAction) {
-        event.onContextAction(_owner.realCtx)
+        event.onContextAction(realCtx)
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

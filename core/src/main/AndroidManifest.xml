@@ -1,2 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="andme.core" />
+    xmlns:tools="http://schemas.android.com/tools"
+    package="andme.core">
+
+    <application>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="andme.core.AMInitializer"
+                android:value="androidx.startup" />
+        </provider>
+    </application>
+
+</manifest>

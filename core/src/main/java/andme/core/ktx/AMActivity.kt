@@ -17,15 +17,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModelProvider
 
-/**
- * 获取与自己生命周期相关的ViewModel
- */
-inline fun <reified T : AndroidViewModel> FragmentActivity.obtainViewModel(): T {
-    return ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
-    ).get(T::class.java)
-}
 
 /**
  * 快速运行一个Activity

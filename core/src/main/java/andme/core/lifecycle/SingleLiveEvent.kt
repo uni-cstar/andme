@@ -47,8 +47,8 @@ open class SingleLiveEvent<T> : MutableLiveData<T> {
 
         if (hasActiveObservers()) {
             Log.w(
-                "SingleLiveEvent",
-                "Multiple observers registered but only one will be notified of changes."
+                    "SingleLiveEvent",
+                    "Multiple observers registered but only one will be notified of changes."
             )
         }
 
@@ -69,8 +69,15 @@ open class SingleLiveEvent<T> : MutableLiveData<T> {
     /**
      * Used for cases where T is Void, to make calls cleaner.
      */
+    @JvmOverloads
     @MainThread
-    fun call() {
-        value = null
+    fun call(t: T? = null) {
+        value = t
     }
+
+    @JvmOverloads
+    fun postCall(t: T? = null) {
+        postValue(t)
+    }
+
 }

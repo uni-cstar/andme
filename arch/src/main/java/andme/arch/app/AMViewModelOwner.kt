@@ -13,68 +13,62 @@ import androidx.lifecycle.ViewModelProvider
  * Created by Lucio on 2020-11-02.
  */
 
-abstract class AMViewModelOwner: AMAnonyContext {
+interface AMViewModelOwner : AMAnonyContext {
 
-    abstract fun getLifecycle(): Lifecycle
+    fun getLifecycle(): Lifecycle
 
-    abstract fun getLifecycleOwner(): LifecycleOwner
+    fun getLifecycleOwner(): LifecycleOwner
 
-    abstract fun getViewModelProvider(): ViewModelProvider
+    fun getViewModelProvider(): ViewModelProvider
 
-    abstract fun finish()
+    fun finish()
 
-    abstract fun onBackPressed()
-
+    fun onBackPressed()
 
     companion object {
 
         fun new(activity: ComponentActivity): AMViewModelOwner {
-           return object : AMViewModelOwner() {
-               override val realCtx: Context
-                   get() = activity
+            return object : AMViewModelOwner {
 
-               override fun getLifecycle(): Lifecycle {
-                   return activity.lifecycle
-               }
+                override val realCtx: Context
+                    get() = activity
 
-               override fun getLifecycleOwner(): LifecycleOwner {
-                   return activity
-               }
+                override fun getLifecycle(): Lifecycle = activity.lifecycle
 
-               override fun getViewModelProvider(): ViewModelProvider {
-                   return ViewModelProvider(
-                       activity,
-                       ViewModelProvider.AndroidViewModelFactory.getInstance(activity.application)
-                   )
-               }
+                override fun getLifecycleOwner(): LifecycleOwner = activity
 
-               override fun finish() {
-                   activity.finish()
-               }
+                override fun getViewModelProvider(): ViewModelProvider {
+                    return ViewModelProvider(
+                            activity,
+                            ViewModelProvider.AndroidViewModelFactory.getInstance(activity.application)
+                    )
+                }
 
-               override fun onBackPressed() {
-                   activity.onBackPressed()
-               }
 
-               override fun startActivity(intent: Intent) {
-                   activity.startActivity(intent)
-               }
+                override fun finish() {
+                    activity.finish()
+                }
 
-               override fun startActivityForResult(intent: Intent, requestCode: Int) {
-                   activity.startActivityForResult(intent,requestCode)
-               }
-           }
+                override fun onBackPressed() {
+                    activity.onBackPressed()
+                }
+
+                override fun startActivity(intent: Intent) {
+                    activity.startActivity(intent)
+                }
+
+                override fun startActivityForResult(intent: Intent, requestCode: Int) {
+                    activity.startActivityForResult(intent, requestCode)
+                }
+            }
         }
 
         fun new(fragment: Fragment): AMViewModelOwner {
-            return object: AMViewModelOwner() {
-                override fun getLifecycle(): Lifecycle {
-                    return fragment.lifecycle
-                }
+            return object : AMViewModelOwner {
 
-                override fun getLifecycleOwner(): LifecycleOwner {
-                    return fragment
-                }
+                override fun getLifecycle(): Lifecycle = fragment.lifecycle
+
+                override fun getLifecycleOwner(): LifecycleOwner = fragment
 
                 override fun getViewModelProvider(): ViewModelProvider {
                     return ViewModelProvider(
@@ -97,11 +91,9 @@ abstract class AMViewModelOwner: AMAnonyContext {
                 override fun startActivity(intent: Intent) {
                     fragment.startActivity(intent)
                 }
-
                 override fun startActivityForResult(intent: Intent, requestCode: Int) {
-                    fragment.startActivityForResult(intent,requestCode)
+                    fragment.startActivityForResult(intent, requestCode)
                 }
-
             }
         }
     }
