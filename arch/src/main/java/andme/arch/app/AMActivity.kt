@@ -1,5 +1,7 @@
 package andme.arch.app
 
+import andme.arch.refresh.AMRefreshLayoutProvider
+import andme.arch.refresh.AMViewModelRefreshableOwnerDelegate
 import andme.core.activity.AMBackPressedDispatcher
 import andme.core.activity.AMBackPressedOwner
 import andme.core.exception.tryCatch
@@ -22,7 +24,13 @@ import androidx.lifecycle.ViewModelProvider
     //主ViewModel
     protected val viewModel: VM get() = viewModelDelegate.viewModel
 
-    internal open val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelOwnerDelegate<VM>(this)
+    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> by lazy {
+        if(this is AMRefreshLayoutProvider){
+            AMViewModelRefreshableOwnerDelegate<VM>(this,this)
+        }else{
+            AMViewModelOwnerDelegate<VM>(this)
+        }
+    }
 
     //返回键分发器
     private val _backPressedDispatcher = AMBackPressedDispatcher(this)

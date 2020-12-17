@@ -1,5 +1,7 @@
 package andme.arch.app
 
+import andme.arch.refresh.AMRefreshLayoutProvider
+import andme.arch.refresh.AMViewModelRefreshableOwnerDelegate
 import andme.core.activity.AMBackPressedCallback
 import andme.core.activity.AMBackPressedOwner
 import andme.core.ktx.removeSelf
@@ -26,8 +28,13 @@ import androidx.lifecycle.ViewModelProvider
     @JvmField
     protected var contentView: View? = null
 
-    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> =
+    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> by lazy {
+        if(this is AMRefreshLayoutProvider){
+            AMViewModelRefreshableOwnerDelegate<VM>(this,this)
+        }else{
             AMViewModelOwnerDelegate<VM>(this)
+        }
+    }
 
     //主ViewModel
     protected val viewModel: VM get() = viewModelDelegate.viewModel

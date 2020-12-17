@@ -12,7 +12,7 @@ import java.lang.reflect.ParameterizedType
 /**
  * [AMViewModel]的事件绑定、实现等代理类
  */
-open class AMViewModelOwnerDelegate<VM : AMViewModel> constructor(open val realOwner: AMViewModelOwner) : AMViewModelOwner by realOwner {
+open class AMViewModelOwnerDelegate<VM : ViewModel> constructor(open val realOwner: AMViewModelOwner) : AMViewModelOwner by realOwner {
 
     lateinit var viewModel: VM
         private set
@@ -37,7 +37,10 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> constructor(open val realO
      * 初始化viewmodel相关事件
      * @param removePrevious 是否在绑定事件之前先调用移除方法，避免多次绑定
      */
-    protected open fun initViewModelEvent(viewModel: AMViewModel, removePrevious: Boolean = true) {
+    protected open fun initViewModelEvent(viewModel: ViewModel, removePrevious: Boolean = true) {
+
+        if (viewModel !is AMViewModel)
+            return
         //先移除观察，避免重复绑定
         this.runOnTrue(removePrevious) {
             unregisterViewModelEvent(viewModel)
@@ -107,7 +110,7 @@ open class AMViewModelOwnerDelegate<VM : AMViewModel> constructor(open val realO
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        viewModel.onActivityResult(requestCode, resultCode, data)
+        (viewModel as? AMViewModel)?.onActivityResult(requestCode, resultCode, data)
     }
 
     companion object {

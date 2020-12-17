@@ -8,6 +8,6 @@ import andme.arch.app.AMViewModelOwnerDelegate
  */
 abstract class AMRefreshableFragment<VM : AMRefreshableViewModel> : AMFragment<VM>(), AMRefreshableViewModelOwner {
 
-    override val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelRefreshableOwnerDelegate<VM>(this)
+    override val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelRefreshableOwnerDelegate<VM>(this,this)
 
 }
