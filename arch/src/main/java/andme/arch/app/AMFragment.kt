@@ -1,5 +1,7 @@
 package andme.arch.app
 
+import andme.arch.refresh.AMLoadMoreLayout
+import andme.arch.refresh.AMRefreshLayout
 import andme.arch.refresh.AMRefreshLayoutProvider
 import andme.arch.refresh.AMViewModelRefreshableOwnerDelegate
 import andme.core.activity.AMBackPressedCallback
@@ -23,18 +25,12 @@ import androidx.lifecycle.ViewModelProvider
  * Fragment基类
  *  支持：主viewmodel支持、返回键事件拦截处理、view缓存处理
  */
- abstract class AMFragment<VM : AMViewModel> : Fragment(),AMViewModelOwner {
+ abstract class AMFragment<VM : AMViewModel> : Fragment(),AMViewModelOwner,AMRefreshLayoutProvider {
 
     @JvmField
     protected var contentView: View? = null
 
-    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> by lazy {
-        if(this is AMRefreshLayoutProvider){
-            AMViewModelRefreshableOwnerDelegate<VM>(this,this)
-        }else{
-            AMViewModelOwnerDelegate<VM>(this)
-        }
-    }
+    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> =  AMViewModelRefreshableOwnerDelegate<VM>(this,this)
 
     //主ViewModel
     protected val viewModel: VM get() = viewModelDelegate.viewModel
@@ -237,4 +233,43 @@ import androidx.lifecycle.ViewModelProvider
     override val realCtx: Context
         get() = requireContext()
 
+    /*********refresh support*************/
+
+    override fun getRefreshLayout(): AMRefreshLayout? {
+        return null
+    }
+
+    override fun getLoadMoreLayout(): AMLoadMoreLayout? {
+        return null
+    }
+
+    private fun setEnableRefresh(onRefresh: AMRefreshLayout.OnRefreshListenerAM) {
+        val refreshLayout = getRefreshLayout() ?: throw IllegalStateException("请先返回刷新布局")
+        refreshLayout.enableRefreshAM = true
+        refreshLayout.setOnRefreshListenerAM(onRefresh)
+    }
+
+    private fun setEnableLoadMore(onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM) {
+        val loadMoreLayout = getLoadMoreLayout()
+                ?: throw IllegalStateException("请通过getLoadMoreLayout方法返回加载更多的布局")
+        loadMoreLayout.enableLoadMoreAM = true
+        loadMoreLayout.setOnLoadMoreListenerAM(onLoadMore)
+    }
+
+    fun initLoadMoreOnly(onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM){
+        getRefreshLayout()?.enableRefreshAM = false
+        setEnableLoadMore(onLoadMore)
+    }
+
+    fun initRefreshOnly(onRefresh: AMRefreshLayout.OnRefreshListenerAM) {
+        setEnableRefresh(onRefresh)
+        getLoadMoreLayout()?.enableLoadMoreAM = false
+    }
+
+    fun initRefreshAndLoadMore(onRefresh: AMRefreshLayout.OnRefreshListenerAM, onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM) {
+        setEnableRefresh(onRefresh)
+        setEnableLoadMore(onLoadMore)
+    }
+
+    /***********refresh support***************/
 }

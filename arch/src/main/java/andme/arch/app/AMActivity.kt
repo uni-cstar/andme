@@ -1,5 +1,7 @@
 package andme.arch.app
 
+import andme.arch.refresh.AMLoadMoreLayout
+import andme.arch.refresh.AMRefreshLayout
 import andme.arch.refresh.AMRefreshLayoutProvider
 import andme.arch.refresh.AMViewModelRefreshableOwnerDelegate
 import andme.core.activity.AMBackPressedDispatcher
@@ -17,20 +19,14 @@ import androidx.lifecycle.ViewModelProvider
  * Created by Lucio on 2020/11/1.
  * 提供功能：基础ViewModel支持（常规UI事件、生命周期绑定等）、返回键事件分发，状态栏控制等
  */
- abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressedOwner ,AMViewModelOwner{
+abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressedOwner, AMViewModelOwner, AMRefreshLayoutProvider {
 
     protected inline val activity: AMActivity<VM> get() = this
 
     //主ViewModel
     protected val viewModel: VM get() = viewModelDelegate.viewModel
 
-    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> by lazy {
-        if(this is AMRefreshLayoutProvider){
-            AMViewModelRefreshableOwnerDelegate<VM>(this,this)
-        }else{
-            AMViewModelOwnerDelegate<VM>(this)
-        }
-    }
+    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelRefreshableOwnerDelegate<VM>(this, this)
 
     //返回键分发器
     private val _backPressedDispatcher = AMBackPressedDispatcher(this)
@@ -49,7 +45,7 @@ import androidx.lifecycle.ViewModelProvider
      * @param autoBindOwnerIfMatch 如果获取的ViewModel是[AMViewModel]是否自动绑定事件，默认自动绑定
      */
     fun <T : ViewModel> obtainViewModel(clazz: Class<T>, autoBindOwnerIfMatch: Boolean = true): T {
-        return this.viewModelDelegate.obtainViewModel(clazz,autoBindOwnerIfMatch)
+        return this.viewModelDelegate.obtainViewModel(clazz, autoBindOwnerIfMatch)
     }
 
     /**
@@ -118,95 +114,44 @@ import androidx.lifecycle.ViewModelProvider
                 ViewModelProvider.AndroidViewModelFactory.getInstance(this.application)
         )
     }
-//
-//    protected open val defaultStatusBarAlpha: Int = amStatusBar.defaultStatusBarAlpha
-//
-//    /**
-//     * 设置状态栏模式为浅色模式（背景浅色，文字图标则为暗色-黑色）
-//     */
-//    open fun setStatusBarLightMode() {
-//        amStatusBar.setStatusBarLightMode(this)
-//    }
-//
-//    /**
-//     * 设置状态栏为暗色模式（默认即为暗色模式，深色背景，文字图标为浅色-白色）
-//     */
-//    open fun setStatusBarDarkMode() {
-//        amStatusBar.setStatusBarDarkMode(this)
-//    }
-//
-//    /**
-//     * 设置状态栏颜色
-//     *
-//     * @param activity       需要设置的activity
-//     * @param color          状态栏颜色值
-//     * @param alpha 状态栏透明度
-//     */
-//    @JvmOverloads
-//    open fun setStatusBarColor(
-//        @ColorInt color: Int,
-//        @androidx.annotation.IntRange(from = 0, to = 255) alpha: Int = defaultStatusBarAlpha
-//    ) {
-//        amStatusBar.setStatusBarColor(this, color, alpha)
-//    }
-//
-//    @JvmOverloads
-//    fun setStatusBarTransparent(needOffsetView: View? = null) {
-//        amStatusBar.setStatusBarTransparent(this, needOffsetView)
-//    }
-//
-//    /**
-//     * 为头部是 ImageView 的界面设置状态栏透明
-//     *
-//     * @param activity       需要设置的activity
-//     * @param alpha 状态栏透明度
-//     * @param needOffsetView 需要向下偏移的 View
-//     */
-//    @JvmOverloads
-//    fun setStatusBarTranslucent(
-//        @androidx.annotation.IntRange(from = 0, to = 255) alpha: Int = defaultStatusBarAlpha,
-//        needOffsetView: View? = null
-//    ) {
-//        amStatusBar.setStatusBarTranslucent(this, alpha, needOffsetView)
-//    }
-//
-//    @JvmOverloads
-//    fun setStatusBarTransparentInFragment(needOffsetView: View? = null) {
-//        amStatusBar.setStatusBarTransparentInFragment(this, needOffsetView)
-//    }
-//
-//    /**
-//     * 为 fragment 头部是 ImageView 的设置状态栏透明
-//     *
-//     * @param activity       fragment 对应的 activity
-//     * @param alpha 状态栏透明度
-//     * @param needOffsetView 需要向下偏移的 View
-//     */
-//    @JvmOverloads
-//    fun setStatusBarTranslucentInFragment(
-//        @androidx.annotation.IntRange(from = 0, to = 255) alpha: Int = defaultStatusBarAlpha,
-//        needOffsetView: View? = null
-//    ) {
-//        amStatusBar.setStatusBarTranslucentInFragment(this, alpha, needOffsetView)
-//    }
 
-//    /**
-//     * 快速运行一个Activity
-//     */
-//    fun startActivity(clazz: Class<out Fragment>, args: Bundle? = null) {
-//        val colorPrimaryDark = getThemeColor(R.attr.colorPrimaryDark)
-//        val it = AMContainerActivity.Builder(this, clazz)
-//            .setFragmentArgument(args)
-//            .setStatusBarColor(colorPrimaryDark)
-//            .build()
-//        startActivity(it)
-//    }
-//
-//    protected fun getThemeColor(@AttrRes attr: Int): Int {
-//        val typedValue = TypedValue()
-//        theme.resolveAttribute(attr, typedValue, true)
-//        return typedValue.data
-//    }
+    /*********refresh support*************/
 
+    override fun getRefreshLayout(): AMRefreshLayout? {
+        return null
+    }
 
+    override fun getLoadMoreLayout(): AMLoadMoreLayout? {
+        return null
+    }
+
+    private fun setEnableRefresh(onRefresh: AMRefreshLayout.OnRefreshListenerAM) {
+        val refreshLayout = getRefreshLayout() ?: throw IllegalStateException("请先返回刷新布局")
+        refreshLayout.enableRefreshAM = true
+        refreshLayout.setOnRefreshListenerAM(onRefresh)
+    }
+
+    private fun setEnableLoadMore(onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM) {
+        val loadMoreLayout = getLoadMoreLayout()
+                ?: throw IllegalStateException("请通过getLoadMoreLayout方法返回加载更多的布局")
+        loadMoreLayout.enableLoadMoreAM = true
+        loadMoreLayout.setOnLoadMoreListenerAM(onLoadMore)
+    }
+
+    fun initLoadMoreOnly(onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM){
+        getRefreshLayout()?.enableRefreshAM = false
+        setEnableLoadMore(onLoadMore)
+    }
+
+    fun initRefreshOnly(onRefresh: AMRefreshLayout.OnRefreshListenerAM) {
+        setEnableRefresh(onRefresh)
+        getLoadMoreLayout()?.enableLoadMoreAM = false
+    }
+
+    fun initRefreshAndLoadMore(onRefresh: AMRefreshLayout.OnRefreshListenerAM, onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM) {
+        setEnableRefresh(onRefresh)
+        setEnableLoadMore(onLoadMore)
+    }
+
+    /***********refresh support***************/
 }

@@ -3,4 +3,7 @@
 
     <item name="am_id_fragment_container" type="id" />
 
+
+    <item name="am_id_recycler" type="id"/>
+
 </resources>

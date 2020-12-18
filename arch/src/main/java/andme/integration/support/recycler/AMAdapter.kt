@@ -2,6 +2,7 @@ package andme.integration.support.recycler
 
 import andme.core.content.layoutInflater
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 
 /**
@@ -35,7 +36,17 @@ abstract class AMAdapter<T, VH : AMViewHolder<T>> @JvmOverloads constructor(
         removeAt(index)
     }
 
-    override fun convert(holder: VH, item: T) {
+    override fun onCreateDefViewHolder(parent: ViewGroup, viewType: Int): VH {
+        return onCreateCustomViewHolder(inflater, parent, viewType)
+    }
+
+    abstract fun onCreateCustomViewHolder(inflater: LayoutInflater,parent: ViewGroup,viewType: Int):VH
+
+    protected open fun onBindCustomViewHolder(holder: VH,item: T){
         holder.bindValue(item)
+    }
+
+    override fun convert(holder: VH, item: T) {
+        onBindCustomViewHolder(holder, item)
     }
 }

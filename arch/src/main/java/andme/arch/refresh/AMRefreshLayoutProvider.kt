@@ -5,5 +5,7 @@ package andme.arch.refresh
  */
 interface AMRefreshLayoutProvider {
 
-    fun getRefreshLayout(): AMRefreshLayout
+    fun getRefreshLayout(): AMRefreshLayout?
+
+    fun getLoadMoreLayout(): AMLoadMoreLayout?
 }

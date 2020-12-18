@@ -20,29 +20,27 @@ class AMViewModelRefreshableOwnerDelegate<VM : ViewModel>(val refreshLayoutProvi
 
     private val refreshLayout get() = refreshLayoutProvider.getRefreshLayout()
 
+    private val loadMoreLayout get() = refreshLayoutProvider.getLoadMoreLayout()
+
     protected open fun registerRefreshEvent(viewModel: AMRefreshableViewModel) {
         viewModel.refreshSuccessEvent.observe(this, {
-            refreshLayout.onRefreshSuccess()
-        })
-
-        viewModel.refreshSuccessEvent2.observe(this, {
-            refreshLayout.onRefreshSuccess(it)
+            refreshLayout?.onRefreshSuccessAM()
         })
 
         viewModel.refreshFailEvent.observe(this, {
-            refreshLayout.onRefreshFail(it)
+            refreshLayout?.onRefreshFailAM(it)
         })
 
         viewModel.loadMoreSuccessEvent.observe(this, {
-            refreshLayout.onLoadMoreSuccess(it)
+            loadMoreLayout?.onLoadMoreSuccessAM(it)
         })
 
         viewModel.loadMoreFailEvent.observe(this, {
-            refreshLayout.onLoadMoreFail(it)
+            loadMoreLayout?.onLoadMoreFailAM(it)
         })
 
         viewModel.hasMoreEvent.observe(this, {
-            refreshLayout.setHasMore(it)
+            loadMoreLayout?.setHasMoreAM(it)
         })
     }
 

@@ -13,6 +13,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Created by Lucio on 2020-11-01.
@@ -27,7 +28,7 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
      * ViewModel是否已绑定到所有者：即已经注册了事件
      */
     @Volatile
-    internal var hasBindOwner:Boolean = false
+    internal var hasBindOwner: Boolean = false
 
     /**
      * 与Context操作相关的行为回调接口
@@ -54,7 +55,7 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
     val contextActionEvent: MutableLiveData<ContextAction> =
             MutableLiveData<ContextAction>()
 
-    internal open fun unregister(owner:AMViewModelOwner) {
+    internal open fun unregister(owner: AMViewModelOwner) {
         //移除生命周期监听
         owner.getLifecycle().removeObserver(this)
         //移除常规事件监听
@@ -180,7 +181,15 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         ControlledRunner<Any?>()
     }
 
-    suspend fun <T> launchAndCancelPrevious(func: suspend () -> T): T {
-        return cancelPreviousRunner.cancelPreviousThenRun(func) as T
+    private val runnerMap: ConcurrentHashMap<String, ControlledRunner<Any?>> = ConcurrentHashMap()
+
+    @Synchronized
+    suspend fun <T> launchAndCancelPrevious(key: String, func: suspend () -> T): T {
+        var runner = runnerMap[key]
+        if (runner == null) {
+            runner = ControlledRunner<Any?>()
+            runnerMap[key] = runner
+        }
+        return runner.cancelPreviousThenRun(func) as T
     }
 }

@@ -59,6 +59,19 @@ inline fun View.tryUi(action: () -> Unit): Throwable? {
     return context.tryUi(action)
 }
 
+inline fun View.tryUiWithEnable(action: () -> Unit): Throwable? {
+    return try {
+        isEnabled = false
+        action()
+        null
+    } catch (e: Exception) {
+        exceptionHandlerAM.handleUIException(context, e)
+        e
+    } finally {
+        isEnabled = true
+    }
+}
+
 inline fun Fragment.tryUi(action: () -> Unit): Throwable? {
     return context?.tryUi(action)
 }
