@@ -1,8 +1,10 @@
 package andme.arch.refresh.scene
 
 import andme.arch.refresh.AMRefreshLayout
+import andme.core.exception.tryCatch
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 
@@ -13,6 +15,33 @@ open class AMSwipeRefreshLayout : SwipeRefreshLayout, AMRefreshLayout {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+
+    private var mListener:OnRefreshListener? = null
+
+    override fun autoRefresh(delay: Long) {
+        if(isRefreshingAM){
+            Log.w("AMWarn","已经处于刷新中,忽略刷新请求")
+            return
+        }
+        if (delay > 0) {
+            postDelayed({
+                tryCatch {
+                    if(isRefreshingAM){
+                        Log.w("AMWarn","已经处于刷新中,忽略刷新请求")
+                        return@postDelayed
+                    }
+                    invokeRefreshRequest()
+                }
+            }, delay)
+        }else{
+            invokeRefreshRequest()
+        }
+    }
+
+    private fun invokeRefreshRequest(){
+        isRefreshingAM = true
+        mListener?.onRefresh()
+    }
 
     override fun onRefreshSuccessAM() {
         finishRefreshing()
@@ -35,7 +64,9 @@ open class AMSwipeRefreshLayout : SwipeRefreshLayout, AMRefreshLayout {
         }
 
     override fun setOnRefreshListenerAM(listener: AMRefreshLayout.OnRefreshListenerAM?) {
-        setOnRefreshListener(createRefreshListener(listener))
+        val listenerWrapper = createRefreshListener(listener)
+        setOnRefreshListener(listenerWrapper)
+        mListener = listenerWrapper
     }
 
     private fun createRefreshListener(listener: AMRefreshLayout.OnRefreshListenerAM?): OnRefreshListener? {

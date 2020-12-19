@@ -6,6 +6,11 @@ package andme.arch.refresh
 interface AMRefreshLayout {
 
     /**
+     * 开启刷新
+     */
+    fun autoRefresh(delay:Long = 0)
+
+    /**
      * 刷新成功
      */
     fun onRefreshSuccessAM()

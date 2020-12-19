@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.module.LoadMoreModule
  * Created by Lucio on 2020/12/16.
  */
 
-private  val DEFAULT_LOAD_MORE_VIEW = AMLoadMoreView()
+private val DEFAULT_LOAD_MORE_VIEW = AMLoadMoreView()
 
 abstract class AMLoadableAdapter<T, VH : AMViewHolder<T>> @JvmOverloads constructor(
         layoutResId: Int,
@@ -20,4 +20,14 @@ abstract class AMLoadableAdapter<T, VH : AMViewHolder<T>> @JvmOverloads construc
         loadMoreModule.isEnableLoadMoreIfNotFullPage = false
     }
 
+    /**
+     * 替换所有数据
+     */
+    fun replaceAll(data: List<T>?) {
+        if (data.isNullOrEmpty()) {
+            setNewInstance(null)
+        } else {
+            setNewInstance(data.toMutableList())
+        }
+    }
 }
