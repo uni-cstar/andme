@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:gravity="center"
+    tools:parentTag="android.widget.FrameLayout">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/am_empty_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:divider="@drawable/am_img_empty_middle_margin"
+        app:showDividers="middle">
+
+        <ImageView
+            android:id="@+id/am_empty_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/am_img_empty"
+            app:tint="?textColorCaption" />
+
+        <TextView
+            android:id="@+id/am_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="什么都没有～"
+            android:textAppearance="@style/Text.Caption" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</merge>
