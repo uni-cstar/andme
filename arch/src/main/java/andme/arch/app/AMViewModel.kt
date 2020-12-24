@@ -3,7 +3,7 @@ package andme.arch.app
 import andme.core.dialogHandlerAM
 import andme.core.lifecycle.SingleEvent
 import andme.core.lifecycle.SingleLiveEvent
-import andme.core.support.ui.AMDialog
+import andme.core.support.ui.AMProgressDialog
 import andme.lang.Note
 import andme.lang.coroutines.ControlledRunner
 import android.app.Application
@@ -37,7 +37,7 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         fun onContextAction(ctx: Context)
     }
 
-    protected var loadingDialog: AMDialog? = null
+    protected var loadingDialog: AMProgressDialog? = null
         private set
 
     val finishEvent: SingleEvent = SingleEvent()
@@ -143,6 +143,15 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         invokeContextAction {
             loadingDialog = dialogHandlerAM.showLoading(it, message)
         }
+    }
+
+    @MainThread
+    fun setLoadingMessage(message: String) {
+        if (loadingDialog == null) {
+            log("setLoadingMessage fail，loading dialog is null,please call showLoading method first.")
+            return
+        }
+        loadingDialog?.setMessage(message)
     }
 
     @MainThread

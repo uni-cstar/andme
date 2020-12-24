@@ -1,6 +1,7 @@
 package andme.integration.support.media
 
 import andme.integration.media.PictureSelector
+import andme.integration.media.MediaFile
 import android.app.Activity
 import android.content.Intent
 import androidx.fragment.app.Fragment
@@ -76,7 +77,7 @@ internal class PictureSelectorImpl : PictureSelector {
         realSelector.forResult(requestCode)
     }
 
-    override fun parseResult(data: Intent?): List<Result>? {
+    override fun parseResult(data: Intent?): List<MediaFile>? {
         return LibPicSelector.obtainMultipleResult(data)
                 ?.map {
                     PictureSelectorResult(it)

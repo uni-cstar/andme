@@ -103,7 +103,7 @@ object GlideImageLoader : ImageLoader {
     }
 
 
-    fun loadCenterCropCircleImage(
+    fun loadCircleImage(
             imageView: ImageView, url: String?,
             @DrawableRes placeHolder: Int
     ) {
@@ -113,14 +113,14 @@ object GlideImageLoader : ImageLoader {
         Glide.with(imageView)
                 .load(url)
                 .thumbnail(placeHolderLoader)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(CenterCrop(), CircleCrop())
                 .into(imageView)
     }
 
-    fun loadCenterCropRoundedImage(
+    fun loadRoundedImage(
             imageView: ImageView,
-            url: String?, @DrawableRes placeHolder: Int,
+            url: String?,
+            @DrawableRes placeHolder: Int,
             roundingRadius: Int
     ) {
         val placeHolderLoader = Glide.with(imageView)
@@ -129,14 +129,14 @@ object GlideImageLoader : ImageLoader {
         Glide.with(imageView)
                 .load(url)
                 .thumbnail(placeHolderLoader)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(CenterCrop(), RoundedCorners(roundingRadius))
                 .into(imageView)
     }
 
-    fun loadCenterCropRoundedImage(
+    fun loadRoundedImage(
             imageView: ImageView,
-            url: String?, placeHolder: Drawable,
+            url: String?,
+            placeHolder: Drawable,
             roundingRadius: Int
     ) {
         val placeHolderLoader = Glide.with(imageView)
@@ -145,8 +145,9 @@ object GlideImageLoader : ImageLoader {
         Glide.with(imageView)
                 .load(url)
                 .thumbnail(placeHolderLoader)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(CenterCrop(), RoundedCorners(roundingRadius))
                 .into(imageView)
     }
+
+
 }

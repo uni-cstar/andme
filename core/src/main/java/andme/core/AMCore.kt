@@ -10,7 +10,6 @@ import andme.core.app.internal.AppManagerImpl
 import andme.core.content.syncResourcesValues
 import andme.core.exception.CommonExceptionHandler
 import andme.core.exception.ExceptionHandler
-import andme.lang.orDefault
 import andme.core.support.io.AMStorage
 import andme.core.support.io.AMStorageImpl
 import andme.core.support.ui.DefaultDialogHandler
@@ -22,9 +21,9 @@ import andme.core.sysui.AMSystemUIImpl
 import andme.integration.imageloader.GlideImageLoader
 import andme.integration.imageloader.ImageLoader
 import andme.integration.media.MediaStore
+import andme.lang.orDefault
 import android.app.Application
 import android.content.Context
-import android.graphics.Color
 
 lateinit var mApp: Context
 

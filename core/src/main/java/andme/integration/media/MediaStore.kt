@@ -39,7 +39,7 @@ interface MediaStore {
     fun circlePicSelector(activity: Activity, maxSize: Int = 240): PictureSelector
 
     /**
-     * 正方形头像图片选择器
+     * 圆形头像图片选择器
      */
     
     fun circlePicSelector(fragment: Fragment, maxSize: Int = 240): PictureSelector

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
  * Created by Lucio on 2020-11-02.
  */
 
-fun Context.showLoading(message: CharSequence): AMDialog {
+fun Context.showLoading(message: CharSequence): AMProgressDialog {
     return dialogHandlerAM.showLoading(this, message)
 }
 
@@ -50,7 +50,7 @@ fun Context.showAlertDialog(
 }
 
 
-fun Fragment.showLoading(message: CharSequence): AMDialog {
+fun Fragment.showLoading(message: CharSequence): AMProgressDialog {
     return requireContext().showLoading(message)
 }
 
@@ -89,7 +89,7 @@ fun Fragment.showAlertDialog(
 }
 
 
-fun View.showLoading(message: CharSequence): AMDialog {
+fun View.showLoading(message: CharSequence): AMProgressDialog {
     return context.showLoading(message)
 }
 

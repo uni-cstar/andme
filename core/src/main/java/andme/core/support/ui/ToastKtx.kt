@@ -18,7 +18,6 @@ fun Context.toast(msg: String, length: Int) {
     toastHandlerAM.showToast(this, msg, length)
 }
 
-
 fun Fragment.toast(msg: String) {
     activity?.let {
         toastHandlerAM.showToast(it, msg)

@@ -24,14 +24,19 @@ android {
 
 dependencies {
 
-    def kotlin_version = '1.4.10'
+    def kotlin_version = '1.4.20'
     def lifecycle_version = "2.2.0"
     def retrofit_version = "2.9.0"
     def okhttp3_version = "4.9.0"
     def glide_version = "4.11.0"
 
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    /*Kotlin*/
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    /*Kotlin-协程
+    * https://github.com/hltj/kotlinx.coroutines-cn/blob/master/README.md#using-in-your-projects
+    * */
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

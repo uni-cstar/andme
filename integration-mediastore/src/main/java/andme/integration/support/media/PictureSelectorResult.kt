@@ -1,12 +1,12 @@
 package andme.integration.support.media
 
-import andme.integration.media.PictureSelector
+import andme.integration.media.MediaFile
 import com.luck.picture.lib.entity.LocalMedia
 
 /**
  * Created by Lucio on 2020-11-11.
  */
-class PictureSelectorResult(val real: LocalMedia) : PictureSelector.Result() {
+class PictureSelectorResult(val real: LocalMedia) : MediaFile() {
 
     override val filePath: String?
         get() = real.path
