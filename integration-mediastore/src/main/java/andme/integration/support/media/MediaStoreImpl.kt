@@ -2,6 +2,7 @@ package andme.integration.support.media
 
 import andme.integration.media.MediaStore
 import andme.integration.media.PictureSelector
+import andme.integration.support.media.pictureselector.PictureSelectorImpl
 import android.app.Activity
 import androidx.annotation.IntRange
 import androidx.fragment.app.Fragment
@@ -10,7 +11,7 @@ import com.luck.picture.lib.engine.ImageEngine
 /**
  * Created by Lucio on 2020-11-10.
  */
-class MediaStoreImpl : MediaStore {
+open class MediaStoreImpl : MediaStore {
 
     /**
      * 单图选择器
@@ -43,7 +44,7 @@ class MediaStoreImpl : MediaStore {
     }
 
     /**
-     * 正方形头像图片选择器
+     * 单图选择器:正方形图片选择器
      * @param maxSize 图片大小限制
      */
     override fun squarePicSelector(activity: Activity, maxSize: Int): PictureSelector {
@@ -53,7 +54,7 @@ class MediaStoreImpl : MediaStore {
     }
 
     /**
-     * 正方形头像图片选择器
+     * 单图选择器:正方形图片选择器
      * @param maxSize 图片大小限制
      */
     override fun squarePicSelector(fragment: Fragment, maxSize: Int): PictureSelector {
@@ -63,7 +64,7 @@ class MediaStoreImpl : MediaStore {
     }
 
     /**
-     * 圆形头像图片选择器
+     * 单图选择器:圆形图片选择器
      * @param maxSize 图片大小限制
      */
     override fun circlePicSelector(activity: Activity, maxSize: Int): PictureSelector {
@@ -73,7 +74,7 @@ class MediaStoreImpl : MediaStore {
     }
 
     /**
-     * 正方形头像图片选择器
+     * 单图选择器:圆形图片选择器
      */
 
     override fun circlePicSelector(fragment: Fragment, maxSize: Int): PictureSelector {
@@ -98,15 +99,13 @@ class MediaStoreImpl : MediaStore {
      * @param minSelectCount 最少选择数量
      * @param maxSelectCount 最多选择数量
      */
-
     override fun multiPicSelector(fragment: Fragment, @IntRange(from = 0, to = Long.MAX_VALUE) minSelectCount: Int,
                                   @IntRange(from = 0, to = Long.MAX_VALUE) maxSelectCount: Int): PictureSelector {
         return PictureSelectorImpl(fragment, false, minSelectCount, maxSelectCount)
     }
 
-
     // 默认配置
-    object Config {
+    object DefaultPictureSelectorConfig {
 
         /**
          * 每行显示个数

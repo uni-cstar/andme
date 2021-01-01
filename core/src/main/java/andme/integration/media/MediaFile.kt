@@ -1,5 +1,8 @@
 package andme.integration.media
 
+/**
+ * 媒体文件：图片选取或拍照返回的结果
+ */
 abstract class MediaFile {
     /**
      * 文件路径

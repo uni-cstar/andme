@@ -35,6 +35,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
-    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.9'
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
     implementation project(path: ':core')
 }

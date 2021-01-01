@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 
 /**
  * Created by Lucio on 2020-11-10.
+ * 图片选取/拍摄支持
  */
 interface MediaStore {
     /**

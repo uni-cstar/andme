@@ -10,7 +10,8 @@ import java.lang.ref.SoftReference
  * Created by Lucio on 2020-11-09.
  * 图片选择器
  * @param isSingle 是否选择单图
- * @param maxCount 支持选择的最大个数
+ * @param minSelectCount 支持选择的最小个数
+ * @param maxSelectCount 支持选择的最大个数
  */
 abstract class PictureSelector private constructor(val isSingle: Boolean, val minSelectCount: Int, val maxSelectCount: Int) {
 

@@ -1,4 +1,7 @@
-#PictureSelector 2.0
+
+#图片选取/拍照/预览库
+#PictureSelector
+#https://github.com/LuckSiege/PictureSelector/blob/master/README_CN.md
 -keep class com.luck.picture.lib.** { *; }
 
 #Ucrop

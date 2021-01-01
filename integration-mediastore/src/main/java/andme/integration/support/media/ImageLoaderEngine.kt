@@ -10,7 +10,7 @@ import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView
 /**
  * Created by Lucio on 2020-11-10.
  */
-internal object ImageLoaderEngine : ImageEngine {
+ object ImageLoaderEngine : ImageEngine {
 
     override fun loadImage(context: Context, url: String, imageView: ImageView) {
         imageLoaderAM.load(imageView,url)

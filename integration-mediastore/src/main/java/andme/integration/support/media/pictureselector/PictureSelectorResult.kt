@@ -1,10 +1,11 @@
-package andme.integration.support.media
+package andme.integration.support.media.pictureselector
 
 import andme.integration.media.MediaFile
 import com.luck.picture.lib.entity.LocalMedia
 
 /**
  * Created by Lucio on 2020-11-11.
+ * 自定义图片选择结果实现：对第三方库数据类型的代理
  */
 class PictureSelectorResult(val real: LocalMedia) : MediaFile() {
 
