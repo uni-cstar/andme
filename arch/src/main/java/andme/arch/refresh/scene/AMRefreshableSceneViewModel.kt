@@ -33,12 +33,6 @@ abstract class AMRefreshableSceneViewModel<T>(application: Application) : AMRefr
 
     protected var currentPageIndex: Int = 1
 
-    /**
-     * 用于提供初始加载的数据
-     */
-    protected fun loadInitData(): List<T>? {
-        return null
-    }
 
     fun onRefresh() {
         viewModelScope.launch {

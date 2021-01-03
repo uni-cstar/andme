@@ -25,12 +25,12 @@ import androidx.lifecycle.ViewModelProvider
  * Fragment基类
  *  支持：主viewmodel支持、返回键事件拦截处理、view缓存处理
  */
- abstract class AMFragment<VM : AMViewModel> : Fragment(),AMViewModelOwner,AMRefreshLayoutProvider {
+abstract class AMFragment<VM : AMViewModel> : Fragment(), AMViewModelOwner, AMRefreshLayoutProvider {
 
     @JvmField
     protected var contentView: View? = null
 
-    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> =  AMViewModelRefreshableOwnerDelegate<VM>(this,this)
+    protected open val viewModelDelegate: AMViewModelOwnerDelegate<VM> = AMViewModelRefreshableOwnerDelegate<VM>(this, this)
 
     //主ViewModel
     protected val viewModel: VM get() = viewModelDelegate.viewModel
@@ -256,7 +256,7 @@ import androidx.lifecycle.ViewModelProvider
         loadMoreLayout.setOnLoadMoreListenerAM(onLoadMore)
     }
 
-    fun initLoadMoreOnly(onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM){
+    fun initLoadMoreOnly(onLoadMore: AMLoadMoreLayout.OnLoadMoreListenerAM) {
         getRefreshLayout()?.enableRefreshAM = false
         setEnableLoadMore(onLoadMore)
     }
