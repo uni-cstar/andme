@@ -1,5 +1,6 @@
 @file:JvmName("AMCore")
 @file:JvmMultifileClass
+
 /**
  * Created by Lucio on 2020-11-09.
  */
@@ -24,14 +25,19 @@ import andme.integration.media.MediaStore
 import andme.lang.orDefault
 import android.app.Application
 import android.content.Context
-import java.util.*
 
 lateinit var mApp: Context
+
+private var isCoreInit: Boolean = false
 
 /**
  * 初始化Core Lib
  */
+@Synchronized
 fun initCore(app: Application) {
+    if(isCoreInit)
+        return
+    isCoreInit = true
     mApp = app
     AppManagerImpl.init(app)
     syncResourcesValues()
@@ -46,7 +52,6 @@ var isDebuggable: Boolean = BuildConfig.DEBUG
  * app管理器
  */
 val appManagerAM: AMAppManager = AppManagerImpl
-
 
 
 //媒体相关功能支持器懒加载函数
