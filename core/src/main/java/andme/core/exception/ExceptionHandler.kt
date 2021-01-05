@@ -93,6 +93,15 @@ inline fun <T> T.tryCatch(printStack: Boolean = isDebuggable, action: T.() -> Un
     }
 }
 
+inline fun <T> T.tryIgnore(action: T.() -> Unit): Throwable? {
+    try {
+        action()
+        return null
+    } catch (e: Exception) {
+        return e
+    }
+}
+
 inline fun <T> Throwable?.onCatch(block: (Throwable) -> T): T? {
     if (this == null)
         return null
