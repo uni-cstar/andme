@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
  */
 
 abstract class AMAdapter<T, VH : AMViewHolder<T>> @JvmOverloads constructor(
-        layoutResId: Int,
+        val layoutResId: Int,
         data: MutableList<T>? = null
 ) : BaseQuickAdapter<T, VH>(layoutResId, data) {
 
@@ -40,9 +40,9 @@ abstract class AMAdapter<T, VH : AMViewHolder<T>> @JvmOverloads constructor(
         return onCreateCustomViewHolder(inflater, parent, viewType)
     }
 
-    abstract fun onCreateCustomViewHolder(inflater: LayoutInflater,parent: ViewGroup,viewType: Int):VH
+    abstract fun onCreateCustomViewHolder(inflater: LayoutInflater, parent: ViewGroup, viewType: Int): VH
 
-    protected open fun onBindCustomViewHolder(holder: VH,item: T){
+    protected open fun onBindCustomViewHolder(holder: VH, item: T) {
         holder.bindValue(item)
     }
 

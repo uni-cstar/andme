@@ -29,7 +29,7 @@ fun Context.getSharedPrefAM(
 /**
  * SharedPreferences 属性:本地变量与SharedPreferences之间同步修改
  */
-class AMSharedPrefProperty<T : Any> : ReadWriteProperty<Any?, T> {
+class AMSharedPrefProperty<T> : ReadWriteProperty<Any?, T> {
 
     private var _defValue: T
     private var _key: String by Delegates.notNull<String>()
@@ -76,8 +76,8 @@ class AMSharedPrefProperty<T : Any> : ReadWriteProperty<Any?, T> {
                 is Int -> it.getInt(key, default)
                 is Float -> it.getFloat(key, default)
                 is Boolean -> it.getBoolean(key, default)
-                is String -> it.getString(key, default).orEmpty()
-                else -> throw  IllegalArgumentException("this type can not be saved into preference")
+                is String? -> it.getString(key, default).orEmpty()
+                else -> throw  IllegalArgumentException("无法识别的数据类型")
             }
             result as T
         }

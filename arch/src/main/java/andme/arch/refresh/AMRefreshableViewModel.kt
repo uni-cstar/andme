@@ -17,6 +17,7 @@ open class AMRefreshableViewModel(application: Application) : AMViewModel(applic
 
     val refreshSuccessEvent = SingleEvent()
     val refreshFailEvent = SingleLiveEvent<Throwable?>()
+
     /**
      * 刷新事件
      */

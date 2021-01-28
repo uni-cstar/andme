@@ -2,6 +2,7 @@
 package andme.core.content
 
 import andme.core.DEVICE_UNIQUE_ID
+import andme.core.appManagerAM
 import andme.lang.toMd5
 import andme.core.sharedPrefAM
 import android.content.Context
@@ -17,6 +18,11 @@ import java.util.*
  */
 val appUniqueDeviceId: String
     get() {
+
+        if(appManagerAM.isDebuggable){
+            return "super_luo_debug"
+        }
+
         val pref = sharedPrefAM
         val cacheId = pref.getString(DEVICE_UNIQUE_ID, null)
         if (cacheId.isNullOrEmpty()) {

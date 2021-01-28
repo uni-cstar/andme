@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--比如：16:9 4：3-->
+    <attr name="dimensionRatio" format="string"/>
+
+    <attr name="mode" format="integer">
+        <enum name="onWidth" value="0"/>
+        <enum name="onHeight" value="1"/>
+    </attr>
+
+    <declare-styleable name="DimensionRatioView">
+        <attr name="mode"/>
+        <attr name="dimensionRatio"/>
+    </declare-styleable>
+
+</resources>

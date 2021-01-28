@@ -14,18 +14,18 @@ class AMRecyclerView : RecyclerView {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    private var mParent:AMSwipeRefreshBRVAHLayout? = null
+    private var mParent: AMSwipeRefreshBRVAHLayout? = null
 
-    internal fun setSwipeRefreshBRVAHLayoutParent(parent:AMSwipeRefreshBRVAHLayout?){
+    internal fun setSwipeRefreshBRVAHLayoutParent(parent: AMSwipeRefreshBRVAHLayout?) {
         this.mParent = parent
     }
 
     override fun setAdapter(adapter: Adapter<*>?) {
         super.setAdapter(adapter)
         mParent?.also {
-            if(adapter is BaseQuickAdapter<*, *>){
+            if (adapter is BaseQuickAdapter<*, *>) {
                 it.attachAdapter(adapter)
-            }else{
+            } else {
                 it.detachAdapter()
             }
         }

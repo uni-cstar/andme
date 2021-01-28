@@ -16,6 +16,8 @@ object DefaultDialogHandler : DialogUI {
     override fun showLoading(ctx: Context, message: CharSequence): AMProgressDialog {
         val dialog = ProgressDialog(ctx)
         dialog.setMessage(message)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
         dialog.show()
         return wrapperProgressDialog(dialog)
     }

@@ -1,12 +1,12 @@
 package andme.arch.refresh.scene
 
 import andme.arch.refresh.AMLoadMoreLayout
-import andme.lang.orDefault
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
+import com.chad.library.adapter.base.module.BaseLoadMoreModule
 import com.chad.library.adapter.base.module.LoadMoreModule
 
 /**
@@ -20,7 +20,13 @@ open class AMSwipeRefreshBRVAHLayout : AMSwipeRefreshLayout, AMLoadMoreLayout {
 
     private var mBrvahAdapter: BaseQuickAdapter<*, *>? = null
 
-    private val loadMoreModule get() = mBrvahAdapter?.loadMoreModule
+    private val loadMoreModule: BaseLoadMoreModule
+        get() {
+        if(mBrvahAdapter == null){
+            throw IllegalStateException("请先调用attachAdapter方法")
+        }
+        return mBrvahAdapter!!.loadMoreModule
+    }
 
     /**
      * 绑定BRVAH 适配器
@@ -37,39 +43,44 @@ open class AMSwipeRefreshBRVAHLayout : AMSwipeRefreshLayout, AMLoadMoreLayout {
 
     override fun onLoadMoreSuccessAM(hasMore: Boolean) {
         if(hasMore){
-            loadMoreModule?.loadMoreComplete()
+            loadMoreModule.loadMoreComplete()
         }else{
-            loadMoreModule?.loadMoreEnd()
+            loadMoreModule.loadMoreEnd()
         }
     }
 
     override fun onLoadMoreFailAM(e: Throwable?) {
-        loadMoreModule?.loadMoreFail()
+        loadMoreModule.loadMoreFail()
     }
 
     override fun setHasMoreAM(hasMore: Boolean) {
         if (!hasMore) {
-            loadMoreModule?.loadMoreEnd()
+            loadMoreModule.loadMoreEnd()
         } else {
             Log.w("AMWarn", "BRVAH 当前已设置没有更多数据时，调用此方法设置有更多数据会失效，如果要设置有更多，必须重新调用adapter的setNewInstance方法设置数据")
         }
     }
 
-    override var enableLoadMoreAM: Boolean = false
-        get() = loadMoreModule?.isEnableLoadMore.orDefault(field)
+    override var enableLoadMoreAM: Boolean
+        get() = loadMoreModule.isEnableLoadMore
         set(value) {
-            loadMoreModule?.isEnableLoadMore = value
-            field = value
+            loadMoreModule.isEnableLoadMore = value
         }
+
     override var isLoadingAM: Boolean = false
-        get() = loadMoreModule?.isLoading.orDefault(field)
+        get() = loadMoreModule.isLoading
         set(value) {
-            loadMoreModule?.loadMoreToLoading()
+
+            if(value){
+                loadMoreModule.loadMoreToLoading()
+            }else{
+                loadMoreModule.loadMoreComplete()
+            }
             field = value
         }
 
     override fun setOnLoadMoreListenerAM(listener: AMLoadMoreLayout.OnLoadMoreListenerAM?) {
-        loadMoreModule?.setOnLoadMoreListener(createLoadMoreListener(listener))
+        loadMoreModule.setOnLoadMoreListener(createLoadMoreListener(listener))
     }
 
     private fun createLoadMoreListener(listener: AMLoadMoreLayout.OnLoadMoreListenerAM?): OnLoadMoreListener? {

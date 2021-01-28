@@ -186,19 +186,33 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         //nothing
     }
 
-    private val cancelPreviousRunner: ControlledRunner<Any?> by lazy {
-        ControlledRunner<Any?>()
-    }
+    private val cancelPrevioursRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> = ConcurrentHashMap()
 
-    private val runnerMap: ConcurrentHashMap<String, ControlledRunner<Any?>> = ConcurrentHashMap()
-
+    /**
+     * 执行并取消之前启动的[key]相同的任务
+     */
     @Synchronized
     suspend fun <T> launchAndCancelPrevious(key: String, func: suspend () -> T): T {
-        var runner = runnerMap[key]
+        var runner = cancelPrevioursRunners[key]
         if (runner == null) {
             runner = ControlledRunner<Any?>()
-            runnerMap[key] = runner
+            cancelPrevioursRunners[key] = runner
         }
         return runner.cancelPreviousThenRun(func) as T
+    }
+
+    private val joinPreviousRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> = ConcurrentHashMap()
+
+    /**
+     * 执行或加入之前启动的[key]相同的任务：即如果之前已经启动了同名Key的任务，并且未执行完成，则当前认为会忽略，并
+     */
+    @Synchronized
+    suspend fun <T> launchOrJoinPrevious(key: String, func: suspend () -> T): T {
+        var runner = joinPreviousRunners[key]
+        if (runner == null) {
+            runner = ControlledRunner<Any?>()
+            joinPreviousRunners[key] = runner
+        }
+        return runner.joinPreviousOrRun(func) as T
     }
 }

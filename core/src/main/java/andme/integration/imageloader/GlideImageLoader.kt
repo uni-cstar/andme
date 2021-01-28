@@ -8,7 +8,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -102,7 +101,16 @@ object GlideImageLoader : ImageLoader {
                 .into(imageView)
     }
 
-
+    fun loadCircleImage(
+            imageView: ImageView, url: String?
+    ) {
+       
+        Glide.with(imageView)
+                .load(url)
+                .transform(CenterCrop(), CircleCrop())
+                .into(imageView)
+    }
+    
     fun loadCircleImage(
             imageView: ImageView, url: String?,
             @DrawableRes placeHolder: Int
@@ -114,6 +122,31 @@ object GlideImageLoader : ImageLoader {
                 .load(url)
                 .thumbnail(placeHolderLoader)
                 .transform(CenterCrop(), CircleCrop())
+                .into(imageView)
+    }
+
+    fun loadCircleImage(
+            imageView: ImageView, url: String?,
+            placeHolder: Drawable
+    ) {
+        val placeHolderLoader = Glide.with(imageView)
+                .load(placeHolder)
+                .transform(CenterCrop(), CircleCrop())
+        Glide.with(imageView)
+                .load(url)
+                .thumbnail(placeHolderLoader)
+                .transform(CenterCrop(), CircleCrop())
+                .into(imageView)
+    }
+
+    fun loadRoundedImage(
+            imageView: ImageView,
+            url: String?,
+            roundingRadius: Int
+    ) {
+        Glide.with(imageView)
+                .load(url)
+                .transform(CenterCrop(), RoundedCorners(roundingRadius))
                 .into(imageView)
     }
 
@@ -148,6 +181,5 @@ object GlideImageLoader : ImageLoader {
                 .transform(CenterCrop(), RoundedCorners(roundingRadius))
                 .into(imageView)
     }
-
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="UIItg"/>
+    <style name="UIItg" />
 
     <style name="UI">
 
@@ -26,7 +26,7 @@
         <item name="android:textAppearance">@style/Text.Button.Inverse.Medium</item>
     </style>
 
-    <style name="UI.Button.Secondary" >
+    <style name="UI.Button.Secondary">
         <item name="android:textAppearance">@style/Text.Button.Secondary</item>
     </style>
 
@@ -62,6 +62,7 @@
     <style name="UI.Divider">
         <item name="android:background">@drawable/shape_divider_am</item>
     </style>
+
     <style name="UI.Divider.Horizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -72,5 +73,40 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="UI.Recycler" parent="Widget.AppCompat.ListView"/>
+    <style name="UI.Recycler" parent="Widget.AppCompat.ListView" />
+
+
+    <!--
+    各种形状的ImageView
+    使用方法：注意是设置在shapeAppearanceOverlay（或shapeAppearance）中，不知道为何设置成style的时候，没有作用
+     <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearanceOverlay="@style/UI.ShapeableImageView.Rounded"
+            android:layout_width="60dp"
+            android:layout_height="60dp"/>
+    -->
+    <!--parent="Widget.MaterialComponents.ShapeableImageView"-->
+    <style name="UI.ShapeableImageView">
+
+    </style>
+
+    <style name="UI.ShapeableImageView.Rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/rounded_radius</item>
+    </style>
+
+    <style name="UI.ShapeableImageView.Circle">
+        <item name="cornerFamily">rounded</item>
+        <!--
+        Sets size of corners to be 50% of min(width, height) of widget
+        -->
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <style name="UI.ShapeableImageView.Circle.WithBorder">
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+    </style>
+
+
 </resources>

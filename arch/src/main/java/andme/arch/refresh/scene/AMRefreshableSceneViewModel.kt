@@ -33,15 +33,14 @@ abstract class AMRefreshableSceneViewModel<T>(application: Application) : AMRefr
 
     protected var currentPageIndex: Int = 1
 
-
-    fun onRefresh() {
+    open fun onRefresh() {
         viewModelScope.launch {
             tryCatch {
                 val result = withContext(Dispatchers.IO) {
                     doRefreshRequest()
                 }
                 onRefreshRequestSuccess(result)
-            }?.onCatch {
+            }.onCatch {
                 onRefreshRequestError(it)
             }
         }

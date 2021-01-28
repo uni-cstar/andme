@@ -4,8 +4,10 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
+import android.text.TextUtils
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -69,3 +71,41 @@ fun TextView.applyClickSpan(content: String, @ColorInt color: Int, vararg spans:
     highlightColor = Color.TRANSPARENT
     text = ClickSpan(content,color,*spans)
 }
+
+
+
+/**
+ * 高亮显示
+ * @param start 渲染开始位置
+ * @param end 渲染结束位置
+ * @param color 颜色
+ */
+fun CharSequence.toHighLight(start: Int, end: Int, @ColorInt color: Int): CharSequence {
+    val style = SpannableStringBuilder(this)
+    if (start >= 0 && end >= 0 && end >= start) {
+        style.setSpan(ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+    return style
+
+}
+
+/**
+ * 高亮显示
+ * @param tag 需要高亮的部分
+ * @param color 渲染颜色
+ * @return
+ */
+fun CharSequence.toHighLight(tag: String,@ColorInt color: Int): CharSequence {
+    if (tag.isEmpty() || this.isEmpty())
+        return this
+    val start = this.indexOf(tag)
+    val end = start + tag.length
+    return this.toHighLight(start, end, color)
+}
+
+/**
+ * Returns whether the given [CharSequence] contains only digits.
+ *
+ * @see TextUtils.isDigitsOnly
+ */
+inline fun CharSequence.isDigitsOnly() = TextUtils.isDigitsOnly(this)
