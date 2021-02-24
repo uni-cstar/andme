@@ -207,6 +207,7 @@ abstract class AMFragment<VM : AMViewModel> : Fragment(), AMViewModelOwner, AMRe
 
     override fun onDestroy() {
         super.onDestroy()
+        contentView = null
         unregisterViewModelEvent(viewModel)
     }
 

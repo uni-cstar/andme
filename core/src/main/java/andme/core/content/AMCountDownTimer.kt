@@ -15,7 +15,6 @@ object AMCountDownTimerManager {
      * @param key 用于唯一指定定时器的key
      * @param total 倒计时时间
      * @param interval 执行间隔时间
-
      * @param callback 回调
      * @return
      */

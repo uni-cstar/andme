@@ -31,16 +31,16 @@ open class PictureSelectorImpl : PictureSelector {
         applyDefaultConfigs()
     }
 
-    private fun applyDefaultConfigs(){
-         val config = MediaStoreImpl.DefaultPictureSelectorConfig
-        spanCount = MediaStoreImpl.DefaultPictureSelectorConfig.spanCount
-        isCompressEnable = MediaStoreImpl.DefaultPictureSelectorConfig.isCompressEnable
-        compressQuality = MediaStoreImpl.DefaultPictureSelectorConfig.compressQuality
-        minCompressSize = MediaStoreImpl.DefaultPictureSelectorConfig.minCompressSize
-        isCropEnable = MediaStoreImpl.DefaultPictureSelectorConfig.isCropEnable
-        isCameraEnable = MediaStoreImpl.DefaultPictureSelectorConfig.isCameraEnable
-        isOriginalEnable = MediaStoreImpl.DefaultPictureSelectorConfig.isOriginalEnable
-        realSelector.isPageStrategy(MediaStoreImpl.DefaultPictureSelectorConfig.isPageStrategy, MediaStoreImpl.DefaultPictureSelectorConfig.pageStrategySize, MediaStoreImpl.DefaultPictureSelectorConfig.isFilterInvalidFile)
+    private fun applyDefaultConfigs() {
+        val config = MediaStoreImpl.DefaultPictureSelectorConfig
+        spanCount = config.spanCount
+        isCompressEnable = config.isCompressEnable
+        compressQuality = config.compressQuality
+        minCompressSize = config.minCompressSize
+        isCropEnable = config.isCropEnable
+        isCameraEnable = config.isCameraEnable
+        isOriginalEnable = config.isOriginalEnable
+        realSelector.isPageStrategy(config.isPageStrategy, config.pageStrategySize, config.isFilterInvalidFile)
     }
 
     private fun applyConfigs(initializer: ((PictureSelectionModel) -> Unit)? = null) {
