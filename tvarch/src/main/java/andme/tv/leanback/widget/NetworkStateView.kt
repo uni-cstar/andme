@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatImageView
 
 /**
  * Created by Lucio on 2021/2/27.
+ * 根据网络状态显示对应图标
  */
 class NetworkStateView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

@@ -10,7 +10,7 @@ object AMTV {
     /**
      * 是否支持触摸获取焦点（手机操作行为），默认不支持（即tv不支持触摸操作）
      */
-    var isFocusableInTouchMode = false
+    var isFocusableInTouchMode = true
 
 
 

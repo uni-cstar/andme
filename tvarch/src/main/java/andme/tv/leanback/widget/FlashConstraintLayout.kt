@@ -1,5 +1,6 @@
 package andme.tv.leanback.widget
 
+import andme.tv.AMTV
 import andme.tv.arch.R
 import android.animation.ValueAnimator
 import android.content.Context
@@ -45,6 +46,8 @@ class FlashConstraintLayout @JvmOverloads constructor(
         super.addView(mFlashView)
 
         isFocusable = true
+        isClickable = true
+        isFocusableInTouchMode = AMTV.isFocusableInTouchMode
         onFocusChangeListener = mFocusChangeListener
     }
 
@@ -75,7 +78,7 @@ class FlashConstraintLayout @JvmOverloads constructor(
                 val d = width / 355 - 1
                 val ff = 1000 * (d * 0.25f + 1)
                 it.duration = ff.toLong()
-                it.startDelay = 300
+                it.startDelay = 150
             }
     }
 

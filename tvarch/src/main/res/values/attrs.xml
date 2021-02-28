@@ -9,19 +9,19 @@
         <enum name="none" value="0" />
 
         <!--自定义资源：amtv_focus_zoom_factor_xxsmal 103%-->
-        <enum name="xxsmall" value="99"/>
+        <enum name="xxsmall" value="99" />
 
         <!--对应系统资源：lb_focus_zoom_factor_xsmall 106%-->
-        <enum name="xsmall" value="4"/>
+        <enum name="xsmall" value="4" />
 
         <!--对应系统资源：lb_focus_zoom_factor_small 110%-->
-        <enum name="small" value="1"/>
+        <enum name="small" value="1" />
 
         <!--对应系统资源：lb_focus_zoom_factor_medium 114%-->
-        <enum name="medium" value="2"/>
+        <enum name="medium" value="2" />
 
         <!--对应系统资源：lb_focus_zoom_factor_large 118%-->
-        <enum name="large" value="3"/>
+        <enum name="large" value="3" />
     </attr>
 
     <item name="amtv_focus_zoom_factor_xxsmall" type="fraction">103%</item>
