@@ -31,6 +31,9 @@ internal fun Context.getNetworkTypeDefault(): Int {
         ConnectivityManager.TYPE_MOBILE -> {
             NETWORK_TYPE_MOBILE
         }
+        ConnectivityManager.TYPE_ETHERNET ->{
+            NETWORK_TYPE_ETHERNET
+        }
         else -> NETWORK_TYPE_UNKNOWN
     }
 }
@@ -46,7 +49,9 @@ internal fun Context.getNetworkType23(): Int {
         NETWORK_TYPE_WIFI
     } else if (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
         NETWORK_TYPE_MOBILE
-    } else {
+    } else if(nc.hasTransport(NetworkCapabilities. TRANSPORT_ETHERNET)){
+        NETWORK_TYPE_ETHERNET
+    }else {
         NETWORK_TYPE_UNKNOWN
     }
 }

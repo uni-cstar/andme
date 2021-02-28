@@ -35,11 +35,15 @@ const val NETWORK_TYPE_WIFI = 2
 
 const val NETWORK_TYPE_UNKNOWN = 3
 
+/**
+ * 有线
+ */
+const val NETWORK_TYPE_ETHERNET = 4
+
 @Retention(AnnotationRetention.SOURCE)
 @IntDef(flag = true, value = [NETWORK_TYPE_NONE, NETWORK_TYPE_WIFI, NETWORK_TYPE_MOBILE,NETWORK_TYPE_UNKNOWN])
 annotation class NetworkType
 
-@RequiresPermission(value = Manifest.permission.ACCESS_NETWORK_STATE)
 @NetworkType
 fun Context.getNetworkType(): Int {
     val cm = connectivityManager ?: return NETWORK_TYPE_NONE
