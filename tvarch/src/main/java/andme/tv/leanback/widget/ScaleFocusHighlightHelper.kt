@@ -166,7 +166,7 @@ class ScaleFocusHighlightHelper {
 
                 mDimmer?.let {
                     it.setActiveLevel(level)
-                    val color = it.getPaint().color
+                    val color = it.paint.color
                     if (mWrapper != null) {
                         mWrapper!!.setOverlayColor(color)
                     } else {
@@ -198,6 +198,12 @@ class ScaleFocusHighlightHelper {
         private val mScaleIndex: Int
         private val mUseDimmer: Boolean
 
+        init {
+            require(isValidZoomIndex(zoomIndex)) { "Unhandled zoom index" }
+            mScaleIndex = zoomIndex
+            mUseDimmer = useDimmer
+        }
+
         private fun getScale(res: Resources): Float {
             return if (mScaleIndex == ZoomFactor.ZOOM_FACTOR_NONE) 1f else res.getFraction(
                 getResId(mScaleIndex), 1, 1
@@ -224,11 +230,7 @@ class ScaleFocusHighlightHelper {
             return animator
         }
 
-        init {
-            require(isValidZoomIndex(zoomIndex)) { "Unhandled zoom index" }
-            mScaleIndex = zoomIndex
-            mUseDimmer = useDimmer
-        }
+
     }
 
 

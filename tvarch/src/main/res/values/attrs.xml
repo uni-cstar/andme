@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+
+
     <!--映射leanback库提供的缩放系数
         androidx.leanback.widget.FocusHighlight
     -->
@@ -34,6 +37,7 @@
         <attr name="enableScale" />
         <attr name="zoomFactor" />
         <attr name="enableDimmer" />
+        <attr name="enableFlash" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="ScaleTextView">

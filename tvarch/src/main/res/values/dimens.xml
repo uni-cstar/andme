@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--圆角半径-->
-    <dimen name="rounded_radius">6dp</dimen>
+
+    <dimen name="auto_size_min_text_size">10sp</dimen>
+
+
+    <dimen name="browser_container_padding">8dp</dimen>
+
+    <dimen name="browser_item_margin">16dp</dimen>
+
+    <dimen name="view_margin">10dp</dimen>
+    <dimen name="view_margin_inner">5dp</dimen>
+
+    <dimen name="activity_horizontal_margin">32dp</dimen>
+
 
     <!--焦点框大小-->
     <dimen name="focus_border_size">1dp</dimen>
