@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.res.use
 
 /**
  * 获取焦点自动放大的[ConstraintLayout]
@@ -28,7 +27,8 @@ class ScaleTextView @JvmOverloads constructor(
         isFocusableInTouchMode = AMTV.isFocusableInTouchMode
         onFocusChangeListener = this
 
-        context.obtainStyledAttributes(attrs, R.styleable.ScaleTextView).use {
+        val tp = context.obtainStyledAttributes(attrs, R.styleable.ScaleTextView)
+        tp.also {
             mEnableScale = it.getBoolean(R.styleable.ScaleTextView_enableScale, true)
             val zoomIndex = it.getInteger(
                 R.styleable.ScaleTextView_zoomFactor,
@@ -37,6 +37,7 @@ class ScaleTextView @JvmOverloads constructor(
             val useDimmer = it.getBoolean(R.styleable.ScaleConstraintLayout_enableDimmer, false)
             mFocusHelper = ScaleFocusHighlightHelper.createScaleFocusHandler(zoomIndex, useDimmer)
         }
+        tp.recycle()
     }
 
     override fun onFocusChange(v: View, hasFocus: Boolean) {

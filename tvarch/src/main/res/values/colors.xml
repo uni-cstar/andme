@@ -2,6 +2,6 @@
 <resources>
 
     <!--默认控件背景色 8% 白色-->
-    <color name="default_slt_color">#14FFFFFF</color>
+    <color name="default_slt_color">#4C000000</color>
 
 </resources>

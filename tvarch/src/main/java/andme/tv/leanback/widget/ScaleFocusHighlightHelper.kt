@@ -53,7 +53,7 @@ class ScaleFocusHighlightHelper {
         }
 
         /**
-         * @param useDimmer Allow dimming browse item when unselected.未选中时是否将内容调按
+         * @param useDimmer Allow dimming browse item when unselected.未选中时是否将内容调暗
          */
         @JvmStatic
         fun createScaleFocusHandler(

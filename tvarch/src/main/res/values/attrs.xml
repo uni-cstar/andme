@@ -34,10 +34,17 @@
 
     <!--可缩放约束布局属性定义-->
     <declare-styleable name="ScaleConstraintLayout">
+        <!--是否启用缩放：默认启用-->
         <attr name="enableScale" />
+        <!--缩放级别 默认 xsmal-->
         <attr name="zoomFactor" />
+        <!--是否启用失去焦点时变暗，默认false-->
         <attr name="enableDimmer" />
+        <!--是否启用闪一下动画-->
         <attr name="enableFlash" format="boolean"/>
+
+        <!--获取焦点时是否自动bringToFront，默认false-->
+        <attr name="autoBringToFront" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="ScaleTextView">

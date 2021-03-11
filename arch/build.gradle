@@ -34,15 +34,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api project(path: ':core')
 
-    /*room
-    * https://developer.android.google.cn/training/data-storage/room?hl=zh_cn*/
-    def room_version = "2.2.5"
-    api "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    // optional - Kotlin Extensions and Coroutines support for Room
-    api "androidx.room:room-ktx:$room_version"
-//    // optional - Test helpers
-//    testImplementation "androidx.room:room-testing:$room_version"
+//    /*room
+//    * https://developer.android.google.cn/training/data-storage/room?hl=zh_cn*/
+//    def room_version = "2.2.5"
+//    api "androidx.room:room-runtime:$room_version"
+//    kapt "androidx.room:room-compiler:$room_version"
+//    // optional - Kotlin Extensions and Coroutines support for Room
+//    api "androidx.room:room-ktx:$room_version"
+////    // optional - Test helpers
+////    testImplementation "androidx.room:room-testing:$room_version"
 
     //popup相关
     api 'com.lxj:xpopup:2.2.1'

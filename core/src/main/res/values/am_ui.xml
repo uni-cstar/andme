@@ -85,11 +85,12 @@
             android:layout_height="60dp"/>
     -->
     <!--parent="Widget.MaterialComponents.ShapeableImageView"-->
-    <style name="UI.ShapeableImageView">
+    <style name="UI.ShapeableImageView" parent="Widget.MaterialComponents.ShapeableImageView">
 
+        <item name="strokeColor">@android:color/white</item>
     </style>
 
-    <style name="UI.ShapeableImageView.Rounded">
+    <style name="UI.ShapeableImageView.Rounded" >
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/rounded_radius</item>
     </style>

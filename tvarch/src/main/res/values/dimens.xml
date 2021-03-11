@@ -2,17 +2,42 @@
 <resources>
 
 
-    <dimen name="auto_size_min_text_size">10sp</dimen>
+    <!--标题文本大小-->
+    <dimen name="text_size_title">20sp</dimen>
+    <!--子标题文本大小-->
+    <dimen name="text_size_subhead">18sp</dimen>
+    <!--正文文本大小-->
+    <dimen name="text_size_body">15sp</dimen>
+
+    <!--描述性文本-->
+    <dimen name="text_size_caption">13sp</dimen>
+    <!--按钮文本大小-->
+    <dimen name="text_size_button">15sp</dimen>
+    <!--大号按钮文本-->
+    <dimen name="text_size_button_medium">17sp</dimen>
+    <!--超小文本：通常不建议使用，用在app内的角标数-->
+    <dimen name="text_size_tiny">11sp</dimen>
+
+
+    <dimen name="auto_size_min_text_size">@dimen/text_size_tiny</dimen>
 
 
     <dimen name="browser_container_padding">8dp</dimen>
 
-    <dimen name="browser_item_margin">16dp</dimen>
+    <dimen name="browser_item_margin">14dp</dimen>
 
     <dimen name="view_margin">10dp</dimen>
     <dimen name="view_margin_inner">5dp</dimen>
 
+    <!--文本内部padding-->
+    <dimen name="text_padding_inner">10dp</dimen>
+    <dimen name="text_padding_horizontal">12dp</dimen>
+    <dimen name="text_padding_vertical">6dp</dimen>
+
     <dimen name="activity_horizontal_margin">32dp</dimen>
+
+    <!--row header title size-->
+    <dimen name="row_header_text_size">@dimen/text_size_subhead</dimen>
 
 
     <!--焦点框大小-->

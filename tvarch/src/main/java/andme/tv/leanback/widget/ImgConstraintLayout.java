@@ -5,16 +5,18 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import andme.tv.arch.R;
+
+
 public class ImgConstraintLayout extends ConstraintLayout implements View.OnFocusChangeListener {
 
-
     private ValueAnimator valueAnimator;
-    private FlashView mFlashView;
 
     public ImgConstraintLayout(Context context) {
         this(context, null);
@@ -30,10 +32,7 @@ public class ImgConstraintLayout extends ConstraintLayout implements View.OnFocu
     }
 
     private void init(Context context) {
-        mFlashView = new FlashView(context);
-        addView(mFlashView);
-
-//        LayoutInflater.from(context).inflate(R.layout.layout_img_constra, this);
+        LayoutInflater.from(context).inflate(R.layout.layout_img_constra, this);
         setFocusable(true);
         setClickable(true);
         setFocusableInTouchMode(true);
@@ -44,12 +43,10 @@ public class ImgConstraintLayout extends ConstraintLayout implements View.OnFocu
     public void onFocusChange(View v, boolean hasFocus) {
         if (v != null) {
             if (hasFocus) {
-                Log.e("dch", "onFocusChange: " );
-                mFlashView.startAnim();
-//                move(v.findViewById(R.id.light));
+                Log.e("dch", "onFocusChange: ");
+                move(v.findViewById(R.id.light));
             } else {
-                mFlashView.stopAnim();
-//                remove();
+                remove();
             }
         }
     }
@@ -68,7 +65,7 @@ public class ImgConstraintLayout extends ConstraintLayout implements View.OnFocu
                 float a1 = (alpha > 0 ? (1 - alpha) : (1 + alpha));
                 float a2 = (float) (a1 / 2 + 0.3);
                 view.setAlpha(a2);
-                Log.e("dch", "onFocusChange: " );
+                Log.e("dch", "onFocusChange: ");
 
             }
         });
@@ -97,7 +94,7 @@ public class ImgConstraintLayout extends ConstraintLayout implements View.OnFocu
         valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         int d = width / 355 - 1;
         float ff = 1000 * (d * 0.25f + 1);
-        valueAnimator.setDuration(((Float)ff).longValue());
+        valueAnimator.setDuration(((Float) ff).longValue());
         valueAnimator.setStartDelay(300);
         valueAnimator.start();
     }

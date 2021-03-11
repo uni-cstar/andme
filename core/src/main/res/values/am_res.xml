@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
     <!--主题颜色 blue-500-->
     <color name="color_primary">#2196F3</color>
     <!--状态栏背景色 blue-600-->
@@ -11,7 +12,7 @@
     <color name="color_divider">#DADADA</color>
 
     <!--圆角半径-->
-    <dimen name="rounded_radius">6dp</dimen>
+    <dimen name="rounded_radius">5dp</dimen>
 
     <!--标题文本大小-->
     <dimen name="text_size_title">20sp</dimen>

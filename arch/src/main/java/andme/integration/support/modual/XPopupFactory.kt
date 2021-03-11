@@ -6,7 +6,7 @@ import com.lxj.xpopup.XPopup
 
 typealias XPopupBuilder = XPopup.Builder
 
-val Context.xpopupBuilder get() = XPopup.Builder(this)
+val Context.xpopupBuilder:XPopupBuilder get() = XPopup.Builder(this)
 
 /**
  * 点击返回键或者点击透明区域是否关闭对话框

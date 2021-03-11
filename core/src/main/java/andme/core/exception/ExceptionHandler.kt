@@ -42,6 +42,7 @@ interface ExceptionHandler {
  */
 inline val Throwable.friendlyMessage: String? get() = exceptionHandlerAM.getFriendlyMessage(this)
 
+
 /**
  * 捕获ui异常
  */

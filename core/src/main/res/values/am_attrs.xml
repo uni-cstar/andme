@@ -2,7 +2,7 @@
 <resources>
 
     <!--背景色-->
-    <attr format="color" name="backgroundColor"/>
+    <attr name="backgroundColor" format="color" />
     <!--分割线颜色-->
     <attr name="colorDivider" format="reference|color" />
     <!--定义与主题色一致的文本颜色-->
@@ -14,4 +14,15 @@
     <!--圆角半径-->
     <attr name="roundedRadius" format="reference|dimension" />
 
+
+    <declare-styleable name="MarqueeViewFlipper">
+        <!--每条item滚动的时间间隔-->
+        <attr name="mvf_duration" format="integer" />
+        <!--滚动完成 切换到下一条前的时间间隔-->
+        <attr name="mvf_stayTime" format="integer" />
+        <!--内容文字颜色-->
+        <attr name="mvf_text_color" format="color|reference" />
+        <!--内容文字大小-->
+        <attr name="mvf_text_size" format="dimension|reference" />
+    </declare-styleable>
 </resources>

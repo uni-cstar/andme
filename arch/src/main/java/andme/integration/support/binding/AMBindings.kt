@@ -99,6 +99,12 @@ fun bindVisibleOrGone(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("visibleOrGone")
+fun bindVisibleOrGone(view: View, values: Collection<*>?) {
+    view.visibility = if (!values.isNullOrEmpty()) View.VISIBLE else View.GONE
+}
+
+
 @BindingAdapter("visibleOrInvisible")
 fun bindVisibleOrNot(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
@@ -108,3 +114,4 @@ fun bindVisibleOrNot(view: View, visible: Boolean) {
 fun bindSelection(view: EditText, position: Int) {
     view.setSelection(position)
 }
+

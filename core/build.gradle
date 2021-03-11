@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 
 android {
@@ -20,6 +21,10 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -86,7 +91,7 @@ dependencies {
     api("com.github.bumptech.glide:glide:$glide_version") {
         exclude group: "com.android.support"
     }
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
     /**
      *  Glide OkHttp集成库
      *  将使 Glide 自动开始使用 OkHttp 来加载所有来自 http 和 https URL 的图片
@@ -113,7 +118,7 @@ dependencies {
      *  [logging-interceptor] okhttp请求日志打印拦截器，版本号与okhttp版本一致
      *  https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
      */
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
 
     /**
      *  [Retrofit Converter Gson] 使用Gson作为Retrofit的序列化和反序列化工具
@@ -121,7 +126,7 @@ dependencies {
      *  https://github.com/square/retrofit/wiki/Converters
      *  https://github.com/google/gson
      */
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     /*END - Retrofit*/
 

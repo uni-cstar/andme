@@ -3,6 +3,7 @@ package andme.core.exception
 import andme.core.dialogHandlerAM
 import andme.lang.runOnDebug
 import android.content.Context
+import com.google.gson.JsonSyntaxException
 
 open class CommonExceptionHandler : ExceptionHandler {
 
@@ -23,7 +24,12 @@ open class CommonExceptionHandler : ExceptionHandler {
     }
 
     override fun getFriendlyMessage(e: Throwable): String? {
-        return e.message
+        if (e is JsonSyntaxException) {
+            return "Json解析失败：${e.message}"
+        } else {
+            return e.message.orEmpty()
+        }
     }
 
 }
+

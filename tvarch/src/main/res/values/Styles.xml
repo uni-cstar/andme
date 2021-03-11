@@ -29,7 +29,7 @@
     </style>
 
     <style name="TVTheme.AppCompat" parent="AMTheme">
-
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 

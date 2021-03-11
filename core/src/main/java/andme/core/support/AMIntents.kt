@@ -347,11 +347,19 @@ object AMIntents {
         }
 
         /**
+         * 无线网络设置意图
+         */
+        @Throws(ActivityNotFoundException::class)
+        @JvmStatic
+        fun createWirelessSettingIntent(): Intent = Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
+
+        /**
          * wifi设置意图
          */
         @Throws(ActivityNotFoundException::class)
         @JvmStatic
-        fun createWifiSettingIntent(): Intent = Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
+        fun createWifiSettingIntent(): Intent = Intent(android.provider.Settings.ACTION_WIFI_SETTINGS)
+
     }
 }
 

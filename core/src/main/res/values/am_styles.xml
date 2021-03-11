@@ -37,6 +37,10 @@
         <item name="android:textSize">@dimen/text_size_title</item>
     </style>
 
+    <style name="Text.Title.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!--相反标题色-->
     <style name="Text.Title.Inverse" parent="TextAppearance.AppCompat.Title.Inverse">
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
@@ -59,6 +63,11 @@
     <style name="Text.Body" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textSize">@dimen/text_size_body</item>
+    </style>
+
+    <!-- 主文本：14sp 主文本色-->
+    <style name="Text.Body.Bold" >
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- 相反主文本-->

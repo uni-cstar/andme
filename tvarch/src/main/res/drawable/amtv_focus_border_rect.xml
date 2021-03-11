@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--圆角焦点框示例-->
+
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/focus_border_size"
+                android:color="@color/focus_border_color" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="@dimen/focus_border_size"
+        android:left="@dimen/focus_border_size"
+        android:right="@dimen/focus_border_size"
+        android:top="@dimen/focus_border_size">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/focus_border_divider_size"
+                android:color="@color/focus_border_divider_color" />
+        </shape>
+    </item>
+</layer-list>
