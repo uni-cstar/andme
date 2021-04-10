@@ -13,6 +13,25 @@ import kotlin.contracts.ExperimentalContracts
  */
 inline fun String?.orDefaultIfNullOrEmpty(def: String = ""): String = if (this.isNullOrEmpty()) def else this
 
+@JvmOverloads
+fun String?.toLongOrDefault(defaultValue: Long = 0): Long {
+    return try {
+       this?.toLongOrNull().orDefault(defaultValue)
+    } catch (_: NumberFormatException) {
+        defaultValue
+    }
+}
+
+@JvmOverloads
+fun String?.toIntOrDefault(defaultValue: Int = 0): Int {
+    return try {
+        this?.toIntOrNull().orDefault(defaultValue)
+    } catch (_: NumberFormatException) {
+        defaultValue
+    }
+}
+
+
 /**
  * 用于Java的工具函数(kt的直接用库函数[kotlin.text.isNullOrEmpty])
  */

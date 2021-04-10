@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -38,6 +39,17 @@ fun ViewModel.launch(
     viewModelScope.launch(context, start, block)
 }
 
+fun ViewModel.launchWithDelay(
+    delay:Long,
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit
+) {
+    viewModelScope.launch(context, start){
+        delay(1000)
+        block.invoke(this)
+    }
+}
 
 inline fun AMViewModel.tryUi(func: AMViewModel.() -> Unit): Throwable? {
     return try {

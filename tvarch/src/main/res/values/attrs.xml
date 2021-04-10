@@ -45,6 +45,7 @@
 
         <!--获取焦点时是否自动bringToFront，默认false-->
         <attr name="autoBringToFront" format="boolean"/>
+
     </declare-styleable>
 
     <declare-styleable name="ScaleTextView">

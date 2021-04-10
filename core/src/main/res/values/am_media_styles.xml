@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--视频对话框浮层-->
+    <style name="VideoPopupToastAnim" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="VideoPopupDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/VideoPopupToastAnim</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+    <style name="VideoPopupVolumeProgress">
+        <item name="android:maxWidth">12dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
+        <item name="android:progressDrawable">@drawable/am_media_video_volume_vertical_progress_bg</item>
+        <item name="android:minWidth">1dp</item>
+    </style>
+</resources>

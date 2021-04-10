@@ -85,6 +85,7 @@
             android:layout_height="60dp"/>
     -->
     <!--parent="Widget.MaterialComponents.ShapeableImageView"-->
+
     <style name="UI.ShapeableImageView" parent="Widget.MaterialComponents.ShapeableImageView">
 
         <item name="strokeColor">@android:color/white</item>
@@ -101,6 +102,7 @@
         Sets size of corners to be 50% of min(width, height) of widget
         -->
         <item name="cornerSize">50%</item>
+
     </style>
 
 

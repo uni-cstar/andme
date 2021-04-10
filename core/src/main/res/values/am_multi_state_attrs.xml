@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="msl_emptyView" format="reference" />
+    <attr name="msl_errorView" format="reference" />
+    <attr name="msl_loadingView" format="reference" />
+    <attr name="msl_noNetworkView" format="reference" />
+
+    <declare-styleable name="MultiStateLayout">
+        <!--        <attr name="msl_contentView" />-->
+        <attr name="msl_loadingView" />
+        <attr name="msl_errorView" />
+        <attr name="msl_emptyView" />
+        <attr name="msl_noNetworkView" />
+    </declare-styleable>
+
+</resources>

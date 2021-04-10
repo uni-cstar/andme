@@ -21,12 +21,6 @@ fun FragmentManager.showFragment(
 ) {
     val cacheFragment = findFragmentByTag(tag)
     if (cacheFragment != null) {
-        if (cacheFragment.isVisible)
-            return
-        beginTransaction().show(cacheFragment)
-            .runOnTrue(addToBackStack) {
-                addToBackStack(tag)
-            }.commit()
         return
     }
 
@@ -34,7 +28,7 @@ fun FragmentManager.showFragment(
         containerId, creator(), tag
     ).runOnTrue(addToBackStack) {
         addToBackStack(tag)
-    }.commit()
+    }.commitNowAllowingStateLoss()
 }
 
 fun FragmentManager.removeFragment(tag: String) {

@@ -53,6 +53,10 @@
         <item name="android:textSize">@dimen/text_size_subhead</item>
     </style>
 
+    <style name="Text.SubHead.Bold" >
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!--相反色副标题-->
     <style name="Text.SubHead.Inverse" parent="TextAppearance.AppCompat.Subhead.Inverse">
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
@@ -149,6 +153,56 @@
 
     <style name="Text.Button.Inverse.Medium">
         <item name="android:textSize">@dimen/text_size_button_medium</item>
+    </style>
+
+
+    <!--带阴影的文本-->
+    <style name="ShadowText">
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">3.0</item>
+        <item name="android:shadowColor">#6b1b2322</item>
+        <item name="android:textAppearance">@style/Text.Body</item>
+    </style>
+
+    <style name="ShadowText.Marquee">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ShadowText.Marquee.SubHead">
+        <item name="android:textAppearance">@style/Text.SubHead</item>
+    </style>
+
+    <style name="ShadowText.SubHead">
+        <item name="android:textAppearance">@style/Text.SubHead</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ShadowText.Marquee.Caption">
+        <item name="android:textAppearance">@style/Text.Caption</item>
+    </style>
+
+    <style name="ShadowText.Marquee.Caption.Primary">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="ShapeableImageView"/>
+
+    <style name="ShapeableImageView.Rounded" >
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/rounded_radius</item>
+    </style>
+
+    <style name="ShapeableImageView.Circle">
+        <item name="cornerFamily">rounded</item>
+        <!--
+        Sets size of corners to be 50% of min(width, height) of widget
+        -->
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

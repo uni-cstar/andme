@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@android:color/white"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <RelativeLayout
+        android:id="@+id/thumb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:scaleType="fitCenter"
+        tools:visibility="gone" />
+
+    <View
+        android:id="@+id/bottom_control_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/amtv_video_player_bottom_control_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/playOrPause" />
+
+    <moe.codeest.enviews.ENPlayView
+        android:id="@+id/playOrPause"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/float_seek_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:visibility="gone" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/control_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="current_duration_tv,float_seek_bar,total_duration_tv"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/current_duration_tv"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="99:88:88"
+        android:textColor="@color/tv_white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/total_duration_tv"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="99:88:88"
+        android:textColor="@color/tv_white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <andme.core.widget.progressbar.FloatSeekBar
+        android:id="@+id/float_seek_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:fsb_bgColor="@color/black_60"
+        app:fsb_fgColor="@color/color_primary"
+        app:fsb_floatBgColor="@color/black_30"
+        app:fsb_floatTextColor="@color/tv_white"
+        app:fsb_floatTextSize="18sp"
+        app:fsb_indicatorColor="@color/tv_white"
+        app:fsb_indicatorInnerColor="@color/color_primary"
+        app:fsb_indicatorRadius="5dp"
+        app:fsb_marginSize="20dp"
+        app:fsb_progress="50"
+        app:fsb_progressBarHeight="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/current_duration_tv"
+        app:layout_constraintRight_toLeftOf="@id/total_duration_tv" />
+
+    <View
+        android:id="@+id/buffering_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/black_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/buffering_view"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/title_tv"
+        style="@style/ShadowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/tv_white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/buffering_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="这事一个标题" />
+
+    <TextView
+        android:id="@+id/hint_tv"
+        style="@style/ShadowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/tv_white"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buffering_view"
+        tools:text="上次观看至 12：33" />
+
+
+    <FrameLayout
+        android:id="@+id/fff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="75dp">
+
+        <ImageView
+            android:id="@+id/play_btn_on_progress"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/amtv_media_video_play_ic_in_bar"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    </FrameLayout>
+</merge>

@@ -49,4 +49,7 @@ interface AMDialog {
 
 interface AMProgressDialog : AMDialog{
     fun setMessage(msg:String)
+
+    fun setOnDismissListener(listener:DialogInterface.OnDismissListener?)
+
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="andme.core.paging.AMPagingLoadMoreView">
+
+    <LinearLayout
+        android:id="@id/am_paging_loading_layout"
+        style="@style/PagingStateContainerLayout"
+        android:layout_gravity="center"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@id/am_paging_loading_view"
+            style="@android:style/Widget.Holo.ProgressBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="20dp"
+            android:minHeight="20dp" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/loading_text"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginLeft="@dimen/dp_4"-->
+        <!--            android:text="@string/brvah_loading"-->
+        <!--            android:textColor="@android:color/black"-->
+        <!--            android:textSize="@dimen/sp_14"
+                     style="@style/LoadMoreText"/>-->
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@id/am_paging_fail_layout"
+        style="@style/PagingStateContainerLayout"
+        android:layout_gravity="center"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/am_img_retry_circle_arrow" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@id/am_paging_complete_layout"
+        style="@style/PagingStateContainerLayout"
+        android:layout_gravity="center"
+        android:duplicateParentState="true"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@id/am_paging_complete_text"
+            style="@style/PagingStateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"
+            android:text="@string/am_paging_load_more_not_loading" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@id/am_paging_no_more_layout"
+        style="@style/PagingStateContainerLayout"
+        android:layout_gravity="center"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1"
+            android:background="@drawable/shape_divider_am" />
+
+        <TextView
+            android:id="@id/am_paging_no_more_text"
+            style="@style/PagingStateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/am_paging_load_more_no_more_data" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1px"
+            android:layout_weight="1"
+            android:background="@drawable/shape_divider_am" />
+    </LinearLayout>
+</merge>

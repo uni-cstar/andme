@@ -6,7 +6,10 @@ package andme.core.exception
 
 import andme.core.exceptionHandlerAM
 import andme.core.isDebuggable
+import andme.core.support.ui.showAlertDialog
+import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.view.View
 import androidx.fragment.app.Fragment
 
@@ -52,6 +55,26 @@ inline fun Context.tryUi(action: () -> Unit): Throwable? {
         null
     } catch (e: Exception) {
         exceptionHandlerAM.handleUIException(this, e)
+        e
+    }
+}
+
+/**
+ * 捕获ui异常
+ */
+inline fun Context.tryOnCreate(action: () -> Unit): Throwable? {
+    return try {
+        action()
+        null
+    } catch (e: Exception) {
+        exceptionHandlerAM.handleCatchException(e)
+        showAlertDialog(
+            "界面初始化失败:${e.friendlyMessage}",
+            Pair("退出", DialogInterface.OnClickListener { dialog, which ->
+                (this as? Activity)?.finish()
+            }),
+            false
+        )
         e
     }
 }

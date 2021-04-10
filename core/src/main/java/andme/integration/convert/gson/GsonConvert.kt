@@ -7,36 +7,24 @@ import java.lang.reflect.Type
 /**
  * Created by Lucio on 2021/1/27.
  */
+class GsonConvert @JvmOverloads constructor(val gson: Gson = Gson()) : JsonConvert {
 
+    override fun <T> toObject(json: String?, clazz: Class<T>): T? {
+        if (json.isNullOrEmpty())
+            return null
+        return gson.fromJson(json, clazz)
+    }
 
-var gson: Gson = Gson()
+    override fun <T> toObjectList(json: String?, clazz: Class<T>): List<T>? {
+        if (json.isNullOrEmpty())
+            return null
+        val type: Type = object : TypeToken<List<T>>() {}.type
+        return gson.fromJson(json, type)
+    }
 
-inline fun Any?.toJson(): String? {
-    if (this == null)
-        return null
-    return gson.toJson(this)
-}
-
-fun <T> toObject(json: String?, clzz: Class<T>): T? {
-    if (json.isNullOrEmpty())
-        return null
-    return gson.fromJson(json, clzz)
-}
-
-fun <T> toObject(json: String?, typeOfT: Type): T? {
-    if (json.isNullOrEmpty())
-        return null
-    return gson.fromJson(json, typeOfT)
-}
-
-inline fun <reified T> String?.toObject(): T? {
-    if (this.isNullOrEmpty())
-        return null
-    return gson.fromJson(this, T::class.java)
-}
-
-inline fun <reified T> String?.toObjectList(): List<T>? {
-    if (this.isNullOrEmpty())
-        return null
-    return gson.fromJson(this, object : TypeToken<List<T>>() {}.type)
+    override fun toJson(obj: Any?): String? {
+        if (obj == null)
+            return null
+        return gson.toJson(obj)
+    }
 }

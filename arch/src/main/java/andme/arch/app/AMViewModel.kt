@@ -13,6 +13,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -20,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap
  * ViewModel基础类：支持生命周期和常规与Activity、Fragment联动的方法
  */
 open class AMViewModel(application: Application) : AndroidViewModel(application),
-        LifecycleObserver {
+    LifecycleObserver {
 
     protected val logTag: String get() = this::class.java.name
 
@@ -47,13 +50,13 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
     val startActivityEvent: SingleLiveEvent<Intent> = SingleLiveEvent<Intent>()
 
     val startActivityForResultEvent: SingleLiveEvent<Pair<Intent, Int>> =
-            SingleLiveEvent<Pair<Intent, Int>>()
+        SingleLiveEvent<Pair<Intent, Int>>()
 
     val toastEvent: SingleLiveEvent<Pair<String, Int>> =
-            SingleLiveEvent<Pair<String, Int>>()
+        SingleLiveEvent<Pair<String, Int>>()
 
     val contextActionEvent: MutableLiveData<ContextAction> =
-            MutableLiveData<ContextAction>()
+        MutableLiveData<ContextAction>()
 
     internal open fun unregister(owner: AMViewModelOwner) {
         //移除生命周期监听
@@ -186,32 +189,40 @@ open class AMViewModel(application: Application) : AndroidViewModel(application)
         //nothing
     }
 
-    private val cancelPrevioursRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> = ConcurrentHashMap()
+    private val cancelPrevioursRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> =
+        ConcurrentHashMap()
 
     /**
      * 执行并取消之前启动的[key]相同的任务
      */
     @Synchronized
     suspend fun <T> launchAndCancelPrevious(key: String, func: suspend () -> T): T {
-        var runner = cancelPrevioursRunners[key]
-        if (runner == null) {
-            runner = ControlledRunner<Any?>()
-            cancelPrevioursRunners[key] = runner
+        val runner = synchronized(cancelPrevioursRunners) {
+            var runner = cancelPrevioursRunners[key]
+            if (runner == null) {
+                runner = ControlledRunner<Any?>()
+                cancelPrevioursRunners[key] = runner
+            }
+            runner
         }
         return runner.cancelPreviousThenRun(func) as T
     }
 
-    private val joinPreviousRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> = ConcurrentHashMap()
+    private val joinPreviousRunners: ConcurrentHashMap<String, ControlledRunner<Any?>> =
+        ConcurrentHashMap()
 
     /**
      * 执行或加入之前启动的[key]相同的任务：即如果之前已经启动了同名Key的任务，并且未执行完成，则当前认为会忽略，并
      */
     @Synchronized
     suspend fun <T> launchOrJoinPrevious(key: String, func: suspend () -> T): T {
-        var runner = joinPreviousRunners[key]
-        if (runner == null) {
-            runner = ControlledRunner<Any?>()
-            joinPreviousRunners[key] = runner
+        val runner = synchronized(cancelPrevioursRunners) {
+            var runner = joinPreviousRunners[key]
+            if (runner == null) {
+                runner = ControlledRunner<Any?>()
+                joinPreviousRunners[key] = runner
+            }
+            runner
         }
         return runner.joinPreviousOrRun(func) as T
     }

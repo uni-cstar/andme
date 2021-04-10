@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    加载更多底部容器样式-->
+    <style name="PagingStateContainerLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- 加载更多 底部 文本样式-->
+    <style name="PagingStateText" parent="Text.Caption"/>
+
+    <!--paging id 实现-->
+    <item name="am_paging_loading_layout" type="id"/>
+    <item name="am_paging_loading_view" type="id"/>
+    <item name="am_paging_complete_layout" type="id" />
+    <item name="am_paging_complete_text" type="id" />
+
+    <item name="am_paging_fail_layout" type="id"/>
+    <item name="am_paging_fail_text" type="id" />
+    <item name="am_paging_no_more_layout" type="id" />
+    <item name="am_paging_no_more_text" type="id" />
+
+
+    <string name="am_paging_load_more_fail">加载失败，点击重试</string>
+    <string name="am_paging_load_more_not_loading">点击加载更多</string>
+    <string name="am_paging_load_more_no_more_data">没有更多啦</string>
+</resources>

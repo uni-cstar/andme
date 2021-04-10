@@ -18,7 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
  *
  * 注意事项：闪一下效果是通过add的一个view实现的，因此如果跟该布局设置了padding，则将缩小闪一下的显示范围
  */
-class ScaleConstraintLayout @JvmOverloads constructor(
+open class ScaleConstraintLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

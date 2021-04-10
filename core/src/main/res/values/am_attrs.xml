@@ -25,4 +25,83 @@
         <!--内容文字大小-->
         <attr name="mvf_text_size" format="dimension|reference" />
     </declare-styleable>
+
+
+    <declare-styleable name="FloatIndicatorProgressBar">
+        <!--当前进度值 0-100-->
+        <attr name="fpb_progress" format="integer" />
+        <!--前景色：进度条颜色-->
+        <attr name="fpb_fgColor" format="color|reference" />
+        <!--背景色：进度条背景色-->
+        <attr name="fpb_bgColor" format="color|reference" />
+        <!--进度条高度，默认8dp-->
+        <attr name="fpb_progressBarHeight" format="dimension|reference" />
+        <!--间隔大小：进度条与指示器之间的间距，默认2dp-->
+        <attr name="fpb_marginSize" format="dimension|reference" />
+
+        <!--是否显示进度条进度指示器-->
+        <attr name="fpb_showBarIndicator" format="boolean" />
+        <!--进度指示器颜色-->
+        <attr name="fpb_barIndicatorColor" format="color|reference" />
+        <!--进度指示器宽度，默认6dp-->
+        <attr name="fpb_barIndicatorWidth" format="dimension|reference" />
+        <!--指示器比进度条多出的高度，即 指示器高度 =  进度条高度 + 2 * fpb_barIndicatorHeightThanBar -->
+        <attr name="fpb_barIndicatorHeightThanBar" format="dimension|reference" />
+
+        <!--三角形高度，默认6dp-->
+        <attr name="fpb_triangleHeight" format="dimension|reference" />
+        <!--三角形宽度，默认5dp-->
+        <attr name="fpb_triangleWidth" format="dimension|reference" />
+
+        <!--是否显示指示器，默认显示-->
+        <attr name="fpb_showFloat" format="boolean" />
+        <!--指示器文字大小，默认14sp-->
+        <attr name="fpb_floatTextSize" format="dimension|reference" />
+        <!--指示器文字颜色-->
+        <attr name="fpb_floatTextColor" format="color|reference" />
+        <attr name="fpb_floatText" format="string|reference" />
+        <!--指示器背景色-->
+        <attr name="fpb_floatBgColor" format="color|reference" />
+        <!--        &lt;!&ndash;进度条圆角半径&ndash;&gt;-->
+        <!--        <attr name="fpb_roundedRadius" format="dimension|reference" />-->
+    </declare-styleable>
+
+    <declare-styleable name="FloatSeekBar">
+        <!--当前进度值 0-100-->
+        <attr name="fsb_progress" format="integer" />
+        <!--前景色：进度条颜色-->
+        <attr name="fsb_fgColor" format="color|reference" />
+        <!--背景色：进度条背景色-->
+        <attr name="fsb_bgColor" format="color|reference" />
+        <!--进度条高度，默认4dp-->
+        <attr name="fsb_progressBarHeight" format="dimension|reference" />
+        <!--间隔大小：进度条与指示器之间的间距，默认2dp-->
+        <attr name="fsb_marginSize" format="dimension|reference" />
+
+        <!--进度条圆形指示器 背景色-->
+        <attr name="fsb_indicatorColor" format="color|reference" />
+        <!--进度条圆形指示器 半径,默认4dp-->
+        <attr name="fsb_indicatorRadius" format="dimension|reference" />
+        <!--进度条圆形指示器 内圆半径，默认bar高度一半相等-->
+        <attr name="fsb_indicatorInnerRadius" format="dimension|reference" />
+        <!--进度条圆形指示器 内圆颜色-->
+        <attr name="fsb_indicatorInnerColor" format="color|reference" />
+
+        <!--三角形高度，默认6dp-->
+        <attr name="fsb_triangleHeight" format="dimension|reference" />
+        <!--三角形宽度，默认5dp-->
+        <attr name="fsb_triangleWidth" format="dimension|reference" />
+        <!--文本-->
+        <attr name="fsb_floatText" format="string|reference" />
+        <!--指示器文字大小，默认14sp-->
+        <attr name="fsb_floatTextSize" format="dimension|reference" />
+        <!--指示器文字颜色-->
+        <attr name="fsb_floatTextColor" format="color|reference" />
+        <!--指示器背景色-->
+        <attr name="fsb_floatBgColor" format="color|reference" />
+        <!--        &lt;!&ndash;进度条圆角半径&ndash;&gt;-->
+        <!--        <attr name="fpb_roundedRadius" format="dimension|reference" />-->
+    </declare-styleable>
+
+
 </resources>

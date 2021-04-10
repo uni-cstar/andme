@@ -61,12 +61,10 @@ fun Context.isNetworkConnected(): Boolean {
     val cm = connectivityManager ?: return false
     if (Build.VERSION.SDK_INT < 23) {
         val ani = cm.activeNetworkInfo ?: return false
-        val type = ani.type
-        return ani.isConnected && (type == ConnectivityManager.TYPE_WIFI || type == ConnectivityManager.TYPE_MOBILE)
+        return ani.isConnected
     } else {
         val an = cm.activeNetwork ?: return false
-        val nc = cm.getNetworkCapabilities(an) ?: return false
-        return nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+        return  cm.getNetworkCapabilities(an) != null
     }
 }
 

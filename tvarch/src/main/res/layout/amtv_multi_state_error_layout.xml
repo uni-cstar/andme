@@ -34,7 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:maxWidth="@dimen/lb_error_message_max_width"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:text="sdfsdf"
+            tools:visibility="visible"/>
 
         <Button
             android:id="@+id/button"

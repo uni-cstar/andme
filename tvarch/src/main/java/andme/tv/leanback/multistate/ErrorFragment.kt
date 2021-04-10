@@ -1,6 +1,5 @@
 package andme.tv.leanback.multistate
 
-import andme.lang.orDefault
 import andme.tv.arch.R
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable

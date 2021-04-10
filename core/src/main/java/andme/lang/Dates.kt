@@ -18,6 +18,11 @@ const val ONE_DAY_TIME = 86400000L
 const val ONE_HOUR_TIME = 3600000L
 
 /**
+ * 一分钟
+ */
+const val ONE_MINUTE_TIME = 60000L
+
+/**
  * utc 时间格式
  */
 const val DATE_UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

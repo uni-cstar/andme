@@ -1,7 +1,6 @@
 package andme.tv.leanback.multistate
 
 import andme.core.lifecycle.SingleEvent
-import andme.core.lifecycle.SingleLiveEvent
 import android.app.Application
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.AndroidViewModel
@@ -12,9 +11,9 @@ import androidx.lifecycle.MutableLiveData
  */
 open class MultiStateViewModel(application: Application) : AndroidViewModel(application) {
 
-    val isLoadingEvent = SingleLiveEvent<Boolean>(false)
+    val isLoadingEvent = MutableLiveData<Boolean>(false)
 
-    val isErrorEvent = SingleLiveEvent<Boolean>(false)
+    val isErrorEvent = MutableLiveData<Boolean>(false)
 
     val errorMessageEvent = MutableLiveData<String>("")
 

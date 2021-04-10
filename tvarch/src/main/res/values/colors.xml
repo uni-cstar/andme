@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--纯白（#FFFFFF）在电视会产生图像拖影，如需使用白色，可以用#F1F1F1(hex) 或者240/240/240(RGB)进行代替；-->
+    <color name="tv_white">#F1F1F1</color>
+
     <!--默认控件背景色 8% 白色-->
     <color name="default_slt_color">#4C000000</color>
 

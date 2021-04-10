@@ -1,5 +1,6 @@
 package andme.integration.support.binding
 
+import andme.core.binding.bindTextOrGone
 import andme.core.imageLoaderAM
 import andme.core.mApp
 import andme.core.util.dip
@@ -15,6 +16,7 @@ import androidx.databinding.BindingAdapter
 /**
  * Created by Lucio on 2021/1/14.
  */
+
 
 /**
  * 默认圆角半径
@@ -43,9 +45,18 @@ inline fun bindImage(view: ImageView, imageUrl: String?, placeHolder: Int) {
 @BindingAdapter(value = ["bindRoundedImage", "placeHolder", "roundingRadius"], requireAll = false)
 fun bindRoundedImage(view: ImageView, url: String?, placeHolder: Drawable?, roundingRadius: Int?) {
     if (placeHolder == null) {
-        GlideImageLoader.loadRoundedImage(view, url, roundingRadius.orDefault(defaultRoundingRadius))
+        GlideImageLoader.loadRoundedImage(
+            view,
+            url,
+            roundingRadius.orDefault(defaultRoundingRadius)
+        )
     } else {
-        GlideImageLoader.loadRoundedImage(view, url, placeHolder, roundingRadius.orDefault(defaultRoundingRadius))
+        GlideImageLoader.loadRoundedImage(
+            view,
+            url,
+            placeHolder,
+            roundingRadius.orDefault(defaultRoundingRadius)
+        )
     }
 }
 
@@ -60,27 +71,18 @@ fun bindCircleImage(view: ImageView, url: String?, placeHolder: Drawable?) {
 
 @BindingAdapter("textOrGone")
 fun bindTextOrGone(view: TextView, message: CharSequence?) {
-    if (message.isNullOrEmpty()) {
-        view.visibility = View.GONE
-        view.text = ""
-    } else {
-        view.visibility = View.VISIBLE
-        view.text = message
-    }
+    view.bindTextOrGone(message)
 }
 
 /**
  * 绑定文本；文本为空时隐藏控件，在文本不为空时并执行[onVisibleInvoke]回调
  */
-inline fun bindTextOrGone(view: TextView, message: CharSequence?,onVisibleInvoke:TextView.()->Unit){
-    if (message.isNullOrEmpty()) {
-        view.visibility = View.GONE
-        view.text = ""
-    } else {
-        view.visibility = View.VISIBLE
-        view.text = message
-        onVisibleInvoke.invoke(view)
-    }
+inline fun bindTextOrGone(
+    view: TextView,
+    message: CharSequence?,
+    noinline onVisibleInvoke: TextView.() -> Unit
+) {
+    view.bindTextOrGone( message, onVisibleInvoke)
 }
 
 @BindingAdapter("textOrInvisible")
@@ -115,3 +117,8 @@ fun bindSelection(view: EditText, position: Int) {
     view.setSelection(position)
 }
 
+
+@BindingAdapter("bindActive")
+fun bindSelected(view: View, active: Boolean) {
+    view.isActivated = active
+}

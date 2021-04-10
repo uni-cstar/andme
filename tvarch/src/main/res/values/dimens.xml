@@ -27,6 +27,7 @@
     <dimen name="browser_item_margin">14dp</dimen>
 
     <dimen name="view_margin">10dp</dimen>
+    <dimen name="view_margin_big">16dp</dimen>
     <dimen name="view_margin_inner">5dp</dimen>
 
     <!--文本内部padding-->

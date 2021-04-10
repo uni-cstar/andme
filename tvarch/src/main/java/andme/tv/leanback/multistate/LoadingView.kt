@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 
@@ -26,6 +27,8 @@ class LoadingView @JvmOverloads constructor(
             ).also {
                 it.gravity = Gravity.CENTER
             })
+
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT)
 
     }
 

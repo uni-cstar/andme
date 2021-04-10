@@ -1,10 +1,7 @@
 package andme.lang.coroutines
 
 import andme.lang.RetryException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -16,9 +13,9 @@ import kotlin.coroutines.EmptyCoroutineContext
  * 当捕获了[block]执行过程中抛出的[RetryException]时，将会重新执行[block]
  */
 fun CoroutineScope.launchRetryable(
-        context: CoroutineContext = EmptyCoroutineContext,
-        start: CoroutineStart = CoroutineStart.DEFAULT,
-        block: suspend CoroutineScope.() -> Unit
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit
 ) {
     launch(context, start) {
         var relaunch = true
@@ -38,5 +35,13 @@ fun CoroutineScope.launchRetryable(
                 timestamp = System.currentTimeMillis()
             }
         }
+    }
+}
+
+suspend fun <T> runOnIO(
+    block: suspend CoroutineScope.() -> T
+): T {
+    return withContext(Dispatchers.IO) {
+        block()
     }
 }

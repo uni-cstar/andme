@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -37,6 +37,25 @@ dependencies {
 
     api project(path: ':core')
 
+    /* 2.6.x版本才支持4.4: retrofit + okhttp的版本不能太高，高版本只支持ApiLevel 21*/
+    def retrofit_version = "2.6.4"
+    /*支持到Android 2.3+ (Api Level 9+)  参考链接 https://github.com/square/okhttp/pull/5891*/
+    def okhttp3_version = "3.12.12"
+
+    /*查看地址：https://developer.android.google.cn/jetpack/androidx/releases/leanback?hl=zh_cn*/
+    api 'androidx.leanback:leanback:1.1.0-beta01'
+//    //leanback 专用的paging https://developer.android.google.cn/training/tv/start/libraries?hl=zh_cn
+//    api "androidx.leanback:leanback-paging:1.1.0-alpha07"
+
+    //notice:必须使用此版本，高于此版本会无法兼容4.4,该版本在2021-12-31之后不在维护，okhttp的新版本最低兼容版本为API Level 21
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    /*在某些盒子上不能使用Gson，转而用JackSon*/
+    compileOnly "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:converter-jackson:$retrofit_version"
+//    api "com.squareup.okhttp3:okhttp:$okhttp3_version"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -45,7 +64,21 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'androidx.leanback:leanback:1.0.0'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
+
+
+    /*播放器：https://github.com/CarGuo/GSYVideoPlayer*/
+    implementation 'com.shuyu:GSYVideoPlayer:8.1.0'
+//
+//    /*添加java和你想要的so支持*/
+//    implementation 'com.shuyu:gsyVideoPlayer-java:8.1.0'
+    //是否需要ExoPlayer模式
+    implementation 'com.shuyu:GSYVideoPlayer-exo2:8.1.0'
+//    //根据你的需求ijk模式的so
+//    implementation 'com.shuyu:gsyVideoPlayer-armv5:8.1.0'
+    implementation 'com.shuyu:gsyVideoPlayer-armv7a:8.1.0'
+//    implementation 'com.shuyu:gsyVideoPlayer-arm64:8.1.0'
+//    implementation 'com.shuyu:gsyVideoPlayer-x64:8.1.0'
+//    implementation 'com.shuyu:gsyVideoPlayer-x86:8.1.0'
 }

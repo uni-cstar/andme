@@ -45,7 +45,7 @@ dependencies {
 ////    testImplementation "androidx.room:room-testing:$room_version"
 
     //popup相关
-    api 'com.lxj:xpopup:2.2.1'
+    api 'com.lxj:xpopup:2.2.23'
 
     /*适配器集成<proguard>*/
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'

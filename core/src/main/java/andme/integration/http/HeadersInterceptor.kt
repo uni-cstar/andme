@@ -20,10 +20,10 @@ abstract class HeadersInterceptor : okhttp3.Interceptor {
     @Throws(java.io.IOException::class)
     override fun intercept(chain: okhttp3.Interceptor.Chain): okhttp3.Response {
         val originalRequest = chain.request()
-        willRequestUrl(originalRequest.url.toString())
+        willRequestUrl(originalRequest.url().toString())
 
         val customHeaders = getHeaders()
-        val originalHeaders = originalRequest.headers
+        val originalHeaders = originalRequest.headers()
 
         val preHeaders = customHeaders?.filterNot {
             originalHeaders.contains(it.key)
