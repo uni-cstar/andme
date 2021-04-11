@@ -3,6 +3,7 @@ package andme.tv.player.internal
 import andme.core.binding.bindTextOrGone
 import andme.core.widget.isVisible
 import andme.core.widget.progressbar.FloatSeekBar
+import andme.core.widget.progressbar.FloatStatableSeekBar
 import andme.core.widget.setGone
 import andme.core.widget.setVisible
 import andme.lang.ONE_HOUR_TIME
@@ -42,7 +43,7 @@ class TVVideoControlView @JvmOverloads constructor(
     internal val mTotalDurationTv: TextView
 
     /*进度条*/
-    private val mFloatSB: FloatSeekBar
+    private val mFloatSB: FloatStatableSeekBar
 
     private val mBufferingBgV: View
     private val mBufferingView: ProgressBar
@@ -50,10 +51,11 @@ class TVVideoControlView @JvmOverloads constructor(
     private val mHintText: TextView
     private val mThumbContainer: RelativeLayout
 
-    private val mPlayBtnOnBar: ImageView
-    private val mPlayBtnOnBarShowAnim: Animation
-    private val mPlayBtnOnBarHideAnim: Animation
-    private var mPlayBtnOnBarAniming: Boolean = false
+//    private val mPlayBtnOnBar: ImageView
+//    private val mPlayBtnOnBarShowAnim: Animation
+//    private val mPlayBtnOnBarHideAnim: Animation
+//    private var mPlayBtnOnBarAniming: Boolean = false
+//private var mPlayBtnOnBarContainer: FrameLayout
 
     /**
      * 单位ms
@@ -73,12 +75,12 @@ class TVVideoControlView @JvmOverloads constructor(
      */
     private var mHasPlayed: Boolean = false
 
-    private var mPlayBtnOnBarContainer: FrameLayout
+
 
     init {
         inflate(context, R.layout.amtv_media_video_control_layout, this)
-        mPlayBtnOnBarContainer = findViewById(R.id.fff)
-        mPlayBtnOnBar = findViewById(R.id.play_btn_on_progress)
+//        mPlayBtnOnBarContainer = findViewById(R.id.fff)
+//        mPlayBtnOnBar = findViewById(R.id.play_btn_on_progress)
         mPlayOrPauseView = findViewById(R.id.playOrPause)
         mPlayOrPauseView.setDuration(ANIM_DURATION.toInt())
         mControlGroup = findViewById(R.id.control_group)
@@ -96,56 +98,56 @@ class TVVideoControlView @JvmOverloads constructor(
 
         mThumbContainer = findViewById(R.id.thumb)
 
-        mPlayBtnOnBarShowAnim = ScaleAnimation(
-            0.4f,
-            1.0f,
-            0.4f,
-            1.0f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f
-        ).also {
-            it.duration = ANIM_DURATION
-            it.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation?) {
-                    mPlayBtnOnBar.setVisible()
-
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-                    mPlayBtnOnBarAniming = false
-                }
-
-                override fun onAnimationRepeat(animation: Animation?) {
-                }
-            })
-        }
-
-        mPlayBtnOnBarHideAnim = ScaleAnimation(
-            1.0f,
-            0.4f,
-            1.0f,
-            0.4f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f,
-            Animation.RELATIVE_TO_SELF,
-            0.5f
-        ).also {
-            it.duration = ANIM_DURATION
-            it.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation?) {
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-                    mPlayBtnOnBarAniming = false
-                    mPlayBtnOnBar.setGone()
-                }
-
-                override fun onAnimationRepeat(animation: Animation?) {
-                }
-            })
-        }
+//        mPlayBtnOnBarShowAnim = ScaleAnimation(
+//            0.4f,
+//            1.0f,
+//            0.4f,
+//            1.0f,
+//            Animation.RELATIVE_TO_SELF,
+//            0.5f,
+//            Animation.RELATIVE_TO_SELF,
+//            0.5f
+//        ).also {
+//            it.duration = ANIM_DURATION
+//            it.setAnimationListener(object : Animation.AnimationListener {
+//                override fun onAnimationStart(animation: Animation?) {
+//                    mPlayBtnOnBar.setVisible()
+//
+//                }
+//
+//                override fun onAnimationEnd(animation: Animation?) {
+//                    mPlayBtnOnBarAniming = false
+//                }
+//
+//                override fun onAnimationRepeat(animation: Animation?) {
+//                }
+//            })
+//        }
+//
+//        mPlayBtnOnBarHideAnim = ScaleAnimation(
+//            1.0f,
+//            0.4f,
+//            1.0f,
+//            0.4f,
+//            Animation.RELATIVE_TO_SELF,
+//            0.5f,
+//            Animation.RELATIVE_TO_SELF,
+//            0.5f
+//        ).also {
+//            it.duration = ANIM_DURATION
+//            it.setAnimationListener(object : Animation.AnimationListener {
+//                override fun onAnimationStart(animation: Animation?) {
+//                }
+//
+//                override fun onAnimationEnd(animation: Animation?) {
+//                    mPlayBtnOnBarAniming = false
+//                    mPlayBtnOnBar.setGone()
+//                }
+//
+//                override fun onAnimationRepeat(animation: Animation?) {
+//                }
+//            })
+//        }
     }
 
 
@@ -163,12 +165,10 @@ class TVVideoControlView @JvmOverloads constructor(
     fun setProgressAndTime(
         @IntRange(from = 0, to = 100)
         progress: Int,
-        @IntRange(from = 0, to = 100)
-        secProgress: Int,
         currentTime: Int,
         totalTime: Int
     ) {
-        setProgressAndTime(progress, currentTime, totalTime)
+        setProgressAndTime(progress,mFloatSB.getSecondaryProgress(),currentTime, totalTime)
     }
 
     /**
@@ -180,6 +180,8 @@ class TVVideoControlView @JvmOverloads constructor(
     fun setProgressAndTime(
         @IntRange(from = 0, to = 100)
         progress: Int,
+        @IntRange(from = 0, to = 100)
+        secProgress: Int,
         currentTime: Int,
         totalTime: Int
     ) {
@@ -193,26 +195,30 @@ class TVVideoControlView @JvmOverloads constructor(
         renderDuration(mCurrentDurationTv, currentTime)
 
 
-        if (mPlayBtnOnBarAniming) {
-            //如果在进行放大动画，则不进行定位，避免动画跳跃
-            mFloatSB.setProgressOnly(progress, mCurrentDurationTv.text.toString())
-        } else {
-            mFloatSB.setProgress(progress, mCurrentDurationTv.text.toString())
-            updateBarPlayButtonLayout()
-        }
+        mFloatSB.setProgress(progress, mCurrentDurationTv.text.toString())
+//        mFloatSB.showSecondaryIndicator()
 
-    }
-
-    private fun updateBarPlayButtonLayout() {
-        val left = (mFloatSB.left + mFloatSB.indicatorX - mPlayBtnOnBar.width / 2f).toInt()
-        mPlayBtnOnBarContainer.setPadding(left, 0, 0, 0)
-//        val lp = mPlayBtnOnBar.layoutParams as LayoutParams
-//        if (lp.leftMargin != left) {
-//            lp.leftMargin = left
-//            mPlayBtnOnBar.layoutParams = layoutParams
+//        if (mPlayBtnOnBarAniming) {
+//            //如果在进行放大动画，则不进行定位，避免动画跳跃
+//            mFloatSB.setProgressOnly(progress,secProgress, mCurrentDurationTv.text.toString())
+//        } else {
+//            mFloatSB.setProgress(progress, mCurrentDurationTv.text.toString())
+//            mFloatSB.showSecondaryIndicator()
+////            updateBarPlayButtonLayout()
 //        }
-//        mPlayBtnOnBar.translationX = left
+
     }
+
+//    private fun updateBarPlayButtonLayout() {
+//        val left = (mFloatSB.left + mFloatSB.indicatorX - mPlayBtnOnBar.width / 2f).toInt()
+//        mPlayBtnOnBarContainer.setPadding(left, 0, 0, 0)
+////        val lp = mPlayBtnOnBar.layoutParams as LayoutParams
+////        if (lp.leftMargin != left) {
+////            lp.leftMargin = left
+////            mPlayBtnOnBar.layoutParams = layoutParams
+////        }
+////        mPlayBtnOnBar.translationX = left
+//    }
 
     private fun prepareDurationFormat(duration: Int): String {
         if (duration < ONE_HOUR_TIME) {
@@ -308,9 +314,11 @@ class TVVideoControlView @JvmOverloads constructor(
         mPlayOrPauseView.play()
         mThumbContainer.setGone()
 
-        mPlayBtnOnBar.clearAnimation()
-        mPlayBtnOnBar.startAnimation(mPlayBtnOnBarHideAnim)
-        mPlayBtnOnBarAniming = true
+        mFloatSB.showFirstIndicatorWithAnim()
+
+//        mPlayBtnOnBar.clearAnimation()
+//        mPlayBtnOnBar.startAnimation(mPlayBtnOnBarHideAnim)
+//        mPlayBtnOnBarAniming = true
     }
 
     /**
@@ -324,10 +332,11 @@ class TVVideoControlView @JvmOverloads constructor(
         mPlayOrPauseView.setVisible()
         mPlayOrPauseView.pause()
 
-        mPlayBtnOnBar.visibility = View.VISIBLE
-        mPlayBtnOnBar.clearAnimation()
-        mPlayBtnOnBar.startAnimation(mPlayBtnOnBarShowAnim)
-        mPlayBtnOnBarAniming = true
+        mFloatSB.showSecondaryIndicatorWithAnim()
+//        mPlayBtnOnBar.visibility = View.VISIBLE
+//        mPlayBtnOnBar.clearAnimation()
+//        mPlayBtnOnBar.startAnimation(mPlayBtnOnBarShowAnim)
+//        mPlayBtnOnBarAniming = true
     }
 
     /**
@@ -377,12 +386,45 @@ class TVVideoControlView @JvmOverloads constructor(
                             progress: Int,
                             currentTime: Int,
                             totalTime: Int){
-        mFloatSB.fadeInFloat()
+        mFloatSB.showFloat()
         setProgressAndTime(progress, currentTime, totalTime)
     }
 
     fun hideControlFloat(){
-        mFloatSB.fadeOutFloat()
+        mFloatSB.hideFloat()
+    }
+
+    /**
+     * 淡出Float
+     */
+    fun showFloat() {
+        mFloatSB.showFloat()
+    }
+
+    /**
+     * 淡入Float;如果正在进行淡入动画，或者已经在绘制状态，则不处理
+     */
+    fun hideFloat() {
+        mFloatSB.hideFloat()
+    }
+
+    fun showFirstIndicatorWithAnim() {
+        mFloatSB.showFirstIndicatorWithAnim()
+    }
+
+    /**
+     * 显示二级指示器
+     */
+    fun showSecondaryIndicatorWithAnim() {
+        mFloatSB.showSecondaryIndicatorWithAnim()
+    }
+
+    fun showFirstIndicator(){
+        mFloatSB.showFirstIndicator()
+    }
+
+    fun showSecondaryIndicator(){
+        mFloatSB.showSecondaryIndicator()
     }
 
     companion object {

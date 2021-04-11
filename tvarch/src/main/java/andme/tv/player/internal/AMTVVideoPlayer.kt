@@ -39,7 +39,7 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
     private var mSeekContinueFlag: Boolean = false
 
 
-    private var mSeekPositionChanged: Long = 0
+    private var mSeekPositionChanged: Long = -1
     private var mSeekMaxDuration: Long = 0
 
 
@@ -212,7 +212,7 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
 
     private fun showControlFloatLayout() {
         removeCallbacks(delayHideFloatLayoutRunnable)
-        postDelayed(delayHideFloatLayoutRunnable, 2000)
+        postDelayed(delayHideFloatLayoutRunnable, 2500)
         mControlView.showControlFloat(
             (mSeekPositionChanged * 100f / mSeekMaxDuration).toInt(),
             mSeekPositionChanged.toInt(), mSeekMaxDuration.toInt()
@@ -242,7 +242,7 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
         //持续处理seek中
         mSeekContinueFlag = true
         //记录变化的开始位置
-        if (mSeekPositionChanged <= 0) {
+        if (mSeekPositionChanged < 0) {
             mSeekMaxDuration = gsyVideoManager.duration
             mSeekPositionChanged = gsyVideoManager.currentPosition
         }

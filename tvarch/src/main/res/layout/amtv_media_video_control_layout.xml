@@ -53,7 +53,7 @@
         android:id="@+id/current_duration_tv"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="26dp"
         android:gravity="center"
         android:text="99:88:88"
         android:textColor="@color/tv_white"
@@ -65,7 +65,7 @@
         android:id="@+id/total_duration_tv"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="26dp"
         android:gravity="center"
         android:text="99:88:88"
         android:textColor="@color/tv_white"
@@ -73,22 +73,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <andme.core.widget.progressbar.FloatSeekBar
+    <andme.core.widget.progressbar.FloatStatableSeekBar
         android:id="@+id/float_seek_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:fsb_bgColor="@color/black_60"
-        app:fsb_fgColor="@color/color_primary"
-        app:fsb_floatBgColor="@color/black_30"
-        app:fsb_floatTextColor="@color/tv_white"
-        app:fsb_floatTextSize="18sp"
-        app:fsb_indicatorColor="@color/tv_white"
-        app:fsb_indicatorInnerColor="@color/color_primary"
-        app:fsb_indicatorRadius="5dp"
-        app:fsb_marginSize="20dp"
-        app:fsb_progress="50"
-        app:fsb_progressBarHeight="5dp"
+        app:fssb_barColor="@color/black_60"
+        app:fssb_progressColor="@color/color_primary"
+        app:fssb_floatColor="@color/black_30"
+        app:fssb_floatTextColor="@color/tv_white"
+        app:fssb_floatTextSize="20sp"
+        app:fssb_indicatorColor="@color/tv_white"
+        app:fssb_indicatorInnerColor="@color/color_primary"
+        app:fssb_indicatorRadius="5dp"
+        app:fssb_floatMarginSize="8dp"
+        app:fssb_floatTextHorizontalPadding="12dp"
+        app:fssb_floatTextVerticalPadding="6dp"
+        app:fssb_progress="50"
+        app:fssb_barHeight="5dp"
+        app:fssb_secondaryIndicatorSize="20dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/current_duration_tv"
         app:layout_constraintRight_toLeftOf="@id/total_duration_tv" />
@@ -145,21 +148,21 @@
         tools:text="上次观看至 12：33" />
 
 
-    <FrameLayout
-        android:id="@+id/fff"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="75dp">
+<!--    <FrameLayout-->
+<!--        android:id="@+id/fff"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:paddingLeft="75dp">-->
 
-        <ImageView
-            android:id="@+id/play_btn_on_progress"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="15dp"
-            android:src="@drawable/amtv_media_video_play_ic_in_bar"
-            android:visibility="invisible"
-            tools:visibility="visible" />
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    </FrameLayout>
+<!--        <ImageView-->
+<!--            android:id="@+id/play_btn_on_progress"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:layout_marginBottom="15dp"-->
+<!--            android:src="@drawable/amtv_media_video_play_ic_in_bar"-->
+<!--            android:visibility="invisible"-->
+<!--            tools:visibility="visible" />-->
+<!--        &lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+<!--    </FrameLayout>-->
 </merge>

@@ -10,6 +10,7 @@ import android.graphics.*
 import android.graphics.Paint.FontMetricsInt
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
@@ -25,6 +26,9 @@ import kotlin.math.ceil
 class FloatStatableSeekBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+
+    /*动画时间*/
+    private val ANIM_DURATION = 900L
 
     /*bar背景色*/
     private var mBarColor: Int = 0
@@ -139,15 +143,16 @@ class FloatStatableSeekBar @JvmOverloads constructor(
     private var mFloatOutAnimRunning: Boolean = false
 
     /*float显示动画*/
-    private val mFloatFadeInAnim = ValueAnimator.ofInt(0, 255).setDuration(1000)
+    private val mFloatFadeInAnim = ValueAnimator.ofInt(0, 255).setDuration(ANIM_DURATION)
 
     /*float隐藏动画*/
-    private val mFloatFadeOutAnim = ValueAnimator.ofInt(255, 0).setDuration(1000)
+    private val mFloatFadeOutAnim = ValueAnimator.ofInt(255, 0).setDuration(ANIM_DURATION)
 
     /**
-     * 是否是裁剪模式，默认为裁剪模式；即进度条的高度会计算[mSecondaryIndicatorDrawable]指示器的高度,否则不计算，则Parent需要设置android:clipChildren = false
+     * 是否是裁剪模式，默认为非裁剪模式；即进度条的高度会计算[mSecondaryIndicatorDrawable]指示器的高度,否则不计算，则Parent需要设置android:clipChildren = false
      */
-    var isClipMode: Boolean = true
+    var isClipMode: Boolean = false
+
 
     init {
 
@@ -248,6 +253,7 @@ class FloatStatableSeekBar @JvmOverloads constructor(
             mFloatText = "10:11:234"
             mDrawFloat = true
             isClipMode = false
+            mDrawSecondaryIndicator = true
         }
 
 
@@ -299,7 +305,10 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         })
 
         val startScale = (mIndicatorRadius * 2f) / mSecondaryIndicatorSize
+
+        Log.d("TVPlayer", "IndicatorScale:${startScale}")
         mSecondaryIndicatorShowAnim = ValueAnimator.ofFloat(startScale, 1f)
+            .setDuration(ANIM_DURATION)
         mSecondaryIndicatorShowAnim.addUpdateListener {
             mSecondaryIndicatorScale = it.animatedValue as Float
             doInvalidateAndCancelPrevious()
@@ -310,7 +319,9 @@ class FloatStatableSeekBar @JvmOverloads constructor(
             }
 
             override fun onAnimationEnd(animation: Animator?) {
+                mDrawSecondaryIndicator = true
                 mSecondaryIndicatorShowAnimRunning = false
+                doInvalidateAndCancelPrevious()
             }
 
             override fun onAnimationCancel(animation: Animator?) {
@@ -323,18 +334,21 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         })
 
         mSecondaryIndicatorHideAnim = ValueAnimator.ofFloat(1f, startScale)
+            .setDuration(ANIM_DURATION )
         mSecondaryIndicatorHideAnim.addUpdateListener {
             mSecondaryIndicatorScale = it.animatedValue as Float
             doInvalidateAndCancelPrevious()
         }
 
         mSecondaryIndicatorHideAnim.addListener(object : Animator.AnimatorListener {
+
             override fun onAnimationStart(animation: Animator?) {
 
             }
 
             override fun onAnimationEnd(animation: Animator?) {
                 mDrawSecondaryIndicator = false
+                mSecondaryIndicatorHideAnimRunning = false
                 doInvalidateAndCancelPrevious()
             }
 
@@ -343,9 +357,8 @@ class FloatStatableSeekBar @JvmOverloads constructor(
             }
 
             override fun onAnimationRepeat(animation: Animator?) {
-                mSecondaryIndicatorHideAnimRunning = false
-            }
 
+            }
         })
     }
 
@@ -360,7 +373,8 @@ class FloatStatableSeekBar @JvmOverloads constructor(
      * 执行重绘，并取消待重绘的请求
      */
     private fun doInvalidateAndCancelPrevious() {
-        postDelayed(mInvalidateStrategy, 0)
+//        postDelayed(mInvalidateStrategy, 0)
+        invalidate()
     }
 
     private fun setup() {
@@ -374,19 +388,19 @@ class FloatStatableSeekBar @JvmOverloads constructor(
     }
 
     //指示器高度
-    private val indicatorHeight: Int get() = if (isClipMode) (mIndicatorRadius * 2).toInt() else mSecondaryIndicatorSize
+    private val indicatorSize: Int get() = if (isClipMode) (mIndicatorRadius * 2).toInt() else mSecondaryIndicatorSize
 
     //指示器比进度条高的部分
-    val indicatorThanBarHeight get() = (indicatorHeight - mBarHeight) / 2f
+    val indicatorThanBarHeight get() = (indicatorSize - mBarHeight) / 2f
 
     //bar 横坐标偏移位置
-    private val barOffsetX get() = mIndicatorRadius
+    private val barOffsetXSize get() = indicatorSize / 2f
 
     //进度条宽度
     val barWidth: Float
-        get() = width - barOffsetX * 2
+        get() = drawWith - barOffsetXSize * 2
 
-    private val barRectLeft get() = drawRectLeft + barOffsetX
+    private val barRectLeft get() = drawRectLeft + barOffsetXSize
 
     private val barRectBottom get() = drawRectBottom - indicatorThanBarHeight
 
@@ -395,9 +409,32 @@ class FloatStatableSeekBar @JvmOverloads constructor(
     private val drawRectTop get() = paddingTop
     private val drawRectRight get() = width - paddingRight
     private val drawRectBottom get() = height - paddingBottom
+    private val drawWith: Int get() = drawRectRight - drawRectLeft
 
     /**
-     * @param progress 进度
+     * 获取当前进度
+     */
+    fun getProgress(): Int {
+        return mProgress
+    }
+
+    /**
+     * 获取当前二级进度
+     */
+    fun getSecondaryProgress(): Int {
+        return mSecondaryProgress
+    }
+
+    /**
+     * 是否为二级指示器，false则绘制的一级进度器
+     */
+    fun isDrawSecondaryIndicator():Boolean{
+        return mDrawSecondaryIndicator
+    }
+
+    /**
+     * 设置进度和标签文本；标签文本为空则不显示
+     * @param progress 一级进度
      * @param floatText 提示文本；为空则不显示
      */
     @JvmOverloads
@@ -408,6 +445,11 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         setProgress(progress, mSecondaryProgress, floatText)
     }
 
+    /**
+     * @param progress 一级进度
+     * @param secondaryProgress 二级进度
+     * @param floatText 提示文本；为空则不显示
+     */
     fun setProgress(
         @IntRange(from = 0, to = 100) progress: Int,
         @IntRange(from = 0, to = 100) secondaryProgress: Int,
@@ -422,8 +464,8 @@ class FloatStatableSeekBar @JvmOverloads constructor(
      */
     fun setProgressOnly(
         @IntRange(from = 0, to = 100) progress: Int,
-        @IntRange(from = 0, to = 100) secondaryProgress: Int,
-        floatText: String?
+        @IntRange(from = 0, to = 100) secondaryProgress: Int = mSecondaryProgress,
+        floatText: String? = mFloatText
     ) {
         mProgress = progress
         mSecondaryProgress = secondaryProgress
@@ -431,9 +473,9 @@ class FloatStatableSeekBar @JvmOverloads constructor(
     }
 
     /**
-     * 淡出Float
+     * 淡出Float；如果Float已经显示或者处于淡出中，则不处理，相反使用动画将float隐藏
      */
-    fun showFloat() {
+    fun hideFloat() {
         if (mFloatOutAnimRunning)
             return
         mFloatOutAnimRunning = true
@@ -444,9 +486,9 @@ class FloatStatableSeekBar @JvmOverloads constructor(
     }
 
     /**
-     * 淡入Float;如果正在进行淡入动画，或者已经在绘制状态，则不处理
+     * 淡入Float;如果正在进行淡入动画，或者Float已经处于绘制，则不处理
      */
-    fun hideFloat() {
+    fun showFloat() {
         if (mFloatInAnimRunning || mDrawFloat)
             return
         mFloatInAnimRunning = true
@@ -456,6 +498,9 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         mFloatFadeInAnim.start()
     }
 
+    /**
+     * 使用动画切换成一级指示器（即进度条上的原点指示器）如果当前显示的是一级指示器，则不处理
+     */
     fun showFirstIndicatorWithAnim() {
         if (mSecondaryIndicatorHideAnimRunning || !mDrawSecondaryIndicator)
             return
@@ -467,7 +512,7 @@ class FloatStatableSeekBar @JvmOverloads constructor(
     }
 
     /**
-     * 显示二级指示器
+     * 使用动画切换成二级指示器（即进度条上的图标指示器），如果当前已经显示的是二级指示器，则不处理
      */
     fun showSecondaryIndicatorWithAnim() {
         if (mSecondaryIndicatorShowAnimRunning || mDrawSecondaryIndicator)
@@ -479,16 +524,23 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         mSecondaryIndicatorShowAnim.start()
     }
 
-    fun showFirstIndicator(){
+    /**
+     * 更改为1级指示器，不使用动画
+     */
+    fun showFirstIndicator() {
         mSecondaryIndicatorShowAnim.cancel()
         mSecondaryIndicatorHideAnim.cancel()
         mDrawSecondaryIndicator = false
     }
 
-    fun showSecondaryIndicator(){
+    /**
+     * 更改为二级指示器，不使用动画
+     */
+    fun showSecondaryIndicator() {
         mSecondaryIndicatorShowAnim.cancel()
         mSecondaryIndicatorHideAnim.cancel()
         mDrawSecondaryIndicator = true
+        mSecondaryIndicatorScale = 1f
     }
 
 
@@ -501,7 +553,7 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         height += (mFloatTextFontMetrics.bottom - mFloatTextFontMetrics.top + mFloatTextVerticalPadding * 2) + mFloatTriangleHeight + mFloatMargin
 
         //进度条高度
-        height += indicatorHeight
+        height += indicatorSize
 
         //下padding
         height += paddingBottom
@@ -522,7 +574,14 @@ class FloatStatableSeekBar @JvmOverloads constructor(
      * 根据进度计算进度条x坐标
      */
     private fun calculateBarProgressX(progress: Int): Float {
-        return barWidth * (progress / 100f) + barOffsetX
+        return barRectLeft + barWidth * (progress / 100f)
+    }
+
+    /**
+     * 获取当前进度X轴位置
+     */
+    fun getProgressXAxis(): Float {
+        return calculateBarProgressX(mProgress)
     }
 
     /**
@@ -567,6 +626,14 @@ class FloatStatableSeekBar @JvmOverloads constructor(
                 mSecondaryIndicatorRect.set(
                     (x - half).toInt(), (y - half).toInt(), (x + half).toInt(),
                     (y + half).toInt()
+                )
+                Log.d(
+                    "IndicatorDrawable",
+                    "scale=${mSecondaryIndicatorScale} with=${mSecondaryIndicatorRect.width()} height=${mSecondaryIndicatorRect.height()}"
+                )
+                Log.d(
+                    "IndicatorDrawable",
+                    "left=${mSecondaryIndicatorRect.left} ${mSecondaryIndicatorRect.top} ${mSecondaryIndicatorRect.right} ${mSecondaryIndicatorRect.bottom}"
                 )
                 mSecondaryIndicatorDrawable.bounds = mSecondaryIndicatorRect
                 mSecondaryIndicatorDrawable.draw(canvas)
@@ -636,10 +703,10 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         canvas.drawText(text, mFloatBgRectF.centerX(), baseline, mFloatTextPaint)
 
         //绘制的三角形高度实际增加了文本框的半个下边padding，预防左右临界区域三角形与文本框之间有缝隙
-        val triangleOffsetY =  mFloatTextVerticalPadding / 2f
+        val triangleOffsetY = mFloatTextVerticalPadding / 2f
 
         var leftPointX = progressX - mFloatTriangleWidth / 2f
-        var leftPointY = mFloatBgRectF.bottom  - triangleOffsetY
+        var leftPointY = mFloatBgRectF.bottom - triangleOffsetY
         var rightPointX = progressX + mFloatTriangleWidth / 2
         var rightPointY = leftPointY
         if (leftPointX < drawRectLeft + mFloatRoundedRadius) {
