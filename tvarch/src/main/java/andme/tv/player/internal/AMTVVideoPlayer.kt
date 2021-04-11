@@ -2,6 +2,7 @@ package andme.tv.player.internal
 
 import andme.integration.media.video.VolumeDialog
 import andme.tv.arch.R
+import andme.tv.player.PlayerLogger
 import andme.tv.player.TVVideoPlayerControlView
 import andme.tv.player.TVVideoPlayerView
 import andme.tv.player.VideoPlayerCallback
@@ -125,6 +126,7 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
     ) {
         if (mSeekContinueFlag)
             return
+        PlayerLogger.d("setProgressAndTime(progress=${progress},currentTime=${currentTime}),totalTime=${totalTime}")
         super.setProgressAndTime(progress, secProgress, currentTime, totalTime, forceChange)
         mControlView.setProgressAndTime(progress, secProgress, currentTime, totalTime)
     }
@@ -215,6 +217,7 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
             (mSeekPositionChanged * 100f / mSeekMaxDuration).toInt(),
             mSeekPositionChanged.toInt(), mSeekMaxDuration.toInt()
         )
+        PlayerLogger.d("showControlFloatLayout(progress=${(mSeekPositionChanged * 100f / mSeekMaxDuration).toInt()},duration=${mSeekPositionChanged},total=${mSeekMaxDuration}")
     }
 
     private fun handleLeftDownEvent(event: KeyEvent): Boolean {
@@ -238,23 +241,23 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
         }
         //持续处理seek中
         mSeekContinueFlag = true
-        showControlFloatLayout()
         //记录变化的开始位置
         if (mSeekPositionChanged <= 0) {
             mSeekMaxDuration = gsyVideoManager.duration
             mSeekPositionChanged = gsyVideoManager.currentPosition
         }
-
         val now = System.currentTimeMillis()
         if (now - mLastRenderSeekTime < MIN_SEEK_RENDER_TIME) {
             return true
         }
+
         mLastRenderSeekTime = now
 
-        //每2s增加一个缩放倍数
-        mSeekScale =
-            ceil((event.eventTime - event.downTime) / SEEK_SCALE_INCREMENT_INTERVAL).toInt()
-                .coerceAtMost(MAX_SEEK_SCALE)
+
+        //每指定时间增加一个缩放倍数
+        //eventTime和downtime可能相同：第一次按下时，控制器已经显示，则会出现这个情况
+        mSeekScale = ceil((event.eventTime - event.downTime).coerceAtLeast(1) / SEEK_SCALE_INCREMENT_INTERVAL).toInt()
+            .coerceAtMost(MAX_SEEK_SCALE)
 
         val changeValue = mSeekScale * SEEK_STEP
         mSeekPositionChanged = if (isIncrement) {
@@ -262,6 +265,7 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
         } else {
             (mSeekPositionChanged - changeValue).coerceAtLeast(0)
         }
+        showControlFloatLayout()
         return true
     }
 
@@ -277,6 +281,7 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
 
     private fun handleSeekEventUp(): Boolean {
         if (mSeekContinueFlag) {
+            PlayerLogger.d("handleSeekEventUp(mSeekPositionChanged=${mSeekPositionChanged}")
             gsyVideoManager.seekTo(mSeekPositionChanged)
             showControlFloatLayout()
             resetContinueSeekParams()
@@ -380,9 +385,9 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
     companion object {
 
         /**
-         * 拖动步长设置为5s
+         * 拖动步长设置为10
          */
-        private const val SEEK_STEP = 5000
+        private const val SEEK_STEP = 10000
 
         /**
          * 最多8倍,也就是拖动最快的时候时[SEEK_STEP]*[MAX_SEEK_SCALE]

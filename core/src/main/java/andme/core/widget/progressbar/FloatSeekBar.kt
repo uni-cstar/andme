@@ -35,20 +35,14 @@ class FloatSeekBar @JvmOverloads constructor(
 
     //进度条高度
     private val mBarHeight: Int
-
-
     /*指示器颜色*/
     private var mIndicatorColor: Int = 0
-
     /*指示器半径*/
     private var mIndicatorRadius: Float = 0f
-
     /*指示器 内圆颜色*/
     private var mIndicatorInnerColor: Int = 0
-
     /*指示器 内圆半径*/
     private var mIndicatorInnerRadius: Int = 0
-
     /*进度条与指示器之间的空白间距*/
     private val mMarginSize: Int
 
@@ -96,12 +90,12 @@ class FloatSeekBar @JvmOverloads constructor(
 
     @IntRange(from = 0, to = 255)
     private var mFloatPaintAlpha = 0
-    private var mDrawFloat: Boolean = false
+    private var mDrawFloat: Boolean = true
 
     private var mFloatInAnimRunning:Boolean = false
     private var mFloatOutAnimRunning:Boolean = false
-    private val mFloatFadeInAnim = ValueAnimator.ofInt(0, 255).setDuration(300)
-    private val mFloatFadeOutAnim = ValueAnimator.ofInt(255, 0).setDuration(300)
+    private val mFloatFadeInAnim = ValueAnimator.ofInt(0, 255).setDuration(1000)
+    private val mFloatFadeOutAnim = ValueAnimator.ofInt(255, 0).setDuration(1000)
 
 
 //    private var mIndicatorPositionChangedListener:OnIndicatorPositionChangedListener? = null
@@ -257,10 +251,7 @@ class FloatSeekBar @JvmOverloads constructor(
         mProgress = progress
         mFloatText = floatText
     }
-//
-//    fun setOnIndicatorPositionChangedListener(listener:OnIndicatorPositionChangedListener){
-//        mIndicatorPositionChangedListener = listener
-//    }
+
     /**
      * 淡出Float
      */

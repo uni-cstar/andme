@@ -104,4 +104,52 @@
     </declare-styleable>
 
 
+    <!--具备float提示和暂停状态的seekbar：比较适合用于TV播放器进度条-->
+    <declare-styleable name="FloatStatableSeekBar">
+        <!--进度条背景色-->
+        <attr name="fssb_barColor" format="color|reference" />
+        <!--进度条高度，默认4dp-->
+        <attr name="fssb_barHeight" format="dimension|reference" />
+        <!--一级进度值 0-100-->
+        <attr name="fssb_progress" format="integer" />
+        <!--一级进度颜色-->
+        <attr name="fssb_progressColor" format="color|reference" />
+        <!--二级进度-->
+        <attr name="fssb_secondaryProgress" format="integer" />
+        <!--二级进度颜色-->
+        <attr name="fssb_secondaryProgressColor" format="color|reference" />
+
+        <!--进度条圆形指示器 背景色-->
+        <attr name="fssb_indicatorColor" format="color|reference" />
+        <!--进度条圆形指示器 半径,默认4dp-->
+        <attr name="fssb_indicatorRadius" format="dimension|reference" />
+        <!--进度条圆形指示器 内圆半径，默认bar高度一半相等-->
+        <attr name="fssb_indicatorInnerRadius" format="dimension|reference" />
+        <!--进度条圆形指示器 内圆颜色-->
+        <attr name="fssb_indicatorInnerColor" format="color|reference" />
+        <!--二级指示器图标大小，默认24dp-->
+        <attr name="fssb_secondaryIndicatorSize" format="dimension|reference"/>
+
+        <!--float背景色：三角形和文字框背景色-->
+        <attr name="fssb_floatColor" format="color|reference" />
+        <!--float与进度条之间的间隔，默认2dp-->
+        <attr name="fssb_floatMarginSize" format="dimension|reference" />
+        <!--float三角形高度，默认6dp-->
+        <attr name="fssb_floatTriangleHeight" format="dimension|reference" />
+        <!--float三角形宽度，默认5dp-->
+        <attr name="fssb_floatTriangleWidth" format="dimension|reference" />
+        <!--float文本-->
+        <attr name="fssb_floatText" format="string|reference" />
+        <!--float文本大小，默认14sp-->
+        <attr name="fssb_floatTextSize" format="dimension|reference" />
+        <!--float文本颜色-->
+        <attr name="fssb_floatTextColor" format="color|reference" />
+        <!--float文本垂直方向的padding，默认2dp-->
+        <attr name="fssb_floatTextVerticalPadding" format="dimension|reference" />
+        <!--float文本水平方向的padding，默认4dp-->
+        <attr name="fssb_floatTextHorizontalPadding" format="dimension|reference" />
+        <!--float文字背景圆角半径,默认5dp-->
+        <attr name="fssb_floatRoundedRadius" format="dimension|reference" />
+    </declare-styleable>
+
 </resources>
