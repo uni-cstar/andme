@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 
 /**
@@ -25,6 +26,10 @@ private val defaultRoundingRadius by lazy {
     mApp.dip(6)
 }
 
+@BindingAdapter("bindImageRes")
+fun bindImageResource(view: ImageView, @DrawableRes resId: Int){
+    view.setImageResource(resId)
+}
 /**
  * 图片加载绑定属性
  * 如未设置placeHolder属性，则使用默认图片占位

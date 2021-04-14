@@ -96,6 +96,13 @@
         <item name="cornerSize">@dimen/rounded_radius</item>
     </style>
 
+    <style name="UI.ShapeableImageView.TopRounded" >
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/rounded_radius</item>
+        <item name="cornerSizeTopRight">@dimen/rounded_radius</item>
+    </style>
+
     <style name="UI.ShapeableImageView.Circle">
         <item name="cornerFamily">rounded</item>
         <!--

@@ -1,3 +1,4 @@
+include ':player'
 include ':tvarch'
 include ':app', ':core', ':arch', ':integration-mediastore'
 rootProject.name='andme'

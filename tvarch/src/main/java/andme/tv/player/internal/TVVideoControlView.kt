@@ -2,7 +2,6 @@ package andme.tv.player.internal
 
 import andme.core.binding.bindTextOrGone
 import andme.core.widget.isVisible
-import andme.core.widget.progressbar.FloatSeekBar
 import andme.core.widget.progressbar.FloatStatableSeekBar
 import andme.core.widget.setGone
 import andme.core.widget.setVisible
@@ -13,8 +12,6 @@ import andme.tv.arch.R
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
 import android.widget.*
 import androidx.annotation.IntRange
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -51,6 +48,9 @@ class TVVideoControlView @JvmOverloads constructor(
     private val mHintText: TextView
     private val mThumbContainer: RelativeLayout
 
+    private val mCompleteView: View
+    private val mCompleteText: TextView
+
 //    private val mPlayBtnOnBar: ImageView
 //    private val mPlayBtnOnBarShowAnim: Animation
 //    private val mPlayBtnOnBarHideAnim: Animation
@@ -76,11 +76,14 @@ class TVVideoControlView @JvmOverloads constructor(
     private var mHasPlayed: Boolean = false
 
 
-
     init {
         inflate(context, R.layout.amtv_media_video_control_layout, this)
 //        mPlayBtnOnBarContainer = findViewById(R.id.fff)
 //        mPlayBtnOnBar = findViewById(R.id.play_btn_on_progress)
+
+        mCompleteText = findViewById(R.id.complete_tv)
+        mCompleteView = findViewById(R.id.complete_view)
+
         mPlayOrPauseView = findViewById(R.id.playOrPause)
         mPlayOrPauseView.setDuration(ANIM_DURATION.toInt())
         mControlGroup = findViewById(R.id.control_group)
@@ -168,7 +171,7 @@ class TVVideoControlView @JvmOverloads constructor(
         currentTime: Int,
         totalTime: Int
     ) {
-        setProgressAndTime(progress,mFloatSB.getSecondaryProgress(),currentTime, totalTime)
+        setProgressAndTime(progress, mFloatSB.getSecondaryProgress(), currentTime, totalTime)
     }
 
     /**
@@ -265,6 +268,7 @@ class TVVideoControlView @JvmOverloads constructor(
         mThumbContainer.setVisible()
         mTitleText.setVisible()
         mPlayOrPauseView.setVisible()
+        mCompleteView.setGone()
     }
 
     /**
@@ -281,6 +285,7 @@ class TVVideoControlView @JvmOverloads constructor(
         mTitleText.setVisible()
         mHintText.setVisible()
 
+        mCompleteView.setGone()
         if (!mHasPlayed && mSeekOnStart > 0) {
             mHintText.text = "正在启动,上次观看至${mSeekOnStart.toLong().toHMS()}"
             mSeekOnStart = -1
@@ -301,6 +306,7 @@ class TVVideoControlView @JvmOverloads constructor(
         mBufferingView.setVisible()
         mTitleText.setVisible()
         mHintText.bindTextOrGone("正在缓冲，请稍后...")
+        mCompleteView.setGone()
     }
 
     /**
@@ -313,6 +319,7 @@ class TVVideoControlView @JvmOverloads constructor(
         mPlayOrPauseView.setVisible()
         mPlayOrPauseView.play()
         mThumbContainer.setGone()
+        mCompleteView.setGone()
 
         mFloatSB.showFirstIndicatorWithAnim()
 
@@ -331,7 +338,7 @@ class TVVideoControlView @JvmOverloads constructor(
         mThumbContainer.setGone()
         mPlayOrPauseView.setVisible()
         mPlayOrPauseView.pause()
-
+        mCompleteView.setGone()
         mFloatSB.showSecondaryIndicatorWithAnim()
 //        mPlayBtnOnBar.visibility = View.VISIBLE
 //        mPlayBtnOnBar.clearAnimation()
@@ -344,53 +351,60 @@ class TVVideoControlView @JvmOverloads constructor(
      */
     fun renderComplete() {
         hideAllBufferingView()
-        mTitleText.setVisible()
-        mHintText.bindTextOrGone("播放完成")
+        mTitleText.setGone()
+        mHintText.setGone()
         mThumbContainer.setVisible()
         mControlGroup.setVisible()
         mPlayOrPauseView.setVisible()
         mPlayOrPauseView.pause()
 
+        mCompleteView.setVisible()
+        mCompleteText.text = "播放完成"
     }
 
     fun renderError() {
         hideAllBufferingView()
         mTitleText.setVisible()
-        mHintText.bindTextOrGone("播放错误")
+        mHintText.setGone()
         mControlGroup.setGone()
         mPlayOrPauseView.setVisible()
         mPlayOrPauseView.pause()
+        mCompleteView.setVisible()
+        mCompleteText.text = "播放错误，重新播放"
     }
 
 
     fun hideAllWidget() {
         hideAllBufferingView()
+        mCompleteView.setGone()
         mThumbContainer.setGone()
         mControlGroup.setGone()
         mPlayOrPauseView.setGone()
     }
 
-    fun showControlLayout(){
+    fun showControlLayout() {
         mControlGroup.setVisible()
     }
 
-    fun isControlLayoutVisible():Boolean{
+    fun isControlLayoutVisible(): Boolean {
         return mControlGroup.isVisible
     }
 
-    fun hideControlLayout(){
+    fun hideControlLayout() {
         mControlGroup.setGone()
     }
 
-    fun showControlFloat(@IntRange(from = 0, to = 100)
-                            progress: Int,
-                            currentTime: Int,
-                            totalTime: Int){
+    fun showControlFloat(
+        @IntRange(from = 0, to = 100)
+        progress: Int,
+        currentTime: Int,
+        totalTime: Int
+    ) {
         mFloatSB.showFloat()
         setProgressAndTime(progress, currentTime, totalTime)
     }
 
-    fun hideControlFloat(){
+    fun hideControlFloat() {
         mFloatSB.hideFloat()
     }
 
@@ -419,11 +433,11 @@ class TVVideoControlView @JvmOverloads constructor(
         mFloatSB.showSecondaryIndicatorWithAnim()
     }
 
-    fun showFirstIndicator(){
+    fun showFirstIndicator() {
         mFloatSB.showFirstIndicator()
     }
 
-    fun showSecondaryIndicator(){
+    fun showSecondaryIndicator() {
         mFloatSB.showSecondaryIndicator()
     }
 

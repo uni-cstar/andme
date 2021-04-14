@@ -45,3 +45,11 @@ suspend fun <T> runOnIO(
         block()
     }
 }
+
+suspend fun <T> runOnUI(
+    block: suspend CoroutineScope.() -> T
+): T {
+    return withContext(Dispatchers.Main) {
+        block()
+    }
+}

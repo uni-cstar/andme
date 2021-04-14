@@ -73,25 +73,52 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/complete_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/complete_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/amtv_media_video_replay" />
+
+        <TextView
+            android:id="@+id/complete_tv"
+            android:text="播放完成"
+            android:layout_marginTop="@dimen/view_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
     <andme.core.widget.progressbar.FloatStatableSeekBar
         android:id="@+id/float_seek_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         app:fssb_barColor="@color/black_60"
-        app:fssb_progressColor="@color/color_primary"
+        app:fssb_barHeight="5dp"
         app:fssb_floatColor="@color/black_30"
+        app:fssb_floatMarginSize="8dp"
         app:fssb_floatTextColor="@color/tv_white"
+        app:fssb_floatTextHorizontalPadding="12dp"
         app:fssb_floatTextSize="20sp"
+        app:fssb_floatTextVerticalPadding="6dp"
         app:fssb_indicatorColor="@color/tv_white"
         app:fssb_indicatorInnerColor="@color/color_primary"
         app:fssb_indicatorRadius="5dp"
-        app:fssb_floatMarginSize="8dp"
-        app:fssb_floatTextHorizontalPadding="12dp"
-        app:fssb_floatTextVerticalPadding="6dp"
         app:fssb_progress="50"
-        app:fssb_barHeight="5dp"
+        app:fssb_progressColor="@color/color_primary"
         app:fssb_secondaryIndicatorSize="20dp"
-        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/current_duration_tv"
         app:layout_constraintRight_toLeftOf="@id/total_duration_tv" />
@@ -148,21 +175,21 @@
         tools:text="上次观看至 12：33" />
 
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/fff"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:paddingLeft="75dp">-->
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/fff"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:paddingLeft="75dp">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/play_btn_on_progress"-->
-<!--            android:layout_width="20dp"-->
-<!--            android:layout_height="20dp"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            android:layout_marginBottom="15dp"-->
-<!--            android:src="@drawable/amtv_media_video_play_ic_in_bar"-->
-<!--            android:visibility="invisible"-->
-<!--            tools:visibility="visible" />-->
-<!--        &lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
-<!--    </FrameLayout>-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/play_btn_on_progress"-->
+    <!--            android:layout_width="20dp"-->
+    <!--            android:layout_height="20dp"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            android:layout_marginBottom="15dp"-->
+    <!--            android:src="@drawable/amtv_media_video_play_ic_in_bar"-->
+    <!--            android:visibility="invisible"-->
+    <!--            tools:visibility="visible" />-->
+    <!--        &lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+    <!--    </FrameLayout>-->
 </merge>

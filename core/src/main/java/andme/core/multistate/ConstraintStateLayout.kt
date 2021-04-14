@@ -25,9 +25,9 @@ class ConstraintStateLayout private constructor(
         mDelegate.obtainStyledAttributes(context, this, attrs, defStyleAttr)
     }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-        mDelegate.showContent()
-    }
+//    override fun onFinishInflate() {
+//        super.onFinishInflate()
+//        mDelegate.showContent()
+//    }
 
 }
