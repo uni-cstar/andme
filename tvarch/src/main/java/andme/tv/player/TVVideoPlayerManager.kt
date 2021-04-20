@@ -1,5 +1,6 @@
 package andme.tv.player
 
+import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
 import com.shuyu.gsyvideoplayer.player.PlayerFactory
 import tv.danmaku.ijk.media.exo2.Exo2PlayerManager
 
@@ -11,5 +12,8 @@ object TVVideoPlayerManager {
 
     fun init() {
         PlayerFactory.setPlayManager(Exo2PlayerManager::class.java)
+
+//        PlayerFactory.setPlayManager(IjkPlayerManager::class.java)
+
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@android:color/white"
+    tools:background="@drawable/am_player_control_bg"
+
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <RelativeLayout
@@ -17,19 +18,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:background="#000000"
         android:scaleType="fitCenter"
         tools:visibility="gone" />
 
-    <View
-        android:id="@+id/bottom_control_bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/amtv_video_player_bottom_control_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/playOrPause" />
+
 
     <moe.codeest.enviews.ENPlayView
         android:id="@+id/playOrPause"
@@ -86,7 +78,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/complete_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,9 +87,12 @@
         <TextView
             android:id="@+id/complete_tv"
             android:text="播放完成"
+            style="@style/ShadowText"
+            android:textColor="@color/tv_white"
             android:layout_marginTop="@dimen/view_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
     <andme.core.widget.progressbar.FloatStatableSeekBar
@@ -150,14 +145,15 @@
 
     <TextView
         android:id="@+id/title_tv"
-        style="@style/ShadowText"
-        android:layout_width="wrap_content"
+        style="@style/ShadowText.Marquee"
+        android:layout_width="0dp"
+        android:gravity="left"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
         android:textColor="@color/tv_white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/buffering_view"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="24dp"
         app:layout_constraintRight_toRightOf="parent"
         tools:text="这事一个标题" />
 

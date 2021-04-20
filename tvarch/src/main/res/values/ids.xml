@@ -5,4 +5,5 @@
 
     <item name="amtv_presenter_item_focus_changed" type="id"/>
 
+    <item name="am_focus_memory_flag" type="id"/>
 </resources>

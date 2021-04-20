@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@android:color/white"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <TextView
+        android:id="@+id/title_tv"
+        style="@style/ShadowText.Marquee"
+        android:textColor="@color/tv_white"
+        android:textSize="22sp"
+        tools:text="123123123123123"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:maxLines="1"
+        android:gravity="left"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <andme.media.player.widget.ENPlayView
+        android:id="@+id/playOrPause"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/float_seek_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/current_duration_tv"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:gravity="center"
+        android:text="99:88:88"
+        android:textColor="@color/tv_white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/total_duration_tv"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:gravity="center"
+        android:text="99:88:88"
+        android:textColor="@color/tv_white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <andme.core.widget.progressbar.FloatStatableSeekBar
+        android:id="@+id/float_seek_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:fssb_barColor="@color/black_60"
+        app:fssb_barHeight="5dp"
+        app:fssb_floatColor="@color/black_30"
+        app:fssb_floatMarginSize="8dp"
+        app:fssb_floatTextColor="@color/tv_white"
+        app:fssb_floatTextHorizontalPadding="12dp"
+        app:fssb_floatTextSize="20sp"
+        app:fssb_floatTextVerticalPadding="6dp"
+        app:fssb_indicatorColor="@color/tv_white"
+        app:fssb_indicatorInnerColor="@color/color_primary"
+        app:fssb_indicatorRadius="5dp"
+        app:fssb_progress="50"
+        app:fssb_progressColor="@color/color_primary"
+        app:fssb_secondaryIndicatorSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/current_duration_tv"
+        app:layout_constraintRight_toLeftOf="@id/total_duration_tv" />
+
+
+
+</merge>

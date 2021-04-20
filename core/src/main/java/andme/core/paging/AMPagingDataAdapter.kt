@@ -33,7 +33,7 @@ abstract class AMPagingDataAdapter<T : Any, VH : RecyclerView.ViewHolder> @JvmOv
         }
     }
 
-    private fun onLoadStateChanged(state: CombinedLoadStates) {
+    protected open fun onLoadStateChanged(state: CombinedLoadStates) {
 
     }
 
@@ -46,7 +46,6 @@ abstract class AMPagingDataAdapter<T : Any, VH : RecyclerView.ViewHolder> @JvmOv
     fun setOnItemClickListener(listener: OnItemClickListener<T>?) {
         mOnItemClick = listener
     }
-
 
     final override fun onBindViewHolder(holder: VH, position: Int) {
         mOnItemClick?.let { onItemClick ->

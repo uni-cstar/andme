@@ -334,7 +334,7 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         })
 
         mSecondaryIndicatorHideAnim = ValueAnimator.ofFloat(1f, startScale)
-            .setDuration(ANIM_DURATION )
+            .setDuration(ANIM_DURATION)
         mSecondaryIndicatorHideAnim.addUpdateListener {
             mSecondaryIndicatorScale = it.animatedValue as Float
             doInvalidateAndCancelPrevious()
@@ -604,6 +604,7 @@ class FloatStatableSeekBar @JvmOverloads constructor(
             mBarPaint.color = mSecondaryProgressColor
             mBarRectF.right = calculateBarProgressX(mSecondaryProgress)
             canvas.drawRoundRect(mBarRectF, mBarRoundedRadius, mBarRoundedRadius, mBarPaint)
+            invalidate()
         }
 
         //一级进度
@@ -732,4 +733,5 @@ class FloatStatableSeekBar @JvmOverloads constructor(
         mFloatTrianglePath.close()
         canvas.drawPath(mFloatTrianglePath, mFloatPaint)
     }
+
 }

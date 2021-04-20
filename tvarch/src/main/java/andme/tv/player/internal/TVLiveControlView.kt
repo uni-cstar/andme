@@ -22,7 +22,7 @@ import moe.codeest.enviews.ENPlayView
 /**
  * Created by Lucio on 2021/4/9.
  */
-class TVVideoControlView @JvmOverloads constructor(
+class TVLiveControlView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 

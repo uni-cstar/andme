@@ -7,6 +7,17 @@ import android.widget.TextView
  * Created by Lucio on 2021/3/26.
  */
 
+inline fun TextView.bindTextOrInvisible(message: CharSequence?) {
+    if (message.isNullOrEmpty()) {
+        visibility = View.INVISIBLE
+        text = ""
+    } else {
+        visibility = View.VISIBLE
+        text = message
+    }
+}
+
+
 inline fun TextView.bindTextOrGone(message: CharSequence?) {
     if (message.isNullOrEmpty()) {
         visibility = View.GONE

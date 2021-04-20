@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.leanback.widget.HorizontalGridView
+import androidx.leanback.widget.OnChildViewHolderSelectedListener
 import java.util.*
 
 /**
@@ -14,27 +15,28 @@ class SelectedMemoryHorizontalGridView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : HorizontalGridView(context, attrs, defStyleAttr) {
 
+    val memoryHelper: GridViewMemoryHelper
+
+    init {
+        memoryHelper = GridViewMemoryHelper.apply(this)
+    }
+
+    @Deprecated("请使用addOnChildViewHolderSelectedListener")
+    override fun setOnChildViewHolderSelectedListener(listener: OnChildViewHolderSelectedListener?) {
+        super.setOnChildViewHolderSelectedListener(listener)
+        //设置监听之后会移除之前添加的所有监听，因此要重新添加焦点记忆监听
+        addOnChildViewHolderSelectedListener(memoryHelper)
+    }
+
     @SuppressLint("RestrictedApi")
     override fun addFocusables(views: ArrayList<View>?, direction: Int, focusableMode: Int) {
-        val focusStrategy = focusScrollStrategy
-        //align模式的会自动记住焦点
-        if(focusStrategy != FOCUS_SCROLL_PAGE && focusStrategy != FOCUS_SCROLL_ITEM){
-            invokeSuperAddFocusables(views, direction, focusableMode)
+        if(memoryHelper.addFocusables(views, direction, focusableMode))
             return
-        }
-
-        //查找第一个设置isSelected = true的view 为焦点
-        if (SelectedMemoryHelper.addFocusables(this, views, direction, focusableMode))
-            return
-        invokeSuperAddFocusables(views, direction, focusableMode)
-    }
-
-    /**
-     * 用于重写[addFocusables]但是无法调用super的情况
-     */
-    protected fun invokeSuperAddFocusables(views: ArrayList<View>?, direction: Int, focusableMode: Int){
         super.addFocusables(views, direction, focusableMode)
     }
+
+
+
 //
 //    init {
 //        descendantFocusability = ViewGroup.FOCUS_AFTER_DESCENDANTS

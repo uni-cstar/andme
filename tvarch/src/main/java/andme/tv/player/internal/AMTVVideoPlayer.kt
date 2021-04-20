@@ -37,12 +37,8 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
      * 持续seek的标记位
      */
     private var mSeekContinueFlag: Boolean = false
-
-
     private var mSeekPositionChanged: Long = -1
     private var mSeekMaxDuration: Long = 0
-
-
     /**
      * 上一次渲染seek的时间
      */
@@ -106,6 +102,10 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
 
     override fun changeUiToError() {
         mControlView.renderError()
+    }
+
+    override fun onError(what: Int, extra: Int) {
+        super.onError(what, extra)
     }
 
     override fun changeUiToCompleteShow() {
@@ -302,13 +302,6 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
         }
         return super.onKeyUp(keyCode, event)
     }
-
-    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.d("DEBUG_KEY", "onKeyLongPress(${keyCode},${event?.repeatCount})")
-        return super.onKeyLongPress(keyCode, event)
-    }
-
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_DPAD_LEFT -> {
@@ -363,25 +356,6 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
             mCustomVolumeDialog.dismiss()
     }
 
-
-    //
-//    override fun touchSurfaceMoveFullLogic(absDeltaX: Float, absDeltaY: Float) {
-//        super.touchSurfaceMoveFullLogic(absDeltaX, absDeltaY)
-//        //不给触摸快进，如果需要，屏蔽下方代码即可
-//        mChangePosition = false
-//
-//        //不给触摸音量，如果需要，屏蔽下方代码即可
-//        mChangeVolume = false
-//
-//        //不给触摸亮度，如果需要，屏蔽下方代码即可
-//        mBrightness = false
-//    }
-//
-//    override fun touchDoubleUp(e: MotionEvent?) {
-//        //super.touchDoubleUp();
-//        //不需要双击暂停
-//    }
-
     companion object {
 
         /**
@@ -406,5 +380,6 @@ open class AMTVVideoPlayer @JvmOverloads constructor(
         private const val MIN_SEEK_RENDER_TIME = 300
 
     }
+
 
 }

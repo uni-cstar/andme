@@ -192,7 +192,9 @@ class ScaleFocusHighlightHelper {
         }
     }
 
-    internal class BrowseItemFocusHighlight(@ZoomIndex zoomIndex: Int, useDimmer: Boolean) :
+    internal class BrowseItemFocusHighlight(
+        @ZoomIndex zoomIndex: Int, useDimmer: Boolean
+    ) :
         FocusHighlightHandler {
 
         private val mScaleIndex: Int
@@ -211,7 +213,6 @@ class ScaleFocusHighlightHelper {
         }
 
         override fun onItemFocused(view: View, hasFocus: Boolean) {
-            view.isSelected = hasFocus
             getOrCreateAnimator(view).animateFocus(hasFocus, false)
         }
 
