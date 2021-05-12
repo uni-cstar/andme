@@ -3,10 +3,8 @@ package andme.core.graphics
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.ColorStateListDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
-import android.os.Build
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
@@ -32,15 +30,15 @@ fun PressedColorStateList(@ColorInt defColor: Int, @ColorInt pressColor: Int): C
  * @param pressColor 按下状态颜色
  */
 fun PressedColorStateListDrawable(@ColorInt defColor: Int, @ColorInt pressColor: Int): Drawable {
-    if (Build.VERSION.SDK_INT >= 29) {
-        return ColorStateListDrawable(PressedColorStateList(defColor, pressColor))
-    } else {
+//    if (Build.VERSION.SDK_INT >= 29) {
+//        return ColorStateListDrawable(PressedColorStateList(defColor, pressColor))
+//    } else {
         val state = PressedState()
         return StateListDrawable().also {
             it.addState(state[0], ColorDrawable(pressColor))
             it.addState(state[1], ColorDrawable(defColor))
         }
-    }
+//    }
 }
 
 /**

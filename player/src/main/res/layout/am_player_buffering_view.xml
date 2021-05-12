@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_30"
+    android:background="@color/black_opacity_30"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
 
@@ -16,7 +16,7 @@
         android:layout_marginBottom="12dp"
         android:textColor="@color/tv_white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/buffering_view"
+        app:layout_constraintBottom_toTopOf="@id/am_buffering_loading"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:text="这是一个标题" />
@@ -45,7 +45,7 @@
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buffering_view"
+        app:layout_constraintTop_toBottomOf="@id/am_buffering_loading"
         tools:text="上次观看至 12：33" />
 
 </merge>

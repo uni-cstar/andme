@@ -50,6 +50,11 @@ class MarqueeTextView @JvmOverloads constructor(
      */
     private var mCurrentMarqueeCompleteCount = 0
 
+    /**
+     * 调试模式的时候是否启用动画：默认不启用；启用之后在调试模式下无法进行调试，
+     * 因为这个控件在不断的请求重绘
+     */
+    var isEnableInDebugMode: Boolean = false
 
     override fun setMarqueeRepeatLimit(marqueeLimit: Int) {
         super.setMarqueeRepeatLimit(marqueeLimit)
@@ -168,14 +173,19 @@ class MarqueeTextView @JvmOverloads constructor(
     }
 
     fun startScroll() {
+        if (mScrolling)
+            return
+
+        if(!isEnableInDebugMode)
+            return
+
         mScrolling = true
         invalidate()
     }
 
     fun stopScroll() {
-
         mScrolling = false
-        invalidate()
+//        invalidate()
     }
 
     public override fun onDraw(canvas: Canvas) {

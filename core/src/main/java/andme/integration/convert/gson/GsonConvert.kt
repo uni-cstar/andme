@@ -15,6 +15,7 @@ class GsonConvert @JvmOverloads constructor(val gson: Gson = Gson()) : JsonConve
         return gson.fromJson(json, clazz)
     }
 
+
     override fun <T> toObjectList(json: String?, clazz: Class<T>): List<T>? {
         if (json.isNullOrEmpty())
             return null

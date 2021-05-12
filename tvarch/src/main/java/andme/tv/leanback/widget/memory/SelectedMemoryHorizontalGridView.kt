@@ -21,6 +21,13 @@ class SelectedMemoryHorizontalGridView @JvmOverloads constructor(
         memoryHelper = GridViewMemoryHelper.apply(this)
     }
 
+    @GridViewMemoryHelper.MemoryState
+    var memoryViewState:Int get() = memoryHelper.memoryViewState
+    set(value) {
+        memoryHelper.memoryViewState = value
+    }
+
+
     @Deprecated("请使用addOnChildViewHolderSelectedListener")
     override fun setOnChildViewHolderSelectedListener(listener: OnChildViewHolderSelectedListener?) {
         super.setOnChildViewHolderSelectedListener(listener)

@@ -7,8 +7,21 @@ package andme.lang
 /**
  * 添加
  */
-inline fun <E> MutableCollection<E>.addAllNotNull(elements: Collection<E>?){
-    if(!elements.isNullOrEmpty())
+inline fun <E> MutableCollection<E>.addAllNotNull(elements: Collection<E>?) {
+    if (!elements.isNullOrEmpty())
         addAll(elements)
 }
 
+
+/**
+ * 两个集合的内容是否相等；集合中的element必须重写equals方法
+ */
+inline fun <E> Collection<E>?.areContentEqual(other: Collection<E>?): Boolean {
+    if (this == null) {
+        return other == null
+    }
+
+    if (other == null || this.size != other.size)
+        return false
+    return this.containsAll(other)
+}

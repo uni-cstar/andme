@@ -104,7 +104,7 @@ class AMExoPlayerView @JvmOverloads constructor(
         player?.play()
     }
 
-    override fun stop() {
+    override fun pause() {
         player?.stop()
     }
 
@@ -116,7 +116,7 @@ class AMExoPlayerView @JvmOverloads constructor(
         return player?.isPlaying.orDefault()
     }
 
-    override fun release() {
+    override fun stopPlayback() {
         player?.release()
     }
 

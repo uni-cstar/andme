@@ -8,10 +8,7 @@ import android.content.DialogInterface
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -35,8 +32,8 @@ fun ViewModel.launch(
         context: CoroutineContext = EmptyCoroutineContext,
         start: CoroutineStart = CoroutineStart.DEFAULT,
         block: suspend CoroutineScope.() -> Unit
-) {
-    viewModelScope.launch(context, start, block)
+):Job {
+    return viewModelScope.launch(context, start, block)
 }
 
 fun ViewModel.launchWithDelay(

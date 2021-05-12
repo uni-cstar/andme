@@ -15,7 +15,7 @@ open class BaseBindingPresenter<VDB : ViewDataBinding>(
         return createBindingViewHolder<VDB>(parent,layoutId)
     }
 
-    override fun onUnbindViewHolder(viewHolder: ViewHolder?) {
+    override fun onUnbindViewHolder(viewHolder: ViewHolder) {
 
     }
 

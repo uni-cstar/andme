@@ -18,7 +18,7 @@ inline fun View?.removeSelf() {
 }
 
 inline fun View.updateLayoutParamsOrDefault(block: ViewGroup.LayoutParams.() -> Unit) {
-    var lp = layoutParams.orDefault {
+    val lp = layoutParams.orDefault {
         ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -41,5 +41,13 @@ inline fun View.updateLayoutWidth(width: Int) {
         if (this.width == width)
             return
         this.width = width
+    }
+}
+
+inline fun View.updateLayoutHeight(height: Int) {
+    updateLayoutParamsOrDefault {
+        if (this.height == height)
+            return
+        this.height = height
     }
 }

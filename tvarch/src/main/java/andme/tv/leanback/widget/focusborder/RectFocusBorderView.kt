@@ -15,7 +15,8 @@ class RectFocusBorderView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     init {
-        setBackgroundResource(R.drawable.amtv_focus_border_rect_slt)
+        if (background == null)
+            setBackgroundResource(R.drawable.amtv_focus_border_rect_slt)
         isDuplicateParentStateEnabled = true
         layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,

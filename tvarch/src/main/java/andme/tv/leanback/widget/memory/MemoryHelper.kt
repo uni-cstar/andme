@@ -16,17 +16,17 @@ object MemoryHelper {
      * 查找第一个用于获取焦点的拥有hasMemoryTag为true的ChildView
      */
     @JvmStatic
-    internal fun addFocusablesByMemoryTag(
+    fun addFocusablesByMemoryTag(
         viewGroup: ViewGroup,
         views: ArrayList<View>?,
         direction: Int,
         focusableMode: Int
     ): Boolean {
-        if(viewGroup.hasFocus())
+        if (viewGroup.hasFocus())
             return false
 
         val view = viewGroup.children.find {
-            it.hasMemoryTag &&  it.canTakeFocus
+            it.hasMemoryTag && it.canTakeFocus
         }
         if (view != null) {
             views?.add(view)
@@ -39,7 +39,8 @@ object MemoryHelper {
     /**
      * 设置单选的焦点记忆Tag
      */
-    internal fun setSingleMemoryTag(child: View): Boolean {
+    @JvmStatic
+    fun setSingleMemoryTag(child: View): Boolean {
         val parent = child.parent as ViewGroup? ?: return false
         parent.children.forEach {
             it.hasMemoryTag = it == child
@@ -50,7 +51,8 @@ object MemoryHelper {
     /**
      * 设置child 选中状态，其他child为未选中状态
      */
-    internal fun setSingleSelectedInParent(child: View): Boolean {
+    @JvmStatic
+    fun setSingleSelectedInParent(child: View): Boolean {
         val parent = child.parent as ViewGroup? ?: return false
         parent.children.forEach {
             it.isSelected = it == child
@@ -61,7 +63,8 @@ object MemoryHelper {
     /**
      * 设置child激活状态，其他child为未激活状态
      */
-    internal fun setSingleActivedInParent(child: View): Boolean {
+    @JvmStatic
+    fun setSingleActivedInParent(child: View): Boolean {
         val parent = child.parent as ViewGroup? ?: return false
         parent.children.forEach {
             it.isActivated = it == child

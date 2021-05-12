@@ -10,27 +10,54 @@ import java.lang.annotation.RetentionPolicy
  */
 interface AMPlayer {
 
+    /**
+     * 设置播放数据
+     */
     fun setDataSource(url: String)
+
+    /**
+     * 开始播放
+     */
+    fun start()
 
     fun prepare()
 
-    fun start()
+    /**
+     * 暂停播放
+     */
+    fun pause()
 
-    fun stop()
-
-    fun stopAndReset()
-
+    /**
+     * 是否正在播放
+     */
     fun isPlaying(): Boolean
 
-    fun release()
-
+    /**
+     * 从指定位置开始播放
+     */
     fun seekTo(positionMs: Long)
 
+    /**
+     * 获取持续时间
+     */
     fun getDuration(): Long
 
+    /**
+     * 获取当前播放位置
+     */
     fun getCurrentPosition(): Long
 
+    /**
+     * 缓存位置
+     */
     fun getBufferingPosition():Long
+
+    /**
+     * 停止播放
+     */
+    fun stopPlayback()
+
+
 
     fun addPlayerStateChangedListener(listener: OnAMPlayerStateChangedListener)
     fun removePlayerStateChangedListener(listener: OnAMPlayerStateChangedListener)
@@ -45,6 +72,8 @@ interface AMPlayer {
 
     @State
     fun getCurrentState():Int
+
+     fun stopAndReset()
 
     companion object{
         /**
@@ -84,10 +113,17 @@ interface AMPlayer {
 
 
     fun interface OnAMPlayerStateChangedListener{
-        fun onAMPlayerStateChanged(@State state:Int)
+        fun onAMPlayerStateChanged(@State state: Int)
     }
 
     fun interface OnAMPlayerErrorListener{
-        fun onAMPlayerError(e:Throwable)
+        fun onAMPlayerError(e: Throwable)
+    }
+
+    /**
+     * 播放结束回调
+     */
+    fun interface OnAMPlayerCompleteListener{
+        fun onAMPlayerComplete()
     }
 }

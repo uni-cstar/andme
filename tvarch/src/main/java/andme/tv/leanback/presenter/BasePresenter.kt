@@ -32,6 +32,10 @@ abstract class BasePresenter : Presenter() {
         return mItemFocusChangedListener
     }
 
+    override fun onUnbindViewHolder(viewHolder: ViewHolder) {
+        //nothing ,override for your self
+    }
+
     final override fun onBindViewHolder(viewHolder: ViewHolder, item: Any) {
         if (mItemClickListener != null) {
             var listener =

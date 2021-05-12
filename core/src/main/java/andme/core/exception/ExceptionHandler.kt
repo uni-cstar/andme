@@ -53,7 +53,7 @@ inline fun Context.tryUi(action: () -> Unit): Throwable? {
     return try {
         action()
         null
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
         exceptionHandlerAM.handleUIException(this, e)
         e
     }
@@ -66,7 +66,7 @@ inline fun Context.tryOnCreate(action: () -> Unit): Throwable? {
     return try {
         action()
         null
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
         exceptionHandlerAM.handleCatchException(e)
         showAlertDialog(
             "界面初始化失败:${e.friendlyMessage}",
@@ -88,7 +88,7 @@ inline fun View.tryUiWithEnable(action: () -> Unit): Throwable? {
         isEnabled = false
         action()
         null
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
         exceptionHandlerAM.handleUIException(context, e)
         e
     } finally {
@@ -108,7 +108,7 @@ inline fun <T> T.tryCatch(printStack: Boolean = isDebuggable, action: T.() -> Un
     try {
         action()
         return null
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
         if (printStack) {
             e.printStackTrace()
         }
@@ -121,7 +121,7 @@ inline fun <T> T.tryIgnore(action: T.() -> Unit): Throwable? {
     try {
         action(this)
         return null
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
         return e
     }
 }

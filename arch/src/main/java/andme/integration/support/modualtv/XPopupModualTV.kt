@@ -32,3 +32,10 @@ fun XPopupBuilder.showFullScreenTV(
     this.asCustom(XPopupFullscreenTVView.create(contentView,onViewCreated))
         .show()
 }
+
+fun XPopupBuilder.showFullScreenTV(
+    contentView: XPopupFullscreenTVView
+) {
+    this.asCustom(contentView)
+        .show()
+}

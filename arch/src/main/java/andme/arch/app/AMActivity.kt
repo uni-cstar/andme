@@ -93,7 +93,7 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
         viewModelDelegate.onActivityResult(requestCode, resultCode, data)
     }
 
-    final override fun invokeSuperBackPressed() {
+    override fun invokeSuperBackPressed() {
         super.onBackPressed()
     }
 
@@ -102,7 +102,7 @@ abstract class AMActivity<VM : AMViewModel> : AppCompatActivity(), AMBackPressed
             if (backPressedDispatcherAM.onBackPressed())
                 return
         }
-        super.onBackPressed()
+        invokeSuperBackPressed()
     }
 
     override val realCtx: Context

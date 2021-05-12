@@ -17,9 +17,15 @@ internal object AMStorageImpl : AMStorage {
         get() = Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
 
     private fun isStorageStateAvailable(file: File): Boolean {
-        return (Build.VERSION.SDK_INT >= 21
-                && Environment.getExternalStorageState(file) == Environment.MEDIA_MOUNTED)
-                || Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+        try {
+            return (Build.VERSION.SDK_INT >= 21
+                    && Environment.getExternalStorageState(file) == Environment.MEDIA_MOUNTED)
+                    || Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+        }catch (e:Throwable){
+            //在某些盒子里面，提示出现该异常：Could not find method android.os.Environment.getExternalStorageState, referenced from method andme.core.support.io.AMStorageImpl.isStorageStateAvailable
+            return false
+        }
+
     }
 
     override fun ensureFileAvailable(file: File, recreateIfExists: Boolean) {

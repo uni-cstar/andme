@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="am_control_icon_height">32dp</dimen>
+    <dimen name="am_control_icon_width">32dp</dimen>
+
+</resources>

@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/tv_white"
             android:maxWidth="@dimen/lb_error_message_max_width"
             android:visibility="gone"
             android:text="sdfsdf"
@@ -46,6 +47,8 @@
             android:layout_gravity="center"
             android:nextFocusLeft="@id/button"
             android:nextFocusRight="@id/button"
+            tools:text="你好呀"
+            tools:visibility="visible"
             android:nextFocusUp="@id/button"
             android:nextFocusDown="@id/button"
             android:visibility="gone" />

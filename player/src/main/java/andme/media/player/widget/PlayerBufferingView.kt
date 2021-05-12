@@ -31,7 +31,7 @@ class PlayerBufferingView @JvmOverloads constructor(
 
         //设置默认背景
         if (background == null) {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.black_30))
+            setBackgroundColor(ContextCompat.getColor(context, R.color.black_opacity_30))
         }
     }
 

@@ -1,5 +1,6 @@
 package andme.core.widget
 
+import andme.lang.runOnTrue
 import android.view.View
 
 /**
@@ -12,14 +13,28 @@ inline var View.isVisible: Boolean
         visibility = if (value) View.VISIBLE else View.GONE
     }
 
-inline fun View.setVisible(){
+
+inline fun View.setVisibleOrInVisible(value: Boolean) {
+    if (value) {
+        runOnTrue(visibility != View.VISIBLE) {
+            visibility = View.VISIBLE
+        }
+    } else {
+        runOnTrue(visibility != View.INVISIBLE) {
+            visibility = View.INVISIBLE
+        }
+    }
+}
+
+
+inline fun View.setVisible() {
     visibility = View.VISIBLE
 }
 
-inline fun View.setInVisible(){
+inline fun View.setInVisible() {
     visibility = View.INVISIBLE
 }
 
-inline fun View.setGone(){
+inline fun View.setGone() {
     visibility = View.GONE
 }

@@ -27,8 +27,9 @@ open class AMViewModelOwnerDelegate<VM : ViewModel> constructor(open val realOwn
      */
     fun <T : ViewModel> obtainViewModel(clazz: Class<T>, autoBindOwnerIfMatch: Boolean = true): T {
         return getViewModelProvider().get(clazz).also {
-            if (autoBindOwnerIfMatch && it is AMViewModel && !it.hasBindOwner) {
-                initViewModelEvent(viewModel, false)
+            vm->
+            if (autoBindOwnerIfMatch && vm is AMViewModel && !vm.hasBindOwner) {
+                initViewModelEvent(vm, true)
             }
         }
     }

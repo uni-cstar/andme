@@ -16,13 +16,9 @@
 
 package andme.core.text
 
+import andme.core.binding.bindTextOrGone
 import android.graphics.Paint
-import androidx.annotation.ColorInt
-import android.text.Spannable
-import android.text.SpannableStringBuilder
 import android.text.TextPaint
-import android.text.TextUtils
-import android.text.style.ForegroundColorSpan
 import android.widget.TextView
 
 /**
@@ -63,5 +59,3 @@ fun TextView.applyUnderLine() {
 fun TextView.applyBold() {
     this.paintFlags = this.paintFlags or Paint.FAKE_BOLD_TEXT_FLAG
 }
-
-

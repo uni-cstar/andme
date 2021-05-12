@@ -23,10 +23,24 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
-    <andme.media.player.widget.ENPlayView
-        android:id="@+id/playOrPause"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+
+    <ImageView
+        android:id="@+id/pause"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/am_player_control_pause_icon"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/float_seek_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/play"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/am_player_control_play_icon"
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@id/float_seek_bar"

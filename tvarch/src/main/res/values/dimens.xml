@@ -42,7 +42,7 @@
 
 
     <!--焦点框大小-->
-    <dimen name="focus_border_size">1dp</dimen>
+    <dimen name="focus_border_size">2dp</dimen>
 
     <!--焦点框颜色-->
     <color name="focus_border_color">#FFFFFFFF</color>
@@ -51,7 +51,7 @@
     <dimen name="focus_border_divider_size">2dp</dimen>
 
     <!--焦点框与边框之间的分割线颜色-->
-    <color name="focus_border_divider_color">#000000</color>
+    <color name="focus_border_divider_color">@color/black_opacity_40</color>
 
     <color name="gradient_focus_start_color">#B2FFFFFF</color>
     <color name="gradient_focus_center_color">#B2FFFFFF</color>

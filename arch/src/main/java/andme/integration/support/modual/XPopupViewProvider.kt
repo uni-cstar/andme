@@ -2,6 +2,7 @@ package andme.integration.support.modual
 
 import andme.core.content.layoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 
 /**
@@ -22,7 +23,7 @@ class XPopupViewProvider {
         this.contentView = contentView
     }
 
-    open fun onCreateView(parent: FrameLayout): View {
+    open fun onCreateView(parent: ViewGroup): View {
         return if (layoutId > 0) {
             parent.context.layoutInflater.inflate(layoutId, parent, false)
         } else {
