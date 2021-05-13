@@ -1,4 +1,4 @@
-package ucux.tv.core
+package andme.core.app
 
 import andme.lang.runOnTrue
 import androidx.fragment.app.Fragment
