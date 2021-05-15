@@ -41,6 +41,17 @@ class SelectedMemoryVerticalGridView @JvmOverloads constructor(
             return
         super.addFocusables(views, direction, focusableMode)
     }
+    
+    override fun onRequestFocusInDescendants(
+        direction: Int,
+        previouslyFocusedRect: Rect?
+    ): Boolean {
+        if(memoryHelper.onRequestFocusInDescendants(direction, previouslyFocusedRect)){
+            return true
+        }
+        return super.onRequestFocusInDescendants(direction, previouslyFocusedRect)
+    }
+
 
 //    protected override fun onRequestFocusInDescendants(
 //        direction: Int,

@@ -1,6 +1,7 @@
 package andme.tv.leanback.widget.memory
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.util.Log
 import android.view.View
 import androidx.annotation.IntDef
@@ -82,17 +83,21 @@ class GridViewMemoryHelper private constructor(val view: BaseGridView) :
     }
 
     /**
-     * 用于ViewGr
+     * 是否处理焦点分发：如果当前未启用焦点记忆或者当前控件已经具备焦点或者当前focus策略是[BaseGridView.FOCUS_SCROLL_ALIGNED],则不采用焦点记忆规则
+     * @return true:应该处理焦点分发规则
      */
     @SuppressLint("RestrictedApi")
+    private fun shouldHandleFocusDispatch():Boolean{
+        return isMemoryEnable && !view.hasFocus() && view.focusScrollStrategy != VerticalGridView.FOCUS_SCROLL_ALIGNED
+                && memoryFocusPositionInAdapter != RecyclerView.NO_POSITION
+    }
+
+    /**
+     * 用于ViewGr
+     */
+
     fun addFocusables(views: ArrayList<View>?, direction: Int, focusableMode: Int): Boolean {
-        /**
-         * 如果当前未启用焦点记忆或者当前控件已经具备焦点或者当前focus策略是[BaseGridView.FOCUS_SCROLL_ALIGNED],则不采用焦点记忆规则
-         */
-        if (!isMemoryEnable || view.hasFocus()
-            || view.focusScrollStrategy == VerticalGridView.FOCUS_SCROLL_ALIGNED
-            || memoryFocusPositionInAdapter == RecyclerView.NO_POSITION
-        ) {
+        if (!shouldHandleFocusDispatch()) {
             log("addFocusables：不启用焦点记忆")
             return false
         }
@@ -109,6 +114,27 @@ class GridViewMemoryHelper private constructor(val view: BaseGridView) :
             return true
         }
         log("addFocusables：焦点记忆查找失败")
+        return false
+    }
+
+
+    fun onRequestFocusInDescendants(direction: Int, previouslyFocusedRect: Rect?):Boolean{
+        if(!shouldHandleFocusDispatch()){
+            log("onRequestFocusInDescendants：不启用焦点记忆分发")
+            return false
+        }
+
+        val viewHolder =
+            view.findViewHolderForAdapterPosition(memoryFocusPositionInAdapter) ?: return false
+
+        val pendingFocusView = viewHolder.itemView
+
+        if (pendingFocusView.canTakeFocus) {
+            log("addFocusables：焦点记忆查找成功")
+            //添加焦点记忆寻找的ChildView
+            pendingFocusView.requestFocus(direction)
+            return true
+        }
         return false
     }
 

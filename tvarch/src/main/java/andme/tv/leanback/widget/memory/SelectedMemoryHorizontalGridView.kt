@@ -2,6 +2,7 @@ package andme.tv.leanback.widget.memory
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import androidx.leanback.widget.HorizontalGridView
@@ -42,7 +43,15 @@ class SelectedMemoryHorizontalGridView @JvmOverloads constructor(
         super.addFocusables(views, direction, focusableMode)
     }
 
-
+     override fun onRequestFocusInDescendants(
+        direction: Int,
+        previouslyFocusedRect: Rect?
+    ): Boolean {
+         if(memoryHelper.onRequestFocusInDescendants(direction, previouslyFocusedRect)){
+             return true
+         }
+         return super.onRequestFocusInDescendants(direction, previouslyFocusedRect)
+    }
 
 //
 //    init {
