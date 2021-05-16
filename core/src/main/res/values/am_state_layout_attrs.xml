@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="sl_state" type="id"/>
+    <declare-styleable name="StateLayout">
+        <!--        <attr name="sl_contentView" />-->
+        <attr name="sl_loadingLayout" format="reference" />
+        <attr name="sl_errorLayout" format="reference" />
+        <attr name="sl_emptyLayout" format="reference" />
+        <attr name="sl_noNetworkLayout" format="reference" />
+    </declare-styleable>
+
+</resources>

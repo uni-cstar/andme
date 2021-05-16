@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <item name="am_id_state_view_progress" type="id" />
+    <item name="am_id_state_view_text" type="id" />
+    <item name="am_id_state_view_button" type="id" />
+    <item name="am_id_state_view_image" type="id" />
+
+    <style name="AMStateView">
+
+    </style>
+
+    <style name="AMStateView.Text">
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textSize">@dimen/text_size_subhead</item>
+    </style>
+
+    <style name="AMStateView.Button">
+        <item name="android:textColor">@color/text_color_theme_to_primary_slt_am</item>
+        <item name="android:textSize">@dimen/text_size_subhead</item>
+        <item name="android:background">@drawable/shape_circle_arc_primary_stroke_to_solid_slt_am</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">24dp</item>
+        <item name="android:paddingBottom">8dp</item>
+    </style>
+
+    <style name="AMStateView.Image">
+
+    </style>
+</resources>
