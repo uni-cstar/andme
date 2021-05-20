@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 /**
  * Created by Lucio on 2021/4/21.
  */
-class AMVideoView @JvmOverloads constructor(
+class  AMVideoView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : VideoView(context, attrs, defStyleAttr), AMPlayer2 {
 
