@@ -1,5 +1,8 @@
 package andme.integration.convert.gson
 
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+
 /**
  * Created by Lucio on 2021/3/13.
  */
@@ -23,5 +26,14 @@ inline fun <reified T> String?.toObject(): T? {
 }
 
 inline fun <reified T> String?.toObjectList(): List<T>? {
-    return jsonConvert.toObjectList(this, T::class.java)
+    if (this.isNullOrEmpty())
+        return null
+    val convert = jsonConvert
+    if (convert is GsonConvert) {
+        //gson不支持泛型方法，所以必须在内联方法中实现；
+        val type: Type = object : TypeToken<List<T>>() {}.type
+        return convert.gson.fromJson(this, type)
+    } else {
+        return convert.toObjectList(this, T::class.java)
+    }
 }
