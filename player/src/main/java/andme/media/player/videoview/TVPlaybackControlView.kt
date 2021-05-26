@@ -92,7 +92,7 @@ class TVPlaybackControlView @JvmOverloads constructor(
             hide()
         }
         if (background == null) {
-            setBackgroundResource(R.color.black_opacity_50)
+            setBackgroundResource(R.color.black_opacity_30)
         }
 
     }
