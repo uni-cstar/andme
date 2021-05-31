@@ -56,8 +56,8 @@ interface AMPlayer2 {
      */
     fun stopPlayback()
 
-    fun addCompletionListener(listener:OnAMPlayerCompleteListener)
-    fun removeCompletionListener(listener:OnAMPlayerCompleteListener)
+    fun addCompletionListener(listener: OnAMPlayerCompleteListener)
+    fun removeCompletionListener(listener: OnAMPlayerCompleteListener)
 
     fun addErrorListener(listener: OnAMPlayerErrorListener)
     fun removeErrorListener(listener: OnAMPlayerErrorListener)
@@ -65,58 +65,29 @@ interface AMPlayer2 {
     fun addPreparedListener(listener: OnAMPlayerPreparedListener)
     fun removePreparedListener(listener: OnAMPlayerPreparedListener)
 
-    fun addInfoListener(listener:OnAMPlayerInfoListener)
-    fun removeInfoListener(listener:OnAMPlayerInfoListener)
+    fun addInfoListener(listener: OnAMPlayerInfoListener)
+    fun removeInfoListener(listener: OnAMPlayerInfoListener)
 
 
-//
-//    companion object {
-//        /**
-//         * The player does not have any media to play.
-//         * 初始状态 播放器没有工作中（播放器已停止/播放失败）
-//         */
-//        const val STATE_IDLE = 1
-//
-//        /**
-//         * 缓冲中，无法进行播放
-//         * The player is not able to immediately play from its current position. This state typically
-//         * occurs when more data needs to be loaded.
-//         */
-//        const val STATE_BUFFERING = 2
-//
-//        /**
-//         * 播放已就绪；可以立即开始播放
-//         * The player is able to immediately play from its current position. The player will be playing if
-//         * [.getPlayWhenReady] is true, and paused otherwise.
-//         */
-//        const val STATE_READY = 3
-//
-//        /**
-//         * 播放结束
-//         * The player has finished playing the media.
-//         */
-//        const val STATE_ENDED = 4
-//    }
-//
-//    /**
-//     * Playback state. One of [.STATE_IDLE], [.STATE_BUFFERING], [.STATE_READY] or
-//     * [.STATE_ENDED].
-//     */
-//    @Documented
-//    @Retention(RetentionPolicy.SOURCE)
-//    @IntDef(STATE_IDLE, STATE_BUFFERING, STATE_READY, STATE_ENDED)
-//    annotation class State
-//
-//
-//    fun interface OnAMPlayerStateChangedListener {
-//        fun onAMPlayerStateChanged(@State state: Int)
-//    }
+    fun addStateListener(listener: OnAMPlayerStateListener)
+    fun removeStateListener(listener: OnAMPlayerStateListener)
+
+    /**
+     * 播放已准备回调
+     */
+    fun interface OnAMPlayerPreparedListener {
+        fun onAMPlayerPrepared(player: AMPlayer2)
+    }
 
     /**
      * 错误结束回调
      */
     fun interface OnAMPlayerErrorListener {
-        fun onAMPlayerError(player: AMPlayer2, e: Throwable)
+
+        /**
+         * @return 如果返回true则表示处理消耗了该异常，后续不会回调[OnAMPlayerCompleteListener],相反返回false则会触发后续回调
+         */
+        fun onAMPlayerError(player: AMPlayer2, e: Throwable): Boolean
     }
 
     /**
@@ -127,34 +98,47 @@ interface AMPlayer2 {
     }
 
     /**
-     * 播放已准备回调
-     */
-    fun interface OnAMPlayerPreparedListener {
-        fun onAMPlayerPrepared(player: AMPlayer2)
-    }
-
-    /**
      * 信息回调
      */
     fun interface OnAMPlayerInfoListener {
         fun onAMPlayerInfo(player: AMPlayer2, what: Int, extra: Int)
     }
 
+    interface OnAMPlayerStateListener {
 
-    interface Control{
+        /**
+         * 播放器开始缓冲
+         */
+        fun onAMPlayerStateBuffering()
+
+        /**
+         * 播放器停止缓冲
+         */
+        fun onAMPlayerStateBufferingEnd()
+
+        /**
+         *  播放器开始播放
+         */
+        fun onAMPlayerStateStartPlaying(){
+
+        }
+
+    }
+
+    interface Control {
 
         /**
          * 显示控制器
          * @param timeout 超时时间，即超过多少时间之后隐藏
          */
-        fun show(timeout:Long)
+        fun show(timeout: Long)
 
         fun hide()
 
         /**
          * 设置播放器
          */
-        fun setPlayer(player:AMPlayer2?)
+        fun setPlayer(player: AMPlayer2?)
 
 
         /**
@@ -180,7 +164,5 @@ interface AMPlayer2 {
              */
             fun onVisibilityChange(visibility: Int)
         }
-
-
     }
 }

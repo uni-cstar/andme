@@ -23,38 +23,80 @@ class  AMVideoView @JvmOverloads constructor(
         CopyOnWriteArrayList<AMPlayer2.OnAMPlayerPreparedListener>()
     private var infoListeners: CopyOnWriteArrayList<AMPlayer2.OnAMPlayerInfoListener> =
         CopyOnWriteArrayList<AMPlayer2.OnAMPlayerInfoListener>()
+    private val stateListeners = CopyOnWriteArrayList<AMPlayer2.OnAMPlayerStateListener>()
+
+    private var loadingAssistPosition: Int = -1
+    private val loadingAssistRunnable = object : Runnable {
+        override fun run() {
+            val duration = currentPosition
+            if (isPlaying && loadingAssistPosition == duration) {
+                stateListeners.forEach {
+                    it.onAMPlayerStateBuffering()
+                }
+            } else {
+                stateListeners.forEach {
+                    it.onAMPlayerStateBufferingEnd()
+                }
+            }
+            loadingAssistPosition = duration
+            postDelayed(this, 1000)
+        }
+    }
+
+    private val internalPreparedListener = MediaPlayer.OnPreparedListener {
+        performLoadingAssist()
+        preparedListeners.forEach {
+            it.onAMPlayerPrepared(this)
+        }
+    }
 
     private val internalCompleteListener = MediaPlayer.OnCompletionListener {
+        cancelLoadingAssist()
         completeListeners.forEach {
             it.onAMPlayerComplete(this)
         }
     }
 
     private val internalErrorListener = MediaPlayer.OnErrorListener { mediaPlayer, what, extra ->
-
+        var handledException = false
         if (errorListeners.isNotEmpty()) {
+            val err =  AMPlayerException(what, extra)
             errorListeners.forEach {
-                it.onAMPlayerError(this, AMPlayerException(what, extra))
+                if(it.onAMPlayerError(this,err)){
+                    handledException = true
+                }
             }
-            true
-        } else {
-            false
         }
-
-    }
-
-    private val internalPreparedListener = MediaPlayer.OnPreparedListener {
-        preparedListeners.forEach {
-            it.onAMPlayerPrepared(this)
+        if(!handledException){
+            cancelLoadingAssist()
         }
+        handledException
     }
-
 
     private val internalInfoListener = MediaPlayer.OnInfoListener { mp, what, extra ->
+        val handledException = stateListeners.isNotEmpty() || infoListeners.isNotEmpty()
+        when(what){
+            MediaPlayer.MEDIA_INFO_BUFFERING_START ->{
+                stateListeners.forEach {
+                    it.onAMPlayerStateStartPlaying()
+                }
+            }
+            MediaPlayer.MEDIA_INFO_BUFFERING_END ->{
+                stateListeners.forEach {
+                    it.onAMPlayerStateBufferingEnd()
+                }
+            }
+
+            MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START ->{
+                stateListeners.forEach {
+                    it.onAMPlayerStateStartPlaying()
+                }
+            }
+        }
         infoListeners.forEach {
             it.onAMPlayerInfo(this, what, extra)
         }
-        true
+        handledException
     }
 
     init {
@@ -62,6 +104,18 @@ class  AMVideoView @JvmOverloads constructor(
         setOnErrorListener(internalErrorListener)
         setOnPreparedListener(internalPreparedListener)
         setOnInfoListener(internalInfoListener)
+    }
+
+    /**
+     * 执行加载状态辅助操作：某些盒子loading状态回调之后，进入播放状态，但是没有任何回调
+     */
+    private fun performLoadingAssist() {
+        cancelLoadingAssist()
+        post(loadingAssistRunnable)
+    }
+
+    fun cancelLoadingAssist(){
+        removeCallbacks(loadingAssistRunnable)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -78,7 +132,6 @@ class  AMVideoView @JvmOverloads constructor(
     override fun getBufferingPosition(): Int {
         return bufferPercentage * duration
     }
-
 
     override fun addCompletionListener(listener: AMPlayer2.OnAMPlayerCompleteListener) {
         completeListeners.add(listener)
@@ -112,7 +165,12 @@ class  AMVideoView @JvmOverloads constructor(
         infoListeners.remove(listener)
     }
 
+    override fun addStateListener(listener: AMPlayer2.OnAMPlayerStateListener) {
+        stateListeners.add(listener)
+    }
 
-
+    override fun removeStateListener(listener: AMPlayer2.OnAMPlayerStateListener) {
+        stateListeners.remove(listener)
+    }
 
 }

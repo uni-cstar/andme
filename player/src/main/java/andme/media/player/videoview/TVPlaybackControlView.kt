@@ -100,8 +100,9 @@ class TVPlaybackControlView @JvmOverloads constructor(
     private val componentListener =
         object : AMPlayer2.OnAMPlayerPreparedListener, AMPlayer2.OnAMPlayerCompleteListener,
             AMPlayer2.OnAMPlayerErrorListener {
-            override fun onAMPlayerError(player: AMPlayer2, e: Throwable) {
+            override fun onAMPlayerError(player: AMPlayer2, e: Throwable): Boolean {
                 show()
+                return true
             }
 
             override fun onAMPlayerComplete(player: AMPlayer2) {
@@ -195,7 +196,7 @@ class TVPlaybackControlView @JvmOverloads constructor(
     /**
      * 如果当前正在播放中，则延迟显示，否则永久显示
      * */
-     fun delayHideOrNever() {
+    fun delayHideOrNever() {
         if (player?.isPlaying().orDefault()) {
             delayHide(DEFAULT_SHOW_TIMEOUT_MS)
         } else {
