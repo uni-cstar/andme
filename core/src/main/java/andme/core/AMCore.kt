@@ -28,6 +28,8 @@ import android.content.Context
 
 lateinit var mApp: Context
 
+lateinit var ctxAM:Context
+
 private var isCoreInit: Boolean = false
 
 /**
@@ -39,6 +41,7 @@ fun initCore(app: Application) {
         return
     isCoreInit = true
     mApp = app
+    ctxAM = app
     AppManagerImpl.init(app)
     syncResourcesValues()
 }

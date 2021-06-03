@@ -60,7 +60,7 @@ class  AMVideoView @JvmOverloads constructor(
     private val internalErrorListener = MediaPlayer.OnErrorListener { mediaPlayer, what, extra ->
         var handledException = false
         if (errorListeners.isNotEmpty()) {
-            val err =  AMPlayerException(what, extra)
+            val err =  AMPlayerException.newMediaPlayerException(what, extra)
             errorListeners.forEach {
                 if(it.onAMPlayerError(this,err)){
                     handledException = true

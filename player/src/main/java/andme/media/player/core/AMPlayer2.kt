@@ -87,7 +87,7 @@ interface AMPlayer2 {
         /**
          * @return 如果返回true则表示处理消耗了该异常，后续不会回调[OnAMPlayerCompleteListener],相反返回false则会触发后续回调
          */
-        fun onAMPlayerError(player: AMPlayer2, e: Throwable): Boolean
+        fun onAMPlayerError(player: AMPlayer2, e: AMPlayerException): Boolean
     }
 
     /**
@@ -165,4 +165,5 @@ interface AMPlayer2 {
             fun onVisibilityChange(visibility: Int)
         }
     }
+
 }

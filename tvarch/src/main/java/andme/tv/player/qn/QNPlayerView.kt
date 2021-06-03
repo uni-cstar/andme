@@ -4,6 +4,7 @@ import andme.core.exception.friendlyMessage
 import andme.core.exception.onCatch
 import andme.core.exception.tryCatch
 import andme.media.player.core.AMPlayer2
+import andme.media.player.core.AMPlayerException
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
@@ -61,9 +62,10 @@ class QNPlayerView @JvmOverloads constructor(
         var handledException = false
 
         if (errorListeners.isNotEmpty()) {
-            val error = QNPlayerError(it)
+            val error =
+                AMPlayerException.newException(QNPlayerError(it), AMPlayerException.ERROR_UNKNOWN)
             errorListeners.forEach {
-                if(it.onAMPlayerError(this, error)){
+                if (it.onAMPlayerError(this, error)) {
                     handledException = true
                 }
             }

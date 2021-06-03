@@ -8,6 +8,7 @@ import andme.lang.ONE_MINUTE_TIME
 import andme.lang.orDefault
 import andme.media.player.R
 import andme.media.player.core.AMPlayer2
+import andme.media.player.core.AMPlayerException
 import android.content.Context
 import android.os.SystemClock
 import android.util.AttributeSet
@@ -100,7 +101,7 @@ class TVPlaybackControlView @JvmOverloads constructor(
     private val componentListener =
         object : AMPlayer2.OnAMPlayerPreparedListener, AMPlayer2.OnAMPlayerCompleteListener,
             AMPlayer2.OnAMPlayerErrorListener {
-            override fun onAMPlayerError(player: AMPlayer2, e: Throwable): Boolean {
+            override fun onAMPlayerError(player: AMPlayer2, e: AMPlayerException): Boolean {
                 show()
                 return true
             }
