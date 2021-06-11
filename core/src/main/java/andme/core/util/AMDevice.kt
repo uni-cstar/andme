@@ -11,8 +11,6 @@ import android.app.Dialog
 import android.content.ClipData
 import android.content.Context
 import android.content.res.Configuration
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.ResultReceiver
@@ -41,15 +39,18 @@ const val NETWORK_TYPE_UNKNOWN = 3
 const val NETWORK_TYPE_ETHERNET = 4
 
 @Retention(AnnotationRetention.SOURCE)
-@IntDef(flag = true, value = [NETWORK_TYPE_NONE, NETWORK_TYPE_WIFI, NETWORK_TYPE_MOBILE,NETWORK_TYPE_UNKNOWN])
+@IntDef(
+    flag = true,
+    value = [NETWORK_TYPE_NONE, NETWORK_TYPE_WIFI, NETWORK_TYPE_MOBILE, NETWORK_TYPE_UNKNOWN]
+)
 annotation class NetworkType
 
 @NetworkType
 fun Context.getNetworkType(): Int {
     val cm = connectivityManager ?: return NETWORK_TYPE_NONE
-    if (Build.VERSION.SDK_INT >=23){
+    if (Build.VERSION.SDK_INT >= 23) {
         return getNetworkType23()
-    }else{
+    } else {
         return getNetworkTypeDefault()
     }
 }
@@ -64,7 +65,7 @@ fun Context.isNetworkConnected(): Boolean {
         return ani.isConnected
     } else {
         val an = cm.activeNetwork ?: return false
-        return  cm.getNetworkCapabilities(an) != null
+        return cm.getNetworkCapabilities(an) != null
     }
 }
 
@@ -93,7 +94,7 @@ fun Context.getWifiSSID(): String? {
         return null
     if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1) {
         val connManager = connectivityManager ?: return null
-        val networkInfo = connManager.activeNetworkInfo
+        val networkInfo = connManager.activeNetworkInfo ?: return null
         if (networkInfo.isConnected) {
             if (networkInfo.extraInfo != null) {
                 return networkInfo.extraInfo.replace("\"", "")
@@ -102,7 +103,7 @@ fun Context.getWifiSSID(): String? {
         return null
     } else {
         val wifiMgr = applicationContext.getSystemService(Context.WIFI_SERVICE) as? WifiManager
-                ?: return null
+            ?: return null
         val ssid = wifiMgr.connectionInfo.ssid
         return if (ssid.isNullOrEmpty()) {
             null
@@ -120,7 +121,8 @@ fun Activity.hideNavigationBar() {
     if (sdkInt in 12..18) {
         window.decorView.systemUiVisibility = View.GONE
     } else if (sdkInt >= 19) {
-        window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or generateHideNavigationBarFlag()
+        window.decorView.systemUiVisibility =
+            window.decorView.systemUiVisibility or generateHideNavigationBarFlag()
     }
 }
 
@@ -132,7 +134,8 @@ fun Activity.showNavigationBar() {
     if (sdkInt in 12..18) {
         window.decorView.systemUiVisibility = View.VISIBLE
     } else if (sdkInt >= 19) {
-        window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and generateHideNavigationBarFlag().inv()
+        window.decorView.systemUiVisibility =
+            window.decorView.systemUiVisibility and generateHideNavigationBarFlag().inv()
     }
 }
 
@@ -146,7 +149,7 @@ fun Activity.showNavigationBar() {
 fun Activity.toggleFullScreen(isFullScreen: Boolean, hideNavBar: Boolean = true) {
     window?.decorView?.apply {
         var flag = View.SYSTEM_UI_FLAG_LAYOUT_STABLE//防止系统栏隐藏时内容区域大小发生变化
-                .or(View.SYSTEM_UI_FLAG_FULLSCREEN)  //请求全屏显示，状态栏会被隐藏，底部导航栏不会被隐藏，效果和WindowManager.LayoutParams.FLAG_FULLSCREEN相同
+            .or(View.SYSTEM_UI_FLAG_FULLSCREEN)  //请求全屏显示，状态栏会被隐藏，底部导航栏不会被隐藏，效果和WindowManager.LayoutParams.FLAG_FULLSCREEN相同
 //            flag = flag.or(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)//让View全屏显示，Layout会被拉伸到StatusBar下面，不包含NavigationBar
 //            var flag = View.SYSTEM_UI_FLAG_FULLSCREEN
         if (hideNavBar) {

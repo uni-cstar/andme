@@ -26,6 +26,7 @@ import andme.lang.orDefault
 import android.app.Application
 import android.content.Context
 
+@Deprecated(message = "请使用ctxAM替换")
 lateinit var mApp: Context
 
 lateinit var ctxAM:Context

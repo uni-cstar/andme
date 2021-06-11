@@ -42,11 +42,11 @@ dependencies {
     def okhttp3_version = "3.12.12"
     def glide_version = "4.11.0"
 
-    /**
+/*    *//**
      * 多状态布局 https://github.com/lindroy/MultiStateLayout
      * 或者参考 https://github.com/qyxxjd/MultipleStatusView
-     */
-    api 'com.github.lindroy:MultiStateLayout:v0.0.1-beta'
+     *//*
+    api 'com.github.lindroy:MultiStateLayout:v0.0.1-beta'*/
 
     /*Kotlin*/
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

@@ -11,7 +11,6 @@ import androidx.appcompat.widget.AppCompatTextView
 /**
  * 可以支持多条跑马灯：效果是一条显示完成之后再显示下一条
  */
-@Deprecated("可以用MarqueeTextView2做效果替代")
 class MarqueeTextView3 @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -55,7 +54,7 @@ class MarqueeTextView3 @JvmOverloads constructor(
      * 调试模式的时候是否启用动画：默认不启用；启用之后在调试模式下无法进行调试，
      * 因为这个控件在不断的请求重绘
      */
-    var isEnableInDebugMode: Boolean = false
+    var isEnableInDebugMode: Boolean = true
 
     override fun setMarqueeRepeatLimit(marqueeLimit: Int) {
         super.setMarqueeRepeatLimit(marqueeLimit)
@@ -150,16 +149,12 @@ class MarqueeTextView3 @JvmOverloads constructor(
 
         override fun writeToParcel(out: Parcel, flags: Int) {
             super.writeToParcel(out, flags)
-            out.writeBooleanArray(booleanArrayOf(isStarting))
+            out.writeInt(if(isStarting) 1 else 0)
             out.writeFloat(step)
         }
 
         private constructor(`in`: Parcel) : super(`in`) {
-            val b: BooleanArray? = null
-            `in`.readBooleanArray(b)
-            if (b != null && b.isNotEmpty()) {
-                isStarting = b[0]
-            }
+            isStarting = `in`.readInt() > 0
             step = `in`.readFloat()
         }
 

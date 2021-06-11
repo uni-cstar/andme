@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black_opacity_90">#E6000000</color>
+    <color name="black_opacity_70">#B2000000</color>
     <color name="black_opacity_60">#99000000</color>
     <color name="black_opacity_50">#7F000000</color>
     <color name="black_opacity_40">#66000000</color>
@@ -8,7 +9,8 @@
     <color name="black_opacity_20">#33000000</color>
     <color name="black_opacity_10">#19000000</color>
 
-
+    <color name="white_opacity_90">#E6FFFFFF</color>
+    <color name="white_opacity_70">#B2FFFFFF</color>
     <color name="white_opacity_60">#99FFFFFF</color>
     <color name="white_opacity_50">#7FFFFFFF</color>
     <color name="white_opacity_40">#66FFFFFF</color>
