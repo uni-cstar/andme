@@ -25,6 +25,7 @@ import andme.integration.media.MediaStore
 import andme.lang.orDefault
 import android.app.Application
 import android.content.Context
+import halo.android.permission.BuildConfig
 
 @Deprecated(message = "请使用ctxAM替换")
 lateinit var mApp: Context

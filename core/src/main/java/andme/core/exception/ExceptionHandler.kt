@@ -4,9 +4,12 @@
  */
 package andme.core.exception
 
+import andme.core.dialogHandlerAM
 import andme.core.exceptionHandlerAM
 import andme.core.isDebuggable
 import andme.core.support.ui.showAlertDialog
+import andme.lang.IgnoreException
+import andme.lang.orDefaultIfNullOrEmpty
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
@@ -45,6 +48,21 @@ interface ExceptionHandler {
  */
 inline val Throwable.friendlyMessage: String? get() = exceptionHandlerAM.getFriendlyMessage(this)
 
+/**
+ * 对话框形式  显示异常信息
+ * @param e
+ */
+fun Context.showExceptionMsgAM(e: Throwable) {
+    if (e is SilentException || e is IgnoreException) return
+    showExceptionMsgAM(e.friendlyMessage.orDefaultIfNullOrEmpty(e.toString()))
+}
+
+/**
+ * 显示异常信息
+ */
+fun Context.showExceptionMsgAM(msg: String) {
+    dialogHandlerAM.showAlertDialog(this, msg, "确定")
+}
 
 /**
  * 捕获ui异常
