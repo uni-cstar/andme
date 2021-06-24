@@ -16,6 +16,7 @@ abstract class MultiStateActivity<VM : MultiStateViewModel> :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         initMultiStateLayoutViewModel(savedInstanceState)
     }
 

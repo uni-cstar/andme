@@ -210,6 +210,7 @@ val LocalMedia.validPath: String
             filePath = originalPath
         }
 
+        //原图path，但在Android Q版本上返回的是content:// Uri类型
         if (filePath.isNullOrEmpty()) {
             filePath = path
         }
@@ -223,10 +224,12 @@ val LocalMedia.validLargePath: String
             return originalPath
         }
 
-        if (!realPath.isNullOrEmpty()) {
+        //The real path，But you can't get access from AndroidQ
+        if (Build.VERSION.SDK_INT < 29 && !realPath.isNullOrEmpty()) {
             return realPath
         }
 
+        //原图path，但在Android Q版本上返回的是content:// Uri类型
         if (!path.isNullOrEmpty()) {
             return path
         }

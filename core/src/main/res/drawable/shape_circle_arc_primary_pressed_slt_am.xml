@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/shape_circle_arc_primary_pressed_bg_am" android:state_pressed="true" />
+    <item android:drawable="@drawable/shape_circle_arc_primary_bg_am" />
+</selector>

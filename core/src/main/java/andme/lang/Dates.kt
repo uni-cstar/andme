@@ -32,6 +32,8 @@ const val DATE_UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
  */
 const val DATE_CN_FORMAT = "yyyy-MM-dd HH:mm:ss"
 
+ val CN_DATE_FORMATER = SimpleDateFormat(DATE_CN_FORMAT)
+
 
 /**
  * 星期几 格式
@@ -51,7 +53,13 @@ val UTC_DATE_FORMAT by lazy {
  */
 fun Date?.format(format: String): String {
     if (this == null) return ""
-    return SimpleDateFormat(format).format(this)
+    if(format == DATE_CN_FORMAT){
+        return CN_DATE_FORMATER.format(this)
+    }else if(format == DATE_UTC_FORMAT){
+        return UTC_DATE_FORMAT.format(this)
+    }else{
+        return SimpleDateFormat(format).format(this)
+    }
 }
 
 /**

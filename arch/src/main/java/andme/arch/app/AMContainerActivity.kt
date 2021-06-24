@@ -184,7 +184,7 @@ class AMContainerActivity : AMActivity<AMViewModel>() {
         }
 
         /**
-         * 设置android:windowSoftInputMode
+         * 设置android:windowSoftInputMode [WindowManager.LayoutParams.SOFT_INPUT_*]
          */
         fun setWindowSoftInputMode(mode: Int): Builder {
             mWindowSoftInputMode = mode

@@ -11,6 +11,9 @@
     <!--Grey300 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色-->
     <color name="color_divider">#DADADA</color>
 
+    <!--主题颜色 blue-500-->
+    <color name="color_primary_pressed">#1976D2</color>
+
     <!--圆角半径-->
     <dimen name="rounded_radius">5dp</dimen>
 

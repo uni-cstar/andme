@@ -5,6 +5,8 @@
     <attr name="backgroundColor" format="color" />
     <!--分割线颜色-->
     <attr name="colorDivider" format="reference|color" />
+    <!--主题色按下之后的颜色-->
+    <attr name="colorPrimaryPressed" format="reference|color" />
     <!--定义与主题色一致的文本颜色-->
     <attr name="textColorTheme" format="reference|color" />
     <!--描述文本颜色-->
@@ -13,6 +15,7 @@
     <attr name="textColorCaptionInverse" format="reference|color" />
     <!--圆角半径-->
     <attr name="roundedRadius" format="reference|dimension" />
+
 
 
     <declare-styleable name="MarqueeViewFlipper">

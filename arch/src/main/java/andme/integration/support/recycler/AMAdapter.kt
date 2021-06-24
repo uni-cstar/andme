@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
  * Created by Lucio on 2020-08-12.
  */
 
-abstract class AMAdapter<T, VH : AMViewHolder<T>> @JvmOverloads constructor(
+abstract class AMAdapter<T, VH : AMViewHolder<T>> @JvmOverloads  constructor(
     val layoutResId: Int,
     data: MutableList<T>? = null
 ) : BaseQuickAdapter<T, VH>(layoutResId, data) {

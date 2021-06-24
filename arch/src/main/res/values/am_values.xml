@@ -6,6 +6,8 @@
 
     <item name="am_id_recycler" type="id" />
 
-
+    <dimen name="activity_horizontal_margin">36dp</dimen>
+    <dimen name="view_margin">8dp</dimen>
+    <dimen name="view_margin_big">12dp</dimen>
 
 </resources>
