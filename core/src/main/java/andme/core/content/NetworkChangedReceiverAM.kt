@@ -32,8 +32,7 @@ import androidx.annotation.RequiresPermission
 /**
  * 网络改变广播接收器
  */
-@Deprecated("使用NetworkChangedReceiverAM替换")
-open class AMNetworkChangedReceiver private constructor(val listener: OnNetworkChangedListener) : BroadcastReceiver() {
+open class NetworkChangedReceiverAM private constructor(val listener: OnNetworkChangedListener) : BroadcastReceiver() {
 
     /**
      * 网络改变回调
@@ -90,8 +89,8 @@ open class AMNetworkChangedReceiver private constructor(val listener: OnNetworkC
          */
         @JvmStatic
         @RequiresPermission(value = Manifest.permission.ACCESS_NETWORK_STATE)
-        fun registerReceiver(activity: Activity, listener: OnNetworkChangedListener): AMNetworkChangedReceiver {
-            val netReceiver = AMNetworkChangedReceiver(listener)
+        fun registerReceiver(activity: Activity, listener: OnNetworkChangedListener): NetworkChangedReceiverAM {
+            val netReceiver = NetworkChangedReceiverAM(listener)
             val mFilter = IntentFilter()
             mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
             activity.registerReceiver(netReceiver, mFilter)

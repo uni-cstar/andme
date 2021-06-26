@@ -23,9 +23,15 @@ inline fun <T> T?.orDefault(initializer: () -> T): T = this ?: initializer()
 /**
  * 将一个对象转换成另外一个对象
  */
+@Deprecated("名字容易跟集合的map冲突，所以更换名字，使用mapAs")
 inline fun <T, R> T.map(transformer: T.() -> R): R {
     return transformer(this)
 }
+
+inline fun <T, R> T.mapAs(transformer: T.() -> R): R {
+    return transformer(this)
+}
+
 
 /**
  * 调试执行代码
