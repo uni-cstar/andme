@@ -7,6 +7,7 @@ import andme.lang.orDefaultIfNullOrEmpty
 import android.app.Application
 import android.view.View
 import androidx.annotation.MainThread
+import java.lang.RuntimeException
 
 /**
  * Created by Lucio on 2021/3/3.
@@ -74,13 +75,13 @@ open class MultiStateViewModel(application: Application) : AMViewModel(applicati
 
     @MainThread
     fun showMultiStateErrorView() {
-        multiStateLayoutViewModel.showErrorView()
+        showMultiStateErrorView(RuntimeException("未知异常。"))
     }
 
     @MainThread
     fun showMultiStateErrorView(e: Throwable) {
         showMultiStateErrorView {
-            showEmptyMsgWithoutButton(e.friendlyMessage.orDefaultIfNullOrEmpty("未知错误"))
+            showErrorMsgWithoutButton(e.friendlyMessage.orDefaultIfNullOrEmpty("未知错误"))
         }
     }
 
@@ -92,7 +93,7 @@ open class MultiStateViewModel(application: Application) : AMViewModel(applicati
         onBtnClick: (View) -> Unit
     ) {
         showMultiStateErrorView {
-            showEmptyMsgWithButton(
+            showErrorMsgWithButton(
                 e.friendlyMessage.orDefaultIfNullOrEmpty("未知错误"),
                 buttonText,
                 requestFocus,
