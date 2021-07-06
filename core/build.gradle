@@ -140,6 +140,8 @@ dependencies {
 
     api "com.squareup.retrofit2:converter-jackson:$retrofit_version"
 
+    compileOnly 'org.ligboy.retrofit2:converter-fastjson:2.0.2'
+
     /*END - Retrofit*/
 
     //permission: 个人权限处理框架
