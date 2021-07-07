@@ -3,6 +3,7 @@ package andme.arch.multistate
 import andme.arch.R
 import andme.core.binding.bindTextOrGone
 import andme.core.statelayout.StateView
+import andme.core.util.isTVUIMode
 import andme.core.widget.setGone
 import android.view.View
 import android.widget.Button
@@ -54,8 +55,10 @@ private fun StateView.showTextWithButton(
         it.visibility = View.VISIBLE
         it.text = buttonText
         it.setOnClickListener(onClick)
-        it.isFocusable = true
-        it.isFocusableInTouchMode = true
+        if(it.context.isTVUIMode()){
+            it.isFocusable = true
+            it.isFocusableInTouchMode = true
+        }
         if (requestFocus) {
             it.requestFocus()
         }
@@ -75,8 +78,10 @@ fun StateView.setRetryButton(
     buttonAM?.let {
         it.setText(text)
         it.setOnClickListener(onClick)
-        it.isFocusable = true
-        it.isFocusableInTouchMode = true
+        if(it.context.isTVUIMode()){
+            it.isFocusable = true
+            it.isFocusableInTouchMode = true
+        }
         if (requestFocus) {
             it.requestFocus()
         }

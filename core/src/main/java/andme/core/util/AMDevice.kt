@@ -8,6 +8,7 @@ import android.Manifest
 import android.annotation.TargetApi
 import android.app.Activity
 import android.app.Dialog
+import android.app.UiModeManager
 import android.content.ClipData
 import android.content.Context
 import android.content.res.Configuration
@@ -279,4 +280,14 @@ fun Dialog.showSoftInputAlwaysImpl() {
  */
 fun Dialog.hideSoftInputAlwaysImpl() {
     window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+}
+
+/**
+ * 当前是否运行在TV上
+ */
+fun Context.isTVUIMode(): Boolean {
+    val uiModeManager =
+        this.applicationContext.getSystemService(Context.UI_MODE_SERVICE) as? UiModeManager
+            ?: return false
+    return (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION)
 }
