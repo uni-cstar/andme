@@ -1,0 +1,84 @@
+apply plugin: 'maven-publish'
+
+static def artifactId(name) {
+    return "$name"
+}
+
+
+ext {
+    PUBLISH_GROUP_ID = "com.github.qiushui95.MyArchitecture"
+    PUBLISH_VERSION = "0.0.1-alpha"
+    artifactId = this.&artifactId
+}
+
+//编译groovy代码时采用 UTF-8
+tasks.withType(GroovyCompile) {
+    groovyOptions.encoding = "UTF-8"
+}
+//编译JAVA文件时采用UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc) {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        links "http://docs.oracle.com/javase/7/docs/api"
+        addStringOption('Xdoclint:none', '-quiet') // 忽略检查@params 和 @return
+    }
+}
+
+
+afterEvaluate { project ->
+
+    publishing {
+        def isAndroidProject = project.plugins.hasPlugin('com.android.library')
+
+        publications {
+            release(MavenPublication) {
+                // groupId 等信息
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+
+                if (isAndroidProject) {
+                    // 移除R文件，移除BuildConfig文件
+                    generateReleaseBuildConfig.enabled = false
+                    generateDebugBuildConfig.enabled = false
+                    generateReleaseResValues.enabled = false
+                    generateDebugResValues.enabled = false
+                    // 使用了这个组件，就不需要自己aar、pom.withxml了
+                    from components.release
+
+                    task androidSourcesJar(type: Jar) {
+                        getArchiveClassifier().set('sources')
+                        from project.android.sourceSets.main.java.source
+
+                        exclude "**/R.class"
+                        exclude "**/BuildConfig.class"
+                    }
+                    artifact androidSourcesJar
+
+                } else if (project.plugins.hasPlugin('java')) {
+                    from components.java
+
+                    task sourcesJar(type: Jar, dependsOn: classes) {
+                        getArchiveClassifier().set('sources')
+
+                        from sourceSets.main.allSource
+                    }
+
+                    artifact sourcesJar
+                }
+            }
+        }
+
+        repositories {
+            mavenLocal()
+        }
+    }
+}

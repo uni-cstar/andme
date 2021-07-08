@@ -1,6 +1,5 @@
 package andme.sample.arch
 
-import andme.arch.activity.AMBackPressedOwner
 import andme.arch.app.AMFragment
 import andme.arch.app.AMViewModel
 import andme.arch.app.tryUi

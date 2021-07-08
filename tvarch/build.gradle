@@ -36,7 +36,7 @@ android {
 dependencies {
 
     api project(path: ':core')
-    api project(path: ':andme:player')
+    api project(path: ':player')
 
     /* 2.6.x版本才支持4.4: retrofit + okhttp的版本不能太高，高版本只支持ApiLevel 21*/
     def retrofit_version = "2.6.4"

@@ -53,3 +53,13 @@ dependencies {
 
     compileOnly 'com.aliyun.dpa:oss-android-sdk:2.9.5'
 }
+
+
+/*以下配置顺序不能改变*/
+apply from: "../doc/jitpack/config.gradle"
+
+ext {
+    PUBLISH_ARTIFACT_ID = artifactId("arch")
+}
+
+apply from: "../doc/jitpack/publish.gradle"
