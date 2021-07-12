@@ -139,30 +139,14 @@ inline fun getTargetSdkVersion(ctx: Context): Int {
 /**
  * 是否是主进程
  */
-val Context.isMainProcess: Boolean
-    get() {
-        return packageName == processName
-    }
+inline val Context.isMainProcess: Boolean
+    get() = Apps.isMainProcess(this)
 
 /**
  * 获取当前进程名字
  */
-val Context.processName: String?
-    get() {
-        val pid = android.os.Process.myPid()
-        val am = activityManager ?: return null
-        val i = am.runningAppProcesses.iterator()
-        while (i.hasNext()) {
-            val info = i.next() as ActivityManager.RunningAppProcessInfo
-            try {
-                if (info.pid == pid) {
-                    return info.processName
-                }
-            } catch (e: Exception) {
-            }
-        }
-        return null
-    }
+inline val Context.processName: String?
+    get() = Apps.getProcessName(this)
 
 
 /**

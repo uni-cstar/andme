@@ -13,4 +13,8 @@ abstract class AMApp : Application(), AMAppManager by appManagerAM {
         super.onCreate()
         initCore(this)
     }
+
+    fun finishAllActivity(){
+        activityStack.finishAll()
+    }
 }

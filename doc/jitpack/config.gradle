@@ -3,7 +3,7 @@ static def artifactId(name) {
 }
 
 ext {
-    PUBLISH_GROUP_ID = "com.github.qiushui95.MyArchitecture"
+    PUBLISH_GROUP_ID = "com.github.SupLuo.andme"
     PUBLISH_VERSION = "0.0.1-alpha"
     artifactId = this.&artifactId
 }
