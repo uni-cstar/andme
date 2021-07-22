@@ -2,7 +2,6 @@ package andme.integration.convert.gson
 
 import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
-import com.google.gson.annotations.Expose
 import java.lang.annotation.Documented
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy

@@ -41,7 +41,7 @@ fun String?.toMd5(): String {
 
 /**
  * url编码
- * @see [BestPerformance]
+ * @see Note
  * @param allow set of additional characters to allow in the encoded form,
  *  null if no characters should be skipped
  * @return an encoded version of s suitable for use as a URI component,
