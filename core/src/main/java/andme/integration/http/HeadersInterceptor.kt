@@ -37,31 +37,9 @@ abstract class HeadersInterceptor : okhttp3.Interceptor {
             builder.addHeader(it.key,it.value)
         }
         return chain.proceed(builder.build())
-        
-//        if (customHeaders.isNullOrEmpty()) {
-//            return chain.proceed(originalRequest)
-//        } else {
-//            val headers = originalRequest.headers()
-//            val builder = originalRequest.newBuilder()
-//            var headerChanged = false
-//            for ((k, v) in customHeaders) {
-//                //如果header中没有包括key，则添加
-//                if (!k.isEmpty() && !v.isEmpty() && headers[k].isNullOrEmpty() ) {
-//                    builder.addHeader(k, v)
-//                    headerChanged = true
-//                }
-//            }
-//            if (headerChanged) {//改变了header，则重新创建请求
-//                val authorised = builder.build()
-//                return chain.proceed(authorised)
-//            } else {//没有任何改变，使用原请求
-//                return chain.proceed(originalRequest)
-//            }
-//        }
     }
 
     abstract fun getHeaders(): Map<String, String>?
-
 
     /**
      * execute before request the url

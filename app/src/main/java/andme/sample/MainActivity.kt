@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 //            }
 
             //对应界面协议
-            val directTo = "gdtv://exam/errquestion"
+            val directTo = "gdtv://wgw/catg?id=2499090832980310617"
             //对协议进行url编码
             val encodeDirectTo = directTo.urlEncode()
             //将前面得到的值作为uri参数，封装成新的协议
-            val uri = Uri.parse("uxtv://applink?uri=${encodeDirectTo}")
+            val uri = Uri.parse("uxtv://applink")
             //固定action和data创建意图
             val it = Intent("android.intent.action.VIEW", uri)
             startActivity(it)

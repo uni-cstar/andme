@@ -12,6 +12,7 @@ import androidx.annotation.LayoutRes
 
 /**
  * Created by Lucio on 2021/4/8.
+ * 用于视频播放的浮层提示框：比如音量、亮度改变等对话框效果
  */
 abstract class VideoToastDialog(ctx: Context) : Dialog(ctx, R.style.VideoPopupDialog) {
 
@@ -30,14 +31,14 @@ abstract class VideoToastDialog(ctx: Context) : Dialog(ctx, R.style.VideoPopupDi
 
     protected val autoDismissRunnable = Runnable {
         tryCatch {
-            onAutoDismissInvoke()
+            invokeAutoDismiss()
         }
     }
 
     /**
-     * 执行自动小时
+     * 执行自动消失
      */
-    protected open fun onAutoDismissInvoke() {
+    protected open fun invokeAutoDismiss() {
         dismiss()
     }
 

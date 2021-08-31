@@ -7,7 +7,6 @@ import java.util.List;
  */
 class Collections {
 
-
     public static <T> T getOrNull(List<T> items, int index) {
          if (index >= 0 && index <= items.size() - 1)
              return null;
