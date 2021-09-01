@@ -140,6 +140,10 @@ class QNPlayerView @JvmOverloads constructor(
         kneral.setVideoPath(url)
     }
 
+    override fun setDataSource(url: String, headers: Map<String, String>) {
+        kneral.setVideoPath(url,headers)
+    }
+
     override fun start() {
         kneral.start()
     }

@@ -12,6 +12,8 @@ interface AMPlayer2 {
      */
     fun setDataSource(url: String)
 
+    fun setDataSource(url: String,headers:Map<String, String> )
+
     /**
      * 开始播放
      */

@@ -4,8 +4,12 @@ import andme.media.player.core.AMPlayer2
 import andme.media.player.core.AMPlayerException
 import android.content.Context
 import android.media.MediaPlayer
+import android.net.Uri
+import android.os.Build
 import android.util.AttributeSet
 import android.widget.VideoView
+import androidx.annotation.RequiresApi
+import com.google.android.exoplayer2.video.VideoDecoderGLSurfaceView
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**
@@ -62,7 +66,7 @@ class  AMVideoView @JvmOverloads constructor(
         if (errorListeners.isNotEmpty()) {
             val err =  AMPlayerException.newMediaPlayerException(what, extra)
             errorListeners.forEach {
-                if(it.onAMPlayerError(this,err)){
+                if(it.onAMPlayerError(this, err)){
                     handledException = true
                 }
             }
@@ -76,18 +80,18 @@ class  AMVideoView @JvmOverloads constructor(
     private val internalInfoListener = MediaPlayer.OnInfoListener { mp, what, extra ->
         val handledException = stateListeners.isNotEmpty() || infoListeners.isNotEmpty()
         when(what){
-            MediaPlayer.MEDIA_INFO_BUFFERING_START ->{
+            MediaPlayer.MEDIA_INFO_BUFFERING_START -> {
                 stateListeners.forEach {
                     it.onAMPlayerStateStartPlaying()
                 }
             }
-            MediaPlayer.MEDIA_INFO_BUFFERING_END ->{
+            MediaPlayer.MEDIA_INFO_BUFFERING_END -> {
                 stateListeners.forEach {
                     it.onAMPlayerStateBufferingEnd()
                 }
             }
 
-            MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START ->{
+            MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START -> {
                 stateListeners.forEach {
                     it.onAMPlayerStateStartPlaying()
                 }
@@ -126,7 +130,16 @@ class  AMVideoView @JvmOverloads constructor(
     }
 
     override fun setDataSource(url: String) {
-        setVideoPath(url)
+        if(Build.VERSION.SDK_INT >= 21){
+            setDataSource(url, mapOf(Pair("Referer","http://h.ucuxin.com")))
+        }else{
+            setVideoPath(url)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun setDataSource(url: String, headers: Map<String, String>) {
+        setVideoURI(Uri.parse(url),headers)
     }
 
     override fun getBufferingPosition(): Int {
