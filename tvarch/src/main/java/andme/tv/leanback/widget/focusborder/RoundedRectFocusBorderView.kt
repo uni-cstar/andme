@@ -15,7 +15,8 @@ class RoundedRectFocusBorderView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     init {
-        setBackgroundResource(R.drawable.amtv_focus_border_rounded_slt)
+        if (background == null)
+            setBackgroundResource(R.drawable.amtv_focus_border_rounded_slt)
         isDuplicateParentStateEnabled = true
         layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
