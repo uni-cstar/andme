@@ -4,8 +4,8 @@ import andme.core.exception.tryIgnore
 import andme.tv.AMTV
 import andme.tv.arch.R
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
+import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -37,6 +37,8 @@ open class ScaleConstraintLayout @JvmOverloads constructor(
     private var mEnableFlash: Boolean = false
     private var mAutoBringToFront: Boolean = false
 
+    private var mCustomFocusChangedListener : View.OnFocusChangeListener? = null
+
     private val mFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
         v?.let {
             if (mAutoBringToFront) {
@@ -59,6 +61,8 @@ open class ScaleConstraintLayout @JvmOverloads constructor(
                     }
                 }
             }
+
+            mCustomFocusChangedListener?.onFocusChange(v,hasFocus)
         }
     }
 
@@ -110,7 +114,16 @@ open class ScaleConstraintLayout @JvmOverloads constructor(
         isFocusableInTouchMode = AMTV.isFocusableInTouchMode
 //        clipChildren = false
 //        clipToPadding = false
-        onFocusChangeListener = mFocusChangeListener
+        super.setOnFocusChangeListener(mFocusChangeListener)
+    }
+
+    /**
+     * Register a callback to be invoked when focus of this view changed.
+     *
+     * @param l The callback that will run.
+     */
+    override fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
+        mCustomFocusChangedListener = l
     }
 
 }

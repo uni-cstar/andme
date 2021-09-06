@@ -21,11 +21,13 @@ class ScaleTextView @JvmOverloads constructor(
 
     private var mEnableScale: Boolean = true
 
+    private var mCustomFocusChangedListener :View.OnFocusChangeListener? = null
+
     init {
         isFocusable = true
         isClickable = true
         isFocusableInTouchMode = AMTV.isFocusableInTouchMode
-        onFocusChangeListener = this
+        super.setOnFocusChangeListener(this)
 
         val tp = context.obtainStyledAttributes(attrs, R.styleable.ScaleTextView)
         tp.also {
@@ -40,9 +42,19 @@ class ScaleTextView @JvmOverloads constructor(
         tp.recycle()
     }
 
+    /**
+     * Register a callback to be invoked when focus of this view changed.
+     *
+     * @param l The callback that will run.
+     */
+    override fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
+        mCustomFocusChangedListener = l
+    }
+
     override fun onFocusChange(v: View, hasFocus: Boolean) {
         if (mEnableScale && ::mFocusHelper.isInitialized) {
             mFocusHelper.onItemFocused(v, hasFocus)
         }
+        mCustomFocusChangedListener?.onFocusChange(v,hasFocus)
     }
 }
