@@ -6,6 +6,7 @@ import java.lang.reflect.Type
 /**
  * Created by Lucio on 2021/3/13.
  */
+@Deprecated("使用JsonConverter")
 interface JsonConvert {
 
     fun <T> toObject(json: String?, clazz: Class<T>): T?
@@ -15,16 +16,20 @@ interface JsonConvert {
     fun toJson(obj: Any?): String?
 }
 
+@Deprecated("使用JsonConverter")
 var jsonConvert: JsonConvert = JacksonConvert()
 
+@Deprecated("使用JsonConverter")
 inline fun Any?.toJson(): String? {
     return jsonConvert.toJson(this)
 }
 
+@Deprecated("使用JsonConverter")
 inline fun <reified T> String?.toObject(): T? {
     return jsonConvert.toObject(this, T::class.java)
 }
 
+@Deprecated("使用JsonConverter")
 inline fun <reified T> String?.toObjectList(): List<T>? {
     if (this.isNullOrEmpty())
         return null
