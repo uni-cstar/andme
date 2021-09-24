@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-
-
     <!--映射leanback库提供的缩放系数
         androidx.leanback.widget.FocusHighlight
     -->
@@ -43,7 +40,7 @@
         <!--是否启用闪一下动画-->
         <attr name="enableFlash" format="boolean"/>
 
-        <!--获取焦点时是否自动bringToFront，默认true-->
+        <!--获取焦点时是否自动bringToFront，默认false-->
         <attr name="autoBringToFront" format="boolean"/>
 
     </declare-styleable>

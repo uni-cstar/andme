@@ -42,11 +42,11 @@ fun readPropertyBySystemProperties(key: String, defVal: String = UNKNOWN_PROPERT
  * @return The Property, or NULL if not found
  * 此方法来源于[https://searchcode.com/codesearch/view/41537878/]
  */
-fun readPropertyByRuntime(key: String, defVal: String = UNKNOWN_PROPERTY): String {
+fun readPropertyByRuntime(propName: String, defVal: String = UNKNOWN_PROPERTY): String {
     val line = java.lang.StringBuilder()
     var input: BufferedReader? = null
     try {
-        val p = Runtime.getRuntime().exec("getprop ${key}")
+        val p = Runtime.getRuntime().exec("getprop $propName")
         input = BufferedReader(InputStreamReader(p.inputStream), 10240)
         var temp: String? = null
         do {
@@ -70,5 +70,4 @@ fun readPropertyByRuntime(key: String, defVal: String = UNKNOWN_PROPERTY): Strin
             }
         }
     }
-
 }

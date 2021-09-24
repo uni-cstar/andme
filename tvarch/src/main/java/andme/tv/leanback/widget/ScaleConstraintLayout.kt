@@ -70,7 +70,7 @@ open class ScaleConstraintLayout @JvmOverloads constructor(
         val tp = context.obtainStyledAttributes(attrs, R.styleable.ScaleConstraintLayout)
         tp.let {
             mAutoBringToFront =
-                it.getBoolean(R.styleable.ScaleConstraintLayout_autoBringToFront, true)
+                it.getBoolean(R.styleable.ScaleConstraintLayout_autoBringToFront, false)
             mEnableScale = it.getBoolean(R.styleable.ScaleConstraintLayout_enableScale, true)
             var zoomIndex = it.getInteger(
                 R.styleable.ScaleConstraintLayout_zoomFactor,

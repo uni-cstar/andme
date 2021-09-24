@@ -104,7 +104,11 @@ object AMIntents {
      */
     @JvmOverloads
     @JvmStatic
-    fun createMailIntent(addrs: Array<String>, subject: String? = null, extraContent: String? = null)
+    fun createMailIntent(
+        addrs: Array<String>,
+        subject: String? = null,
+        extraContent: String? = null
+    )
             : Intent {
         val it = Intent(Intent.ACTION_SEND)
         // 设置对方邮件地址
@@ -150,7 +154,7 @@ object AMIntents {
      * @param pkgName 应用包名
      */
     @JvmStatic
-    fun createAppStoreIntent(pkgName:String):Intent{
+    fun createAppStoreIntent(pkgName: String):Intent{
         val uri = Uri.parse("market://details?id=$pkgName")
         return Intent(Intent.ACTION_VIEW, uri).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
@@ -196,13 +200,15 @@ object AMIntents {
          * @param format 压缩格式，默认jpeg，占用内存更小
          */
         @JvmStatic
-        fun createCropIntent(fromUri: Uri,
-                             toUri: Uri,
-                             aspectX: Int,
-                             aspectY: Int,
-                             outputX: Int,
-                             outputY: Int,
-                             format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): Intent {
+        fun createCropIntent(
+            fromUri: Uri,
+            toUri: Uri,
+            aspectX: Int,
+            aspectY: Int,
+            outputX: Int,
+            outputY: Int,
+            format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG
+        ): Intent {
             return createCropIntentInternal(
                 fromUri,
                 aspectX,
@@ -227,12 +233,14 @@ object AMIntents {
          * @param format 压缩格式，默认jpeg，占用内存更小
          */
         @JvmStatic
-        fun createCropIntent(fromUri: Uri,
-                             aspectX: Int,
-                             aspectY: Int,
-                             outputX: Int,
-                             outputY: Int,
-                             format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): Intent {
+        fun createCropIntent(
+            fromUri: Uri,
+            aspectX: Int,
+            aspectY: Int,
+            outputX: Int,
+            outputY: Int,
+            format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG
+        ): Intent {
             return createCropIntentInternal(
                 fromUri,
                 aspectX,
@@ -255,12 +263,14 @@ object AMIntents {
          * @param format 压缩格式，默认jpeg，占用内存更小
          */
         @JvmStatic
-        private fun createCropIntentInternal(fromUri: Uri,
-                                             aspectX: Int,
-                                             aspectY: Int,
-                                             outputX: Int,
-                                             outputY: Int,
-                                             format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): Intent {
+        private fun createCropIntentInternal(
+            fromUri: Uri,
+            aspectX: Int,
+            aspectY: Int,
+            outputX: Int,
+            outputY: Int,
+            format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG
+        ): Intent {
             return Intent("com.android.camera.action.CROP").apply {
                 if (Build.VERSION.SDK_INT >= 24) {
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -332,7 +342,10 @@ object AMIntents {
             return Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
                     .apply {
                         putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, ctx.packageName)
-                        putExtra(android.provider.Settings.EXTRA_CHANNEL_ID, ctx.applicationInfo.uid)
+                        putExtra(
+                            android.provider.Settings.EXTRA_CHANNEL_ID,
+                            ctx.applicationInfo.uid
+                        )
                     }
         }
 

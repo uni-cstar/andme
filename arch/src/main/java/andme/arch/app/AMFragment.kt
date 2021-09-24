@@ -129,11 +129,7 @@ abstract class AMFragment<VM : AMViewModel> : Fragment(), AMViewModelOwner, AMRe
     }
 
     /**
-     * 创建视图布局
-     * 重写此方法返回整整的布局
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
+     * 创建视图布局(重写此方法返回整整的布局)
      * @return
      */
     protected abstract fun onCreateContentView(
