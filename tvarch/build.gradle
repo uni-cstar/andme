@@ -83,5 +83,4 @@ dependencies {
 //    implementation 'com.shuyu:gsyVideoPlayer-x64:8.1.0'
 //    implementation 'com.shuyu:gsyVideoPlayer-x86:8.1.0'
 
-    api files('libs/pldroid-player-2.2.0.jar')
 }
