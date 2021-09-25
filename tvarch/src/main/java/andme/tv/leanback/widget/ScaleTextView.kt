@@ -27,7 +27,7 @@ class ScaleTextView @JvmOverloads constructor(
         isFocusable = true
         isClickable = true
         isFocusableInTouchMode = AMTV.isFocusableInTouchMode
-        super.setOnFocusChangeListener(this)
+        setOnFocusChangeListener(this)
 
         val tp = context.obtainStyledAttributes(attrs, R.styleable.ScaleTextView)
         tp.also {
@@ -43,11 +43,9 @@ class ScaleTextView @JvmOverloads constructor(
     }
 
     /**
-     * Register a callback to be invoked when focus of this view changed.
-     *
-     * @param l The callback that will run.
+     * 设置自定义焦点改变监听：不能通过重写[setOnFocusChangeListener]方法实现，否则在[androidx.leanback.widget.ItemBridgeAdapter]中作为根布局使用时会产生循环调用问题，导致anr直到溢出
      */
-    override fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
+     fun setOnCustomFocusChangeListener(l: OnFocusChangeListener?) {
         mCustomFocusChangedListener = l
     }
 
