@@ -8,8 +8,8 @@ import android.content.Context
 
 interface ToastUI {
 
-    fun showToast(ctx:Context,msg:String)
+    fun showToast(ctx: Context, msg: String)
 
-    fun showToast(ctx:Context,msg:String,length:Int)
+    fun showToast(ctx: Context, msg: String, length: Int)
 
 }

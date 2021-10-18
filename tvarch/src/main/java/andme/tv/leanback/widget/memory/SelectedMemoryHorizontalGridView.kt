@@ -31,8 +31,8 @@ class SelectedMemoryHorizontalGridView @JvmOverloads constructor(
 
     @Deprecated("请使用addOnChildViewHolderSelectedListener")
     override fun setOnChildViewHolderSelectedListener(listener: OnChildViewHolderSelectedListener?) {
+        //通过该方法设置监听，会移除已设置的监听，所以需要重新添加监听
         super.setOnChildViewHolderSelectedListener(listener)
-        //设置监听之后会移除之前添加的所有监听，因此要重新添加焦点记忆监听
         addOnChildViewHolderSelectedListener(memoryHelper)
     }
 

@@ -41,3 +41,8 @@ inline fun androidx.fragment.app.Fragment.sp(value: Float): Int = activity?.sp(v
 inline fun androidx.fragment.app.Fragment.px2dip(px: Int): Float = activity?.px2dip(px).orDefault()
 inline fun androidx.fragment.app.Fragment.px2sp(px: Int): Float = activity?.px2sp(px).orDefault()
 inline fun androidx.fragment.app.Fragment.dimen(@DimenRes resource: Int):Int = activity?.dimen(resource).orDefault()
+
+
+
+
+

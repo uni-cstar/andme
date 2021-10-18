@@ -80,4 +80,5 @@
     <item name="am_id_extra_coordinator_effect_in_anim" type="id"/>
     <item name="am_id_extra_coordinator_effect_out_anim" type="id"/>
 
+    <string name="am_empty_text">空空如也～</string>
 </resources>
