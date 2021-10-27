@@ -12,7 +12,6 @@ inline var View.isVisible: Boolean
         visibility = if (value) View.VISIBLE else View.GONE
     }
 
-
 inline fun View.setVisibleOrInVisible(value: Boolean) {
     if (value) {
         if(visibility != View.VISIBLE) {

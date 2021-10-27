@@ -48,7 +48,7 @@
     <color name="focus_border_color">#FFFFFFFF</color>
 
     <!--焦点框与边框之间的分割线大小-->
-    <dimen name="focus_border_divider_size">2dp</dimen>
+    <dimen name="focus_border_divider_size">3dp</dimen>
 
     <!--焦点框与边框之间的分割线颜色-->
     <color name="focus_border_divider_color">@color/black_opacity_40</color>

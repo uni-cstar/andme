@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 /**
  * Created by Lucio on 2020-11-12.
  */
-abstract class AMViewHolder<T>(view: View) : BaseViewHolder(view) {
+abstract class AMViewHolder<T>(val view: View) : BaseViewHolder(view) {
 
     constructor(inflater: LayoutInflater, @LayoutRes layoutId: Int, parent: ViewGroup?)
             : this(inflater.inflate(layoutId, parent, false))
