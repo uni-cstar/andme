@@ -1,6 +1,6 @@
 package andme.tv.player
 
-import andme.tv.player.gsy.GsyPlayer
+//import andme.tv.player.gsy.GsyPlayer
 
 /**
  * Created by Lucio on 2021/6/1.
@@ -8,6 +8,6 @@ import andme.tv.player.gsy.GsyPlayer
 object TVPlayer {
 
     fun init(){
-       GsyPlayer.setup()
+//       GsyPlayer.setup()
     }
 }

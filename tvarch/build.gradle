@@ -68,19 +68,19 @@ dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
 
-
-    /*播放器：https://github.com/CarGuo/GSYVideoPlayer*/
-    api 'com.shuyu:GSYVideoPlayer:8.1.0'
 //
-//    /*添加java和你想要的so支持*/
-//    implementation 'com.shuyu:gsyVideoPlayer-java:8.1.0'
-    //是否需要ExoPlayer模式
-    api 'com.shuyu:GSYVideoPlayer-exo2:8.1.0'
-//    //根据你的需求ijk模式的so
-//    implementation 'com.shuyu:gsyVideoPlayer-armv5:8.1.0'
-    api 'com.shuyu:gsyVideoPlayer-armv7a:8.1.0'
-//    implementation 'com.shuyu:gsyVideoPlayer-arm64:8.1.0'
-//    implementation 'com.shuyu:gsyVideoPlayer-x64:8.1.0'
-//    implementation 'com.shuyu:gsyVideoPlayer-x86:8.1.0'
+//    /*播放器：https://github.com/CarGuo/GSYVideoPlayer*/
+//    api 'com.shuyu:GSYVideoPlayer:8.1.0'
+////
+////    /*添加java和你想要的so支持*/
+////    implementation 'com.shuyu:gsyVideoPlayer-java:8.1.0'
+//    //是否需要ExoPlayer模式
+//    api 'com.shuyu:GSYVideoPlayer-exo2:8.1.0'
+////    //根据你的需求ijk模式的so
+////    implementation 'com.shuyu:gsyVideoPlayer-armv5:8.1.0'
+//    api 'com.shuyu:gsyVideoPlayer-armv7a:8.1.0'
+////    implementation 'com.shuyu:gsyVideoPlayer-arm64:8.1.0'
+////    implementation 'com.shuyu:gsyVideoPlayer-x64:8.1.0'
+////    implementation 'com.shuyu:gsyVideoPlayer-x86:8.1.0'
 
 }
