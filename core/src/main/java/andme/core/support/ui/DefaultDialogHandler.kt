@@ -1,6 +1,6 @@
 package andme.core.support.ui
 
-import andme.lang.map
+import andme.lang.mapAs
 import andme.lang.runOnTrue
 import android.app.Dialog
 import android.app.ProgressDialog
@@ -41,9 +41,9 @@ object DefaultDialogHandler : DialogUI {
         cancelPair: Pair<Int, DialogInterface.OnClickListener?>?,
         cancelable: Boolean
     ): AMDialog {
-        return showAlertDialog(ctx, ctx.getText(messageId), okPair.map {
+        return showAlertDialog(ctx, ctx.getText(messageId), okPair.mapAs {
             Pair(ctx.getText(this.first), this.second)
-        }, cancelPair?.map {
+        }, cancelPair?.mapAs {
             Pair(ctx.getText(this.first), this.second)
         }, cancelable)
     }

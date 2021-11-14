@@ -5,7 +5,6 @@ import andme.core.DEVICE_UNIQUE_ID
 import andme.core.appManagerAM
 import andme.lang.toMd5
 import andme.core.sharedPrefAM
-import android.content.Context
 import android.os.Build
 import java.util.*
 

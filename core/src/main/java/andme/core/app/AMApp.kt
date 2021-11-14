@@ -2,6 +2,7 @@ package andme.core.app
 
 import andme.core.appManagerAM
 import andme.core.initCore
+import android.app.Activity
 import android.app.Application
 
 /**
@@ -17,4 +18,6 @@ abstract class AMApp : Application(), AMAppManager by appManagerAM {
     fun finishAllActivity(){
         activityStack.finishAll()
     }
+
+    val topActivity:Activity? get() =activityStack.getCurrent()
 }

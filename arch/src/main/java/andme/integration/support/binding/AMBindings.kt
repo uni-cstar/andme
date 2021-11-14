@@ -7,6 +7,7 @@ import andme.core.util.dip
 import andme.integration.imageloader.GlideImageLoader
 import andme.lang.orDefault
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -36,6 +37,7 @@ fun bindImageResource(view: ImageView, @DrawableRes resId: Int){
  */
 @BindingAdapter(value = ["bindImage", "placeHolder"], requireAll = false)
 fun bindImage(view: ImageView, imageUrl: String?, placeHolder: Drawable?) {
+    Log.d("BindImage","执行andme BindImage")
     if (placeHolder == null) {
         imageLoaderAM.load(view, imageUrl)
     } else {

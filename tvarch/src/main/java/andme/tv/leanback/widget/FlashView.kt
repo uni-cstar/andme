@@ -1,6 +1,5 @@
 package andme.tv.leanback.widget
 
-import andme.lang.orDefault
 import andme.tv.arch.R
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -39,8 +38,8 @@ class FlashView @JvmOverloads constructor(
     private fun getTranslationOffset(parentWidth: Int, parentHeight: Int): Float {
         var offset = this.width.toFloat()
         if (offset <= 0) {
-            var drawableWidth = this.drawable?.intrinsicWidth.orDefault()
-            var drawableHeight = this.drawable?.intrinsicHeight.orDefault()
+            var drawableWidth = this.drawable?.intrinsicWidth?:0
+            var drawableHeight = this.drawable?.intrinsicHeight?:0
             if (drawableWidth <= 0 || drawableHeight <= 0) {
                 val bgDrawable = context.resources.getDrawable(R.drawable.amtv_img_flash)
                 drawableWidth = bgDrawable.intrinsicWidth
@@ -50,7 +49,7 @@ class FlashView @JvmOverloads constructor(
             if (drawableWidth <= 0 || drawableHeight <= 0) {
                 return 60f
             } else {
-                return drawableWidth.toFloat() / drawableHeight * parentHeight
+                return drawableWidth.toFloat() / (drawableHeight * parentHeight).coerceAtLeast(1)
             }
         }
         return offset
