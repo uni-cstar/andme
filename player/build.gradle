@@ -43,6 +43,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    /*https://exoplayer.dev/hello-world.html*/
-    api 'com.google.android.exoplayer:exoplayer:2.12.1'
+//    /*https://exoplayer.dev/hello-world.html*/
+//    api 'com.google.android.exoplayer:exoplayer:2.12.1'
 }

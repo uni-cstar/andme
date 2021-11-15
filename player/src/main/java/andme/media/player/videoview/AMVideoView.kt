@@ -9,7 +9,6 @@ import android.os.Build
 import android.util.AttributeSet
 import android.widget.VideoView
 import androidx.annotation.RequiresApi
-import com.google.android.exoplayer2.video.VideoDecoderGLSurfaceView
 import java.util.concurrent.CopyOnWriteArrayList
 
 /**
