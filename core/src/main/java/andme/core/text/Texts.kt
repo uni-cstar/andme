@@ -16,7 +16,6 @@
 
 package andme.core.text
 
-import andme.core.binding.bindTextOrGone
 import android.graphics.Paint
 import android.text.TextPaint
 import android.widget.TextView

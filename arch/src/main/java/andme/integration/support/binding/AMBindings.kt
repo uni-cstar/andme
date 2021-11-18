@@ -31,19 +31,19 @@ private val defaultRoundingRadius by lazy {
 fun bindImageResource(view: ImageView, @DrawableRes resId: Int){
     view.setImageResource(resId)
 }
-/**
- * 图片加载绑定属性
- * 如未设置placeHolder属性，则不使用占位图
- */
-@BindingAdapter(value = ["bindImage", "placeHolder"], requireAll = false)
-fun bindImage(view: ImageView, imageUrl: String?, placeHolder: Drawable?) {
-    Log.d("BindImage","执行andme BindImage")
-    if (placeHolder == null) {
-        imageLoaderAM.load(view, imageUrl)
-    } else {
-        imageLoaderAM.load(view, imageUrl, placeHolder)
-    }
-}
+///**
+// * 图片加载绑定属性
+// * 如未设置placeHolder属性，则不使用占位图
+// */
+//@BindingAdapter(value = ["bindImage", "placeHolder"], requireAll = false)
+//fun bindImage(view: ImageView, imageUrl: String?, placeHolder: Drawable?) {
+//    Log.d("BindImage","执行andme BindImage")
+//    if (placeHolder == null) {
+//        imageLoaderAM.load(view, imageUrl)
+//    } else {
+//        imageLoaderAM.load(view, imageUrl, placeHolder)
+//    }
+//}
 
 inline fun bindImage(view: ImageView, imageUrl: String?, placeHolder: Int) {
     imageLoaderAM.load(view, imageUrl, placeHolder)
