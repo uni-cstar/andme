@@ -43,6 +43,7 @@
 
     <!--焦点框大小-->
     <dimen name="focus_border_size">2dp</dimen>
+    <dimen name="focus_border_size_half">1dp</dimen>
 
     <!--焦点框颜色-->
     <color name="focus_border_color">#FFFFFFFF</color>

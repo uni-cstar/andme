@@ -3,7 +3,8 @@
 
     <!--圆角焦点框示例-->
 
-    <item>
+
+    <item >
         <shape android:shape="rectangle">
             <stroke
                 android:width="@dimen/focus_border_size"
@@ -13,10 +14,10 @@
     </item>
 
     <item
-        android:bottom="@dimen/focus_border_size"
-        android:left="@dimen/focus_border_size"
-        android:right="@dimen/focus_border_size"
-        android:top="@dimen/focus_border_size">
+        android:bottom="@dimen/focus_border_size_half"
+        android:left="@dimen/focus_border_size_half"
+        android:right="@dimen/focus_border_size_half"
+        android:top="@dimen/focus_border_size_half">
         <shape android:shape="rectangle">
             <stroke
                 android:width="@dimen/focus_border_divider_size"
